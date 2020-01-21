@@ -31,6 +31,7 @@ export interface LoginResult {
 
 export interface RegisterData {
 	username: string;
+	email: string;
 	pass: string;
 	conf: string;
 }
