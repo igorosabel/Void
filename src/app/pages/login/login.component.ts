@@ -13,7 +13,7 @@ import { AuthService }       from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 	loginData = {
-		username: '',
+		name: '',
 		pass: ''
 	} as LoginData;
 	loginError: boolean = false;
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 	doLogin(ev) {
 		ev.preventDefault();
 
-		if (this.loginData.username==='' || this.loginData.pass===''){
+		if (this.loginData.name==='' || this.loginData.pass===''){
 			return false;
 		}
 
@@ -41,10 +41,10 @@ export class LoginComponent implements OnInit {
 		this.as.login(this.loginData).subscribe(result => {
 			this.loginSending = false;
 			if (result.status==='ok'){
-				this.user.logged   = true;
-				this.user.id       = result.id;
-				this.user.username = this.cs.urldecode(result.username);
-				this.user.token    = this.cs.urldecode(result.token);
+				this.user.logged = true;
+				this.user.id     = result.id;
+				this.user.name   = this.cs.urldecode(result.name);
+				this.user.token  = this.cs.urldecode(result.token);
 				this.user.saveLogin();
 
 				this.router.navigate(['/home']);

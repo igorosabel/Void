@@ -12,12 +12,12 @@ import { CommonService }     from '../../services/common.service';
 })
 export class RegisterComponent implements OnInit {
 	registerData = {
-		username: '',
+		name: '',
 		email: '',
 		pass: '',
 		conf: ''
 	} as RegisterData;
-	registerUsernameError: boolean = false;
+	registerNameError: boolean = false;
 	registerEmailError: boolean = false;
 	registerPassError: boolean = false;
 	registerSending: boolean = false;
@@ -28,11 +28,11 @@ export class RegisterComponent implements OnInit {
 	doRegister(ev) {
 		ev.preventDefault();
 
-		if (this.registerData.username==='' || this.registerData.email==='' || this.registerData.pass==='' || this.registerData.conf==='') {
+		if (this.registerData.name==='' || this.registerData.email==='' || this.registerData.pass==='' || this.registerData.conf==='') {
 			return false;
 		}
 		
-		this.registerUsernameError = false;
+		this.registerNameError = false;
 		this.registerEmailError = false;
 		this.registerPassError = false;
 		if (this.registerData.pass !== this.registerData.conf){
@@ -44,17 +44,17 @@ export class RegisterComponent implements OnInit {
 		this.as.register(this.registerData).subscribe(result => {
 			this.registerSending = false;
 			if (result.status==='ok') {
-				this.user.logged   = true;
-				this.user.id       = result.id;
-				this.user.username = this.cs.urldecode(result.username);
-				this.user.token    = this.cs.urldecode(result.token);
+				this.user.logged = true;
+				this.user.id     = result.id;
+				this.user.name   = this.cs.urldecode(result.name);
+				this.user.token  = this.cs.urldecode(result.token);
 				this.user.saveLogin();
 				
 				this.router.navigate(['/home']);
 			}
 			else{
-				if (result.status=='username') {
-					this.registerUsernameError = true;
+				if (result.status=='name') {
+					this.registerNameError = true;
 				}
 				if (result.status=='email') {
 					this.registerEmailError = true;

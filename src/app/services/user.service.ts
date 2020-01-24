@@ -4,10 +4,10 @@ import { LoginResult }      from '../interfaces/interfaces';
 
 @Injectable()
 export class UserService {
-  logged: boolean  = false;
-  id: number       = null;
-  username: string = null;
-  token: string    = null;
+  logged: boolean = false;
+  id: number      = null;
+  name: string    = null;
+  token: string   = null;
 
   constructor(private dss: DataShareService) {}
   
@@ -17,10 +17,10 @@ export class UserService {
       this.logout();
     }
     else{
-      this.logged   = true;
-      this.id       = loginObj.id;
-      this.username = loginObj.username;
-      this.token    = loginObj.token;
+      this.logged = true;
+      this.id     = loginObj.id;
+      this.name   = loginObj.name;
+      this.token  = loginObj.token;
 	  }
   }
   
@@ -28,7 +28,7 @@ export class UserService {
     const loginObj = {
       status: 'ok',
       id: this.id,
-      username: this.username,
+      name: this.name,
       token: this.token
     } as LoginResult;
     this.dss.setGlobal('login', loginObj);
@@ -37,7 +37,7 @@ export class UserService {
   logout() {
     this.logged = false;
     this.id = null;
-    this.username = null;
+    this.name = null;
     this.token = null;
     this.dss.removeGlobal('login');
   }

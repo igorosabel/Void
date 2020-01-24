@@ -18,19 +18,19 @@ export interface StatusResult {
 }
 
 export interface LoginData {
-	username: string;
+	name: string;
 	pass: string;
 }
 
 export interface LoginResult {
 	status: string;
 	id: number;
-	username: string;
+	name: string;
 	token: string;
 }
 
 export interface RegisterData {
-	username: string;
+	name: string;
 	email: string;
 	pass: string;
 	conf: string;
