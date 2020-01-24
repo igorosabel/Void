@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'void-navigate',
-  templateUrl: './navigate.component.html',
-  styleUrls: ['./navigate.component.scss']
+	selector: 'void-navigate',
+	templateUrl: './navigate.component.html',
+	styleUrls: ['./navigate.component.scss']
 })
 export class NavigateComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+	constructor() {}
+	ngOnInit() {}
 }

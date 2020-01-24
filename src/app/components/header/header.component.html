@@ -1,1 +1,23 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Void Universe</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="header-menu">
+	<a routerLink="/home" [ngClass]="{'selected': selected=='home'}">
+		<mat-icon>home</mat-icon>
+		Sistema actual
+	</a>
+	<a routerLink="/navigate" [ngClass]="{'selected': selected=='navigate'}">
+		<mat-icon svgIcon="system"></mat-icon>
+		Navegar
+	</a>
+	<a routerLink="/ship" [ngClass]="{'selected': selected=='ship'}">
+		<mat-icon svgIcon="ship"></mat-icon>
+		Nave
+	</a>
+	<a routerLink="/messages" [ngClass]="{'selected': selected=='messages'}">
+		<mat-icon>home</mat-icon>
+		Mensajes
+	</a>
+</div>
