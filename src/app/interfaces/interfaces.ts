@@ -35,3 +35,11 @@ export interface RegisterData {
 	pass: string;
 	conf: string;
 }
+
+export interface ShortMessage {
+	id: number;
+	type: number;
+	name: string;
+	date: string;
+	message: string;
+}

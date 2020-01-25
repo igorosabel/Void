@@ -1,1 +1,40 @@
 <void-header></void-header>
+
+<main>
+	<div class="first-row">
+		<mat-card>
+			<div class="info-col">
+				<div class="info-row">
+					<label>Sistema:</label>
+					<span>DVS-123</span>
+				</div>
+				<div class="info-row">
+					<label>Tipo de estrella:</label>
+					<span>V-A</span>
+				</div>
+				<div class="info-row">
+					<label>Num. planetas:</label>
+					<span>3</span>
+				</div>
+			</div>
+			<div class="info-col">
+				<div class="info-row">
+					<label>Créditos:</label>
+					<span>5.000</span>
+				</div>
+				<div class="info-row">
+					<label>Integridad nave:</label>
+					<span>100%</span>
+				</div>
+			</div>
+		</mat-card>
+		<mat-card>
+			<mat-nav-list>
+				<a mat-list-item href="#" *ngFor="let message of messageList"> {{ message.name }} </a>
+			</mat-nav-list>
+		</mat-card>
+	</div>
+	<div class="second-row">
+		<mat-card></mat-card>
+	</div>
+</main>

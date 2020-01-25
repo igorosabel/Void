@@ -1,0 +1,42 @@
+main {
+	background-color: #eee;
+}
+
+.first-row {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding: 16px 0;
+	
+	mat-card {
+		width: 90%;
+		margin-bottom: 16px;
+	}
+	
+	.info-col {
+		.info-row {
+			label {
+				
+			}
+			
+			span {
+				
+			}
+		}
+	}
+}
+
+.second-row {
+	
+}
+
+@media only screen and (min-width: 600px) {
+	.first-row {
+		flex-direction: row;
+
+		mat-card {
+			width: 40%;
+			margin-bottom: 0;
+		}
+	}
+}
