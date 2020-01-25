@@ -1,14 +1,19 @@
 .header-menu {
 	display: flex;
-	height: 40px;
+	height: 80px;
     align-items: center;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	border-bottom: 0;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 	
 	a {
 		color: #888;
 		display: flex;
 		text-decoration: none;
 		flex: 1;
+		flex-direction: column;
 		height: 100%;
 		justify-content: center;
 		align-items: center;
@@ -17,10 +22,28 @@
 			background-color: #eee;
 			color: #000;
 		}
+		
+		span {
+			text-align: center;
+			margin-top: 6px;
+		}
 	}
 }
 
 .selected {
 	background-color: #eee;
 	color: #000 !important;
+}
+
+@media only screen and (min-width: 600px) {
+	.header-menu {
+		height: 40px;
+		border-bottom: 1px solid #ccc;
+		border-top: 0;
+		position: static;
+		
+		a {
+			flex-direction: row;
+		}
+	}
 }
