@@ -24,8 +24,10 @@
 		}
 		
 		span {
+			display: inline-block;
 			text-align: center;
 			margin-top: 6px;
+			margin-left: 0;
 		}
 	}
 }
@@ -44,6 +46,10 @@
 		
 		a {
 			flex-direction: row;
+			
+			span {
+				margin-left: 6px;
+			}
 		}
 	}
 }

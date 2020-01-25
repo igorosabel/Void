@@ -1,7 +1,3 @@
-main {
-	background-color: #eee;
-}
-
 .first-row {
 	display: flex;
 	flex-direction: column;
@@ -11,9 +7,12 @@ main {
 	mat-card {
 		width: 90%;
 		margin-bottom: 16px;
+		display: flex;
 	}
 	
 	.info-col {
+		flex: 1;
+		
 		.info-row {
 			label {
 				
