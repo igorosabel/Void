@@ -1,7 +1,8 @@
 main {
 	margin-top: 64px;
 	height: calc(100% - 105px);
-	overflow: auto
+	overflow: auto;
+	padding: 0 16px;
 }
 
 .first-row {
@@ -72,7 +73,6 @@ main {
 @media only screen and (min-width: 600px) {
 	main {
 		margin-top: 105px;
-		padding: 0 16px;
 	}
 
 	.first-row {
