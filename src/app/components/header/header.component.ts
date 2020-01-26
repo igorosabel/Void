@@ -12,11 +12,11 @@ export class HeaderComponent {
 
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
 		this.matIconRegistry.addSvgIcon(
-			"ship",
+			"void-ship",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/ship.svg")
 		);
 		this.matIconRegistry.addSvgIcon(
-			"system",
+			"void-system",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/system.svg")
 		);
 	}

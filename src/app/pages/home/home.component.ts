@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShortMessage }      from '../../interfaces/interfaces';
+import { ShortMessage, HomeCharacter } from '../../interfaces/interfaces';
 
 @Component({
 	selector: 'void-home',
@@ -15,6 +15,12 @@ export class HomeComponent implements OnInit {
 		{id: 5, type: 2, name: 'Player 1', date: '2020-01-20 23:59', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'},
 		{id: 6, type: 2, name: 'Player 2', date: '2020-01-20 12:37', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure'}
 	];
+	characterList: HomeCharacter[] = [
+		{id: 1, type: 1, name: 'Player 1'},
+		{id: 2, type: 1, name: 'Player 2'},
+		{id: 3, type: 2, name: 'NPC 1'}
+	];
+
 	constructor() {}
 	ngOnInit() {}
 }

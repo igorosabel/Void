@@ -36,17 +36,42 @@
 		<mat-card>
 			<div class="message-list">
 				<mat-nav-list>
-					<a mat-list-item href="#" *ngFor="let message of messageList">
+					<a mat-list-item href="#" *ngFor="let message of messageList; let last = last;">
 						<mat-icon mat-list-icon *ngIf="message.type==1">email</mat-icon>
 						<mat-icon mat-list-icon *ngIf="message.type==2">monetization_on</mat-icon>
 						<h4 mat-line>{{ message.name }} <span class="message-date">{{message.date}}</span></h4>
 						<p mat-line> {{ message.message }}</p>
+						<mat-divider *ngIf="!last"></mat-divider>
 					</a>
 				</mat-nav-list>
 			</div>
 		</mat-card>
 	</div>
 	<div class="second-row">
-		<mat-card></mat-card>
+		<mat-card>
+			<mat-list>
+				<mat-list-item *ngFor="let character of characterList; let last = last;">
+					<mat-icon mat-list-icon *ngIf="character.type==1">account_box</mat-icon>
+					<mat-icon mat-list-icon *ngIf="character.type==2">monetization_on</mat-icon>
+					<h4 class="character-item" mat-line>
+						{{ character.name }}
+						<span class="flex-space"></span>
+						<button mat-raised-button color="primary" *ngIf="character.type==1">
+							<mat-icon>email</mat-icon>
+							Mensaje
+						</button>
+						<button mat-raised-button color="warn" *ngIf="character.type==1" class="button-separator">
+							<mat-icon>compare_arrows</mat-icon>
+							Atacar
+						</button>
+						<button mat-raised-button color="primary" *ngIf="character.type==2">
+							<mat-icon>shopping_cart</mat-icon>
+							Abrir tienda
+						</button>
+					</h4>
+					<mat-divider *ngIf="!last"></mat-divider>
+				</mat-list-item>
+			</mat-list>
+		</mat-card>
 	</div>
 </main>

@@ -43,3 +43,9 @@ export interface ShortMessage {
 	date: string;
 	message: string;
 }
+
+export interface HomeCharacter {
+	id: number;
+	type: number;
+	name: string;
+}
