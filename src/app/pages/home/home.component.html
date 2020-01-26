@@ -58,15 +58,15 @@
 						<span class="flex-space"></span>
 						<button mat-raised-button color="primary" *ngIf="character.type==1">
 							<mat-icon>email</mat-icon>
-							Mensaje
+							<span>Mensaje</span>
 						</button>
 						<button mat-raised-button color="warn" *ngIf="character.type==1" class="button-separator">
 							<mat-icon>compare_arrows</mat-icon>
-							Atacar
+							<span>Atacar</span>
 						</button>
 						<button mat-raised-button color="primary" *ngIf="character.type==2">
 							<mat-icon>shopping_cart</mat-icon>
-							Abrir tienda
+							<span>Abrir tienda</span>
 						</button>
 					</h4>
 					<mat-divider *ngIf="!last"></mat-divider>

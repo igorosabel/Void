@@ -2,6 +2,7 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
+	z-index: 10;
 }
 
 .header-menu {
@@ -50,7 +51,7 @@
 		height: 40px;
 		border-bottom: 1px solid #ccc;
 		border-top: 0;
-		position: static;
+		top: 64px;
 		
 		a {
 			flex-direction: row;

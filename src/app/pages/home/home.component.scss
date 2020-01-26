@@ -1,3 +1,9 @@
+main {
+	margin-top: 64px;
+	height: calc(100% - 105px);
+	overflow: auto
+}
+
 .first-row {
 	display: flex;
 	flex-direction: column;
@@ -54,16 +60,36 @@
 		.button-separator{
 			margin-left: 16px;
 		}
+		
+		button {
+			span {
+				display: none;
+			}
+		}
 	}
 }
 
 @media only screen and (min-width: 600px) {
+	main {
+		margin-top: 105px;
+	}
+
 	.first-row {
 		flex-direction: row;
 
 		mat-card {
 			width: 40%;
 			margin-bottom: 0;
+		}
+	}
+	
+	.second-row {
+		.character-item{
+			button {
+				span {
+					display: inline-block;
+				}
+			}
 		}
 	}
 }
