@@ -10,7 +10,12 @@
 				</div>
 				<div class="info-row">
 					<label>Tipo de estrella:</label>
-					<span>V-A</span>
+					<span>
+						V-A
+						<button mat-icon-button color="primary" aria-label="Ver en la Wikipedia">
+							<mat-icon>info</mat-icon>
+						</button>
+					</span>
 				</div>
 				<div class="info-row">
 					<label>Num. planetas:</label>
@@ -29,9 +34,16 @@
 			</div>
 		</mat-card>
 		<mat-card>
-			<mat-nav-list>
-				<a mat-list-item href="#" *ngFor="let message of messageList"> {{ message.name }} </a>
-			</mat-nav-list>
+			<div class="message-list">
+				<mat-nav-list>
+					<a mat-list-item href="#" *ngFor="let message of messageList">
+						<mat-icon mat-list-icon *ngIf="message.type==1">email</mat-icon>
+						<mat-icon mat-list-icon *ngIf="message.type==2">monetization_on</mat-icon>
+						<h4 mat-line>{{ message.name }} <span class="message-date">{{message.date}}</span></h4>
+						<p mat-line> {{ message.message }}</p>
+					</a>
+				</mat-nav-list>
+			</div>
 		</mat-card>
 	</div>
 	<div class="second-row">
