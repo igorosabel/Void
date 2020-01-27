@@ -46,6 +46,16 @@
 	color: #000 !important;
 }
 
+.badge{
+	display: inline-block;
+	background-color: #3f51b5;
+	color: #fff;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin-top: 0 !important;
+}
+
 @media only screen and (min-width: 600px) {
 	.header-menu {
 		height: 40px;
@@ -58,6 +68,9 @@
 			
 			span {
 				margin-left: 6px;
+				align-items: center;
+				display: flex;
+				justify-content: center;
 			}
 		}
 	}

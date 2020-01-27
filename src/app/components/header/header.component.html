@@ -18,6 +18,9 @@
 	</a>
 	<a routerLink="/messages" [ngClass]="{'selected': selected=='messages'}">
 		<mat-icon>email</mat-icon>
-		<span>Mensajes</span>
+		<span>
+			Mensajes
+			<span class="badge" *ngIf="numMessages>0">{{numMessages}}</span>
+		</span>
 	</a>
 </div>

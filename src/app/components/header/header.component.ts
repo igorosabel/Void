@@ -9,6 +9,7 @@ import { DomSanitizer }      from "@angular/platform-browser";
 })
 export class HeaderComponent {
 	@Input() selected : string = 'home';
+	@Input() numMessages: number = 0;
 
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
 		this.matIconRegistry.addSvgIcon(

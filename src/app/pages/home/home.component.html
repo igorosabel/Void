@@ -1,4 +1,4 @@
-<void-header></void-header>
+<void-header [numMessages]="system.messages.length"></void-header>
 
 <main>
 	<div class="first-row">
@@ -12,9 +12,9 @@
 					<label>Tipo de estrella:</label>
 					<span>
 						{{system.star}}
-						<button mat-icon-button color="primary" aria-label="Ver en la Wikipedia">
+						<a mat-icon-button color="primary" aria-label="Ver en la Wikipedia" href="https://es.wikipedia.org/wiki/Clasificaci%C3%B3n_estelar" target="_blank">
 							<mat-icon>info</mat-icon>
-						</button>
+						</a>
 					</span>
 				</div>
 				<div class="info-row">
@@ -37,8 +37,8 @@
 			<div class="message-list">
 				<mat-nav-list *ngIf="system.messages.length>0">
 					<a mat-list-item href="#" *ngFor="let message of system.messages; let last = last;">
-						<mat-icon mat-list-icon *ngIf="message.type==1">email</mat-icon>
-						<mat-icon mat-list-icon *ngIf="message.type==2">monetization_on</mat-icon>
+						<mat-icon mat-list-icon *ngIf="message.type==0">email</mat-icon>
+						<mat-icon mat-list-icon *ngIf="message.type==1">monetization_on</mat-icon>
 						<h4 mat-line>{{ message.name }} <span class="message-date">{{message.date}}</span></h4>
 						<p mat-line> {{ message.message }}</p>
 						<mat-divider *ngIf="!last"></mat-divider>
