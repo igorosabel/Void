@@ -6,7 +6,8 @@ import { environment }             from '../../environments/environment';
 import {
 	LoginData,
 	LoginResult,
-	RegisterData
+	RegisterData,
+	CurrentSystemStatus
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -23,5 +24,9 @@ export class ApiService {
 
 	register(data: RegisterData): Observable<LoginResult> {
 		return this.http.post<LoginResult>(this.apiUrl + 'register', data);
+	}
+	
+	getCurrentSystem(): Observable<CurrentSystemStatus> {
+		return this.http.post<CurrentSystemStatus>(this.apiUrl + 'current-system', {});
 	}
 }

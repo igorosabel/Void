@@ -49,3 +49,19 @@ export interface HomeCharacter {
 	type: number;
 	name: string;
 }
+
+export interface CurrentSystem {
+	system: string;
+	star: string;
+	numPlanets: number;
+	credits: number;
+	maxStrength: number;
+	strength: number;
+	messages: ShortMessage[];
+	characters: HomeCharacter[];
+}
+
+export interface CurrentSystemStatus {
+	status: string;
+	system: CurrentSystem;
+}

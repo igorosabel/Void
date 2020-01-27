@@ -6,12 +6,12 @@
 			<div class="info-col">
 				<div class="info-row">
 					<label>Sistema:</label>
-					<span>DVS-123</span>
+					<span>{{system.system}}</span>
 				</div>
 				<div class="info-row">
 					<label>Tipo de estrella:</label>
 					<span>
-						V-A
+						{{system.star}}
 						<button mat-icon-button color="primary" aria-label="Ver en la Wikipedia">
 							<mat-icon>info</mat-icon>
 						</button>
@@ -19,24 +19,24 @@
 				</div>
 				<div class="info-row">
 					<label>Num. planetas:</label>
-					<span>3</span>
+					<span>{{system.numPlanets}}</span>
 				</div>
 			</div>
 			<div class="info-col">
 				<div class="info-row">
 					<label>Créditos:</label>
-					<span>5.000</span>
+					<span>{{system.credits}}</span>
 				</div>
 				<div class="info-row">
 					<label>Integridad nave:</label>
-					<span>100%</span>
+					<span>{{system.strength}} / {{system.maxStrength}}</span>
 				</div>
 			</div>
 		</mat-card>
 		<mat-card>
 			<div class="message-list">
-				<mat-nav-list>
-					<a mat-list-item href="#" *ngFor="let message of messageList; let last = last;">
+				<mat-nav-list *ngIf="system.messages.length>0">
+					<a mat-list-item href="#" *ngFor="let message of system.messages; let last = last;">
 						<mat-icon mat-list-icon *ngIf="message.type==1">email</mat-icon>
 						<mat-icon mat-list-icon *ngIf="message.type==2">monetization_on</mat-icon>
 						<h4 mat-line>{{ message.name }} <span class="message-date">{{message.date}}</span></h4>
@@ -44,17 +44,18 @@
 						<mat-divider *ngIf="!last"></mat-divider>
 					</a>
 				</mat-nav-list>
+				<span *ngIf="system.messages.length==0">No hay ningún mensaje nuevo</span>
 			</div>
 		</mat-card>
 	</div>
 	<div class="second-row">
 		<mat-card>
 			<mat-list>
-				<mat-list-item *ngFor="let character of characterList; let last = last;">
+				<mat-list-item *ngFor="let character of system.characters; let last = last;">
 					<mat-icon mat-list-icon *ngIf="character.type==1">account_box</mat-icon>
 					<mat-icon mat-list-icon *ngIf="character.type==2">monetization_on</mat-icon>
 					<h4 class="character-item" mat-line>
-						{{ character.name }}
+						{{ character.name | urldecode }}
 						<span class="flex-space"></span>
 						<button mat-raised-button color="primary" *ngIf="character.type==1">
 							<mat-icon>email</mat-icon>
