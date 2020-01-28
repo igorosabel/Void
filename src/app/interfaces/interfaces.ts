@@ -65,3 +65,14 @@ export interface CurrentSystemStatus {
 	status: string;
 	system: CurrentSystem;
 }
+
+export interface NPC {
+	id: number;
+	name: string;
+	idRace: number;
+}
+
+export interface NPCShopStatus {
+	status: string;
+	npc: NPC;
+}

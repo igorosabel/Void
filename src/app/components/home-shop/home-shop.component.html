@@ -1,0 +1,20 @@
+<div class="bg" [ngClass]="{'show': show}">
+	<img src="/assets/loading.svg" *ngIf="!loaded">
+	<span *ngIf="!loaded">Cargando...</span>
+	
+	<div class="shop" *ngIf="loaded">
+		<div class="shop-header">
+			<mat-icon mat-list-icon>monetization_on</mat-icon>
+			<span>{{npc.name | urldecode}}</span>
+			<button mat-icon-button aria-label="Cerrar tienda" (click)="closeShop()">
+				<mat-icon>close</mat-icon>
+			</button>
+		</div>
+		<div class="shop-body">
+			<mat-tab-group>
+				<mat-tab label="Comprar"> Content 1 </mat-tab>
+				<mat-tab label="Vender"> Content 2 </mat-tab>
+			</mat-tab-group>
+		</div>
+	</div>
+</div>

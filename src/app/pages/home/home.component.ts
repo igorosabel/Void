@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CurrentSystem } from '../../interfaces/interfaces';
 import { ApiService } from '../../services/api.service';
+import { HomeShopComponent } from '../../components/home-shop/home-shop.component';
 
 @Component({
 	selector: 'void-home',
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
 		strength: 0,
 		messages: [],
 		characters: []
-	}
+	};
+	@ViewChild('shop', { static: true }) shop: HomeShopComponent;
 
 	constructor(private as: ApiService) {}
 	ngOnInit() {
@@ -26,5 +28,9 @@ export class HomeComponent implements OnInit {
 				this.system = response.system;
 			}
 		});
+	}
+
+	openShop(id: number) {
+		this.shop.loadShop(id);
 	}
 }

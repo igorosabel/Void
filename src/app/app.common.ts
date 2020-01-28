@@ -24,12 +24,14 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { AlertDialogComponent }   from './components/dialogs/alert-dialog/alert-dialog.component';
 import { FormDialogComponent }    from './components/dialogs/form-dialog/form-dialog.component';
 import { HeaderComponent }        from './components/header/header.component';
+import { HomeShopComponent }      from './components/home-shop/home-shop.component';
 
 export const COMPONENTS: any[] = [
 	ConfirmDialogComponent,
 	AlertDialogComponent,
 	FormDialogComponent,
-	HeaderComponent
+	HeaderComponent,
+	HomeShopComponent
 ];
 
 /*
@@ -74,7 +76,7 @@ import { MatIconModule }      from '@angular/material/icon';
 import { MatListModule }      from '@angular/material/list';
 import { MatDialogModule }    from '@angular/material/dialog';
 import { MatRadioModule }     from '@angular/material/radio';
-import { MatSidenavModule }   from '@angular/material/sidenav';
+import { MatTabsModule }      from '@angular/material/tabs';
 
 export const MATERIAL: any[] = [
 	MatToolbarModule,
@@ -86,5 +88,5 @@ export const MATERIAL: any[] = [
 	MatListModule,
 	MatDialogModule,
 	MatRadioModule,
-	MatSidenavModule
+	MatTabsModule
 ];
