@@ -66,10 +66,70 @@ export interface CurrentSystemStatus {
 	system: CurrentSystem;
 }
 
+export interface Module {
+	id: number;
+	name: string;
+	idType: number;
+	engine: number;
+	shield: number;
+	cargo: number;
+	damage: number;
+	crew: number;
+	energy: number;
+	slots: number;
+	credits: number;
+}
+
+export interface NPCModule {
+	module: Module;
+	value: number;
+}
+
+export interface Ship {
+	id: number;
+	name: string;
+	idType: number;
+	maxStrength: number;
+	strength: number;
+	endurance: number;
+	shield: number;
+	idEngine: number;
+	speed: number;
+	maxCargo: number;
+	cargo: number;
+	damage: number;
+	idGenerator: number;
+	maxEnergy: number;
+	energy: number;
+	slots: number;
+	crew: number;
+	credits: number;
+}
+
+export interface NPCShip {
+	ship: Ship;
+	value: number;
+}
+
+export interface Resource {
+	id: number;
+	name: string;
+	minPrice: number;
+	maxPrice: number;
+}
+
+export interface NPCResource {
+	resource: Resource;
+	value: number;
+}
+
 export interface NPC {
 	id: number;
 	name: string;
 	idRace: number;
+	ships: NPCShip[];
+	modules: NPCModule[];
+	resources: NPCResource[];
 }
 
 export interface NPCShopStatus {

@@ -13,7 +13,10 @@ export class HomeShopComponent implements OnInit {
 	npc: NPC = {
 		id: null,
 		name: null,
-		idRace: null
+		idRace: null,
+		ships: [],
+		modules: [],
+		resources: []
 	};
 
 	constructor(private as: ApiService) {}
