@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatIconRegistry }   from "@angular/material/icon";
+import { DomSanitizer }      from "@angular/platform-browser";
 import { ApiService } from '../../services/api.service';
 import { NPC } from '../../interfaces/interfaces';
 
@@ -19,7 +21,12 @@ export class HomeShopComponent implements OnInit {
 		resources: []
 	};
 
-	constructor(private as: ApiService) {}
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
+		this.matIconRegistry.addSvgIcon(
+			"void-ship",
+			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/ship.svg")
+		);
+	}
 	ngOnInit() {}
 
 	loadShop(id: number) {

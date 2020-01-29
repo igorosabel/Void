@@ -12,7 +12,27 @@
 		</div>
 		<div class="shop-body">
 			<mat-tab-group>
-				<mat-tab label="Comprar"> Content 1 </mat-tab>
+				<mat-tab label="Comprar">
+					<div class="shop-selling">
+						<mat-list>
+							<h3 mat-subheader *ngIf="npc.ships.length>0">Naves</h3>
+							<mat-list-item *ngFor="let ship of npc.ships">
+								<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
+								<h4 mat-line>{{ship.ship.name | urldecode}}</h4>
+							</mat-list-item>
+							<h3 mat-subheader *ngIf="npc.modules.length>0">Módulos</h3>
+							<mat-list-item *ngFor="let module of npc.modules">
+								<mat-icon mat-list-icon>folder</mat-icon>
+								<h4 mat-line>{{module.module.name | urldecode}}</h4>
+							</mat-list-item>
+							<h3 mat-subheader *ngIf="npc.resources.length>0">Recursos</h3>
+							<mat-list-item *ngFor="let resource of npc.resources">
+								<mat-icon mat-list-icon>folder</mat-icon>
+								<h4 mat-line>{{resource.resource.name | urldecode}}</h4>
+							</mat-list-item>
+						</mat-list>
+					</div>
+				</mat-tab>
 				<mat-tab label="Vender"> Content 2 </mat-tab>
 			</mat-tab-group>
 		</div>

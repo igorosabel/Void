@@ -42,5 +42,12 @@
 	
 	.shop-body {
 		height: calc(100% - 40px);
+		
+		.shop-selling {
+			height: 200px;
+			border: 1px solic #ccc;
+			border-radius: 6px;
+			overflow: auto;
+		}
 	}
 }
