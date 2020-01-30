@@ -41,18 +41,75 @@
 							</button>
 						</mat-action-list>
 					</div>
-					<div class="shop-selected-item">
+					<div class="shop-selected-item" *ngIf="selectedItem.id">
 						<div class="selected-item-header">
-							<div class="selected-item-name">{{selectedItem.name}}</div>
+							<div class="selected-item-name">
+								<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
+								<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
+								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
+								<span>{{selectedItem.name | urldecode}}</span>
+							</div>
 							<div class="selected-item-num">
-								<mat-form-field>
+								<mat-form-field class="selected-item-num-box">
 									<mat-label>Num</mat-label>
-									<input matInput type="number" [(ngModel)]="selectedItem.num">
+									<input matInput type="number" #shopNum [(ngModel)]="selectedItem.num" [disabled]="selectedItem.max==1" step="1" min="1" [max]="selectedItem.max" (input)="updateSelectedItemCredits()" (keypress)="updateSelectedItemCredits()">
 								</mat-form-field>
-								(max {{selectedItem.max}})
+								<span class="selected-item-num-max">(max {{selectedItem.max}})</span>
 							</div>
 							<div class="selected-item-credits">
 								{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
+							</div>
+						</div>
+						<div class="selected-item-body">
+							<div class="selected-item-details">
+								<div *ngIf="selectedItem.type==1">
+									nave
+								</div>
+								<div *ngIf="selectedItem.type==2">
+									<ul class="selected-item-details-list">
+										<li>
+											<label>Tipo:</label>
+											{{moduleTypes['module_'+selectedItem.module.idType]}}
+										</li>
+										<li *ngIf="selectedItem.module.idType==1">
+											<label>Multiplicador:</label>
+											{{selectedItem.module.engine}}
+										</li>
+										<li *ngIf="selectedItem.module.idType==2">
+											<label>Escudo:</label>
+											{{selectedItem.module.shield | number:'1.0-0'}}
+										</li>
+										<li *ngIf="selectedItem.module.idType==3">
+											<label>Carga:</label>
+											{{selectedItem.module.cargo | number:'1.0-0'}}
+										</li>
+										<li *ngIf="selectedItem.module.idType==4">
+											<label>Daño:</label>
+											{{selectedItem.module.damage | number:'1.0-0'}}
+										</li>
+										<li *ngIf="selectedItem.module.idType==5">
+											<label>Cabinas:</label>
+											{{selectedItem.module.crew}}
+										</li>
+										<li>
+											<label>Energía:</label>
+											<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
+										</li>
+										<li>
+											<label>Slots:</label>
+											{{selectedItem.module.slots}}
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="selected-item-buy">
+								<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits">
+									<mat-icon>shopping_cart</mat-icon>
+									<span>Comprar</span>
+								</button>
+								<span class="selected-item-buy-credits" [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
+									Créditos disponibles: {{credits | number:'1.0-0'}}
+								</span>
 							</div>
 						</div>
 					</div>

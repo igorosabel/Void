@@ -135,3 +135,16 @@ export interface NPCShopStatus {
 	status: string;
 	npc: NPC;
 }
+
+export interface ShopSelectedItem {
+	id: number;
+	type: number;
+	name: string;
+	num: number;
+	max: number;
+	price: number;
+	credits: number;
+	ship: Ship;
+	module: Module;
+	resource: Resource;
+}

@@ -1,8 +1,9 @@
-import { Component, OnInit }  from '@angular/core';
-import { MatIconRegistry }    from "@angular/material/icon";
-import { DomSanitizer }       from "@angular/platform-browser";
-import { ApiService }         from '../../services/api.service';
-import { NPC, NPCShip, NPCModule, NPCResource } from '../../interfaces/interfaces';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer }    from "@angular/platform-browser";
+import { ApiService }      from '../../services/api.service';
+import { NPC, NPCShip, NPCModule, NPCResource, ShopSelectedItem } from '../../interfaces/interfaces';
+import { MODULES }         from '../../shared/constants';
 
 @Component({
 	selector: 'void-home-shop',
@@ -12,6 +13,7 @@ import { NPC, NPCShip, NPCModule, NPCResource } from '../../interfaces/interface
 export class HomeShopComponent implements OnInit {
 	show: boolean = false;
 	loaded: boolean = false;
+	@Input() credits : number = 0;
 	npc: NPC = {
 		id: null,
 		name: null,
@@ -20,12 +22,23 @@ export class HomeShopComponent implements OnInit {
 		modules: [],
 		resources: []
 	};
-	selectedItem = {
-		name: '',
+	selectedItem: ShopSelectedItem = {
+		id: null,
+		type: null,
+		name: null,
 		num: null,
 		max: null,
-		credits: null
+		price: null,
+		credits: null,
+		ship: null,
+		module: null,
+		resource: null
 	};
+	private shopNum: ElementRef;
+	@ViewChild('shopNum', { static: true }) set content(content: ElementRef) {
+		this.shopNum = content;
+	}
+	moduleTypes: any = [];
 
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
 		this.matIconRegistry.addSvgIcon(
@@ -88,6 +101,7 @@ export class HomeShopComponent implements OnInit {
 			"void-resource-14",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/resources/resource_14.svg")
 		);
+		this.moduleTypes = MODULES;
 	}
 	ngOnInit() {}
 
@@ -105,14 +119,43 @@ export class HomeShopComponent implements OnInit {
 	}
 
 	selectShip(ship: NPCShip) {
-		console.log(ship);
+		this.selectedItem.id = ship.ship.id;
+		this.selectedItem.type = 1;
+		this.selectedItem.name = ship.ship.name;
+		this.selectedItem.num = 1;
+		this.selectedItem.max = ship.value;
+		this.selectedItem.price = ship.ship.credits;
+		this.selectedItem.credits = ship.ship.credits;
+		this.selectedItem.ship = ship.ship;
 	}
 
 	selectModule(module: NPCModule) {
-		console.log(module);
+		this.selectedItem.id = module.module.id;
+		this.selectedItem.type = 2;
+		this.selectedItem.name = module.module.name;
+		this.selectedItem.num = 1;
+		this.selectedItem.max = module.value;
+		this.selectedItem.price = module.module.credits;
+		this.selectedItem.credits = module.module.credits;
+		this.selectedItem.module = module.module;
 	}
 
 	selectResource(resource: NPCResource) {
-		console.log(resource);
+		this.selectedItem.id = resource.resource.id;
+		this.selectedItem.type = 3;
+		this.selectedItem.name = resource.resource.name;
+		this.selectedItem.num = 1;
+		this.selectedItem.max = resource.value;
+		this.selectedItem.price = resource.resource.credits;
+		this.selectedItem.credits = resource.resource.credits;
+		this.selectedItem.resource = resource.resource;
+	}
+	
+	updateSelectedItemCredits() {
+		if (this.selectedItem.num > this.selectedItem.max) {
+			this.selectedItem.num = this.selectedItem.max;
+			this.shopNum.nativeElement.value = this.selectedItem.num;
+		}
+		this.selectedItem.credits = this.selectedItem.price * this.selectedItem.num;
 	}
 }
