@@ -3,7 +3,7 @@ import { MatIconRegistry }    from "@angular/material/icon";
 import { DomSanitizer }       from "@angular/platform-browser";
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
-import { NPC }                from '../../interfaces/interfaces';
+import { NPC, NPCShip, NPCModule } from '../../interfaces/interfaces';
 import { Resource }           from '../../model/resource.model';
 
 @Component({
@@ -96,9 +96,21 @@ export class HomeShopComponent implements OnInit {
 			this.loaded = true;
 		});
 	}
-	
+
 	closeShop() {
 		this.show = false;
 		this.loaded = false;
+	}
+
+	selectShip(ship: NPCShip) {
+		console.log(ship);
+	}
+
+	selectModule(module: NPCModule) {
+		console.log(module);
+	}
+
+	selectResource(resource: Resource) {
+		console.log(resource);
 	}
 }

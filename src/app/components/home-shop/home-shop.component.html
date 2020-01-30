@@ -14,32 +14,35 @@
 			<mat-tab-group>
 				<mat-tab label="Comprar">
 					<div class="shop-selling">
-						<mat-list>
+						<mat-action-list>
 							<h3 mat-subheader *ngIf="npc.ships.length>0">Naves</h3>
-							<mat-list-item *ngFor="let ship of npc.ships">
+							<button mat-list-item *ngFor="let ship of npc.ships" (click)="selectShip(ship)">
 								<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
 									<span class="shop-item-name">{{ship.ship.name | urldecode}}</span>
-									<span class="shop-item-credits">{{ship.ship.credits}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<span class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
 								</h4>
-							</mat-list-item>
+							</button>
 							<h3 mat-subheader *ngIf="npc.modules.length>0">Módulos</h3>
-							<mat-list-item *ngFor="let module of npc.modules">
+							<button mat-list-item *ngFor="let module of npc.modules" (click)="selectModule(module)">
 								<mat-icon mat-list-icon>dns</mat-icon>
 								<h4 class="shop-item-title" mat-line>
 									<span class="shop-item-name">{{module.module.name | urldecode}}</span>
-									<span class="shop-item-credits">{{module.module.credits}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<span class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
 								</h4>
-							</mat-list-item>
+							</button>
 							<h3 mat-subheader *ngIf="resources.length>0">Recursos</h3>
-							<mat-list-item *ngFor="let resource of resources">
+							<button mat-list-item *ngFor="let resource of resources" (click)="selectResource(resource)">
 								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.id"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
 									<span class="shop-item-name">{{resource.name | urldecode}}</span>
-									<span class="shop-item-credits">{{resource.credits}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<span class="shop-item-credits">{{resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
 								</h4>
-							</mat-list-item>
-						</mat-list>
+							</button>
+						</mat-action-list>
+					</div>
+					<div class="shop-selected-item">
+					
 					</div>
 				</mat-tab>
 				<mat-tab label="Vender"> Content 2 </mat-tab>

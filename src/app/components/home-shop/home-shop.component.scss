@@ -42,6 +42,7 @@
 	
 	.shop-body {
 		height: calc(100% - 40px);
+		overflow: auto;
 		
 		.shop-selling {
 			height: 200px;
@@ -63,6 +64,14 @@
 				display: flex;
 				align-items: center;
 			}
+		}
+		
+		.shop-selected-item {
+			height: 200px;
+			border: 1px solid #ccc;
+			border-radius: 6px;
+			overflow: auto;
+			margin: 16px;
 		}
 	}
 }

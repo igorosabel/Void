@@ -25,11 +25,11 @@
 			<div class="info-col">
 				<div class="info-row">
 					<label>Créditos:</label>
-					<span>{{system.credits}}</span>
+					<span>{{system.credits | number:'1.0-0'}}</span>
 				</div>
 				<div class="info-row">
 					<label>Integridad nave:</label>
-					<span>{{system.strength}} / {{system.maxStrength}}</span>
+					<span>{{system.strength | number:'1.0-0'}} / {{system.maxStrength | number:'1.0-0'}}</span>
 				</div>
 			</div>
 		</mat-card>
