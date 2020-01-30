@@ -31,12 +31,12 @@
 									<span class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
 								</h4>
 							</button>
-							<h3 mat-subheader *ngIf="resources.length>0">Recursos</h3>
-							<button mat-list-item *ngFor="let resource of resources" (click)="selectResource(resource)">
-								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.id"></mat-icon>
+							<h3 mat-subheader *ngIf="npc.resources.length>0">Recursos</h3>
+							<button mat-list-item *ngFor="let resource of npc.resources" (click)="selectResource(resource)">
+								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{resource.name | urldecode}}</span>
-									<span class="shop-item-credits">{{resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<span class="shop-item-name">{{resource.resource.name | urldecode}}</span>
+									<span class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
 								</h4>
 							</button>
 						</mat-action-list>

@@ -1,6 +1,6 @@
 import { Injectable }  from '@angular/core';
-import { Resource }    from '../model/resource.model';
-import { NPCResource } from '../interfaces/interfaces';
+/*import { Resource }    from '../model/resource.model';
+import { NPCResource } from '../interfaces/interfaces';*/
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { NPCResource } from '../interfaces/interfaces';
 export class ClassMapperService {
 	constructor() { }
 	
-	getResources(response: NPCResource[], idNPC: number) {
+	/*getResources(response: NPCResource[], idNPC: number) {
 		const resources: Resource[] = [];
 		
 		for (let r of response) {
@@ -22,5 +22,5 @@ export class ClassMapperService {
 	getResource(r: NPCResource, idNPC: number) {
 		const resource = new Resource(r.resource.id, r.resource.name, r.resource.minPrice, r.resource.maxPrice, r.value, idNPC);
 		return resource;
-	}
+	}*/
 }

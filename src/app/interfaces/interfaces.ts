@@ -111,15 +111,14 @@ export interface NPCShip {
 	value: number;
 }
 
-export interface ResourceInterface {
+export interface Resource {
 	id: number;
 	name: string;
-	minPrice: number;
-	maxPrice: number;
+	credits: number;
 }
 
 export interface NPCResource {
-	resource: ResourceInterface;
+	resource: Resource;
 	value: number;
 }
 

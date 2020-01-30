@@ -2,9 +2,7 @@ import { Component, OnInit }  from '@angular/core';
 import { MatIconRegistry }    from "@angular/material/icon";
 import { DomSanitizer }       from "@angular/platform-browser";
 import { ApiService }         from '../../services/api.service';
-import { ClassMapperService } from '../../services/class-mapper.service';
-import { NPC, NPCShip, NPCModule } from '../../interfaces/interfaces';
-import { Resource }           from '../../model/resource.model';
+import { NPC, NPCShip, NPCModule, NPCResource } from '../../interfaces/interfaces';
 
 @Component({
 	selector: 'void-home-shop',
@@ -22,7 +20,6 @@ export class HomeShopComponent implements OnInit {
 		modules: [],
 		resources: []
 	};
-	resources: Resource[] = [];
 	selectedItem = {
 		name: '',
 		num: null,
@@ -30,7 +27,7 @@ export class HomeShopComponent implements OnInit {
 		credits: null
 	};
 
-	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private cs: ClassMapperService) {
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
 		this.matIconRegistry.addSvgIcon(
 			"void-ship",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/ship.svg")
@@ -98,7 +95,6 @@ export class HomeShopComponent implements OnInit {
 		this.show = true;
 		this.as.getNPCShop(id).subscribe(result => {
 			this.npc = result.npc;
-			this.resources = this.cs.getResources(this.npc.resources, this.npc.id);
 			this.loaded = true;
 		});
 	}
@@ -116,7 +112,7 @@ export class HomeShopComponent implements OnInit {
 		console.log(module);
 	}
 
-	selectResource(resource: Resource) {
+	selectResource(resource: NPCResource) {
 		console.log(resource);
 	}
 }
