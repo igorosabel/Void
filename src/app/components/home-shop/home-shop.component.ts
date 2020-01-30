@@ -23,6 +23,12 @@ export class HomeShopComponent implements OnInit {
 		resources: []
 	};
 	resources: Resource[] = [];
+	selectedItem = {
+		name: '',
+		num: null,
+		max: null,
+		credits: null
+	};
 
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private cs: ClassMapperService) {
 		this.matIconRegistry.addSvgIcon(

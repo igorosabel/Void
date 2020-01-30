@@ -42,7 +42,19 @@
 						</mat-action-list>
 					</div>
 					<div class="shop-selected-item">
-					
+						<div class="selected-item-header">
+							<div class="selected-item-name">{{selectedItem.name}}</div>
+							<div class="selected-item-num">
+								<mat-form-field>
+									<mat-label>Num</mat-label>
+									<input matInput type="number" [(ngModel)]="selectedItem.num">
+								</mat-form-field>
+								(max {{selectedItem.max}})
+							</div>
+							<div class="selected-item-credits">
+								{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
+							</div>
+						</div>
 					</div>
 				</mat-tab>
 				<mat-tab label="Vender"> Content 2 </mat-tab>
