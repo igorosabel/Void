@@ -111,7 +111,7 @@ export interface NPCShip {
 	value: number;
 }
 
-export interface Resource {
+export interface ResourceInterface {
 	id: number;
 	name: string;
 	minPrice: number;
@@ -119,7 +119,7 @@ export interface Resource {
 }
 
 export interface NPCResource {
-	resource: Resource;
+	resource: ResourceInterface;
 	value: number;
 }
 

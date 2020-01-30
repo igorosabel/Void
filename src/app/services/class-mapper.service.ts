@@ -1,33 +1,26 @@
-import { Injectable } from '@angular/core';
-/*import { Entry }      from '../model/entry.model';
-import { Tag }        from '../model/tag.model';
-import { Photo }      from '../model/photo.model';
-import { EntriesResult, EntryInterface, TagsResult, TagInterface, PhotosResult, PhotoInterface } from '../interfaces/interfaces';*/
+import { Injectable }  from '@angular/core';
+import { Resource }    from '../model/resource.model';
+import { NPCResource } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassMapperService {
 	constructor() { }
-
-	/*getEntries(response: EntriesResult) {
-		const entries: Entry[] = [];
-
-		for (let e of response.list) {
-			let entry = this.getEntry(e);
-			entries.push(entry);
+	
+	getResources(response: NPCResource[], idNPC: number) {
+		const resources: Resource[] = [];
+		
+		for (let r of response) {
+			let resource = this.getResource(r, idNPC);
+			resources.push(resource);
 		}
 		
-		return entries;
+		return resources;
 	}
 	
-	getEntry(e: EntryInterface) {
-		let entry = new Entry(e.id, e.title, e.slug, e.body, e.createdAt, e.updatedAt);
-		for (let t of e.tags) {
-			let tag = new Tag(t.id, t.name, t.slug, t.createdAt, t.updatedAt);
-			entry.addTag(tag);
-		}
-		
-		return entry;
-	}*/
+	getResource(r: NPCResource, idNPC: number) {
+		const resource = new Resource(r.resource.id, r.resource.name, r.resource.minPrice, r.resource.maxPrice, r.value, idNPC);
+		return resource;
+	}
 }

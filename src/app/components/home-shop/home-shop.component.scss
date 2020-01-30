@@ -24,8 +24,8 @@
 .shop {
 	background-color: #fff;
 	border-radius: 6px;
-	width: 60%;
-	height: 300px;
+	width: 90%;
+	height: 80%;
 	color: #000;
 
 	.shop-header {
@@ -45,9 +45,31 @@
 		
 		.shop-selling {
 			height: 200px;
-			border: 1px solic #ccc;
+			border: 1px solid #ccc;
 			border-radius: 6px;
 			overflow: auto;
+			margin: 16px;
+			
+			.shop-item-title {
+				display: flex;
+				align-items: center;
+			}
+			
+			.shop-item-name {
+				flex: 1;
+			}
+			
+			.shop-item-credits {
+				display: flex;
+				align-items: center;
+			}
 		}
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.shop {
+		width: 60%;
+		height: 80%;
 	}
 }
