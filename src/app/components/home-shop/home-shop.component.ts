@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer }    from "@angular/platform-browser";
 import { ApiService }      from '../../services/api.service';
@@ -13,7 +13,9 @@ import { MODULES, HULLS, ENGINES, GENERATORS } from '../../shared/constants';
 export class HomeShopComponent implements OnInit {
 	show: boolean = false;
 	loaded: boolean = false;
+	buying: boolean = false;
 	@Input() credits : number = 0;
+	@Output() buyEvent = new EventEmitter<number>();
 	npc: NPC = {
 		id: null,
 		name: null,
@@ -163,5 +165,30 @@ export class HomeShopComponent implements OnInit {
 			this.shopNum.nativeElement.value = this.selectedItem.num;
 		}
 		this.selectedItem.credits = this.selectedItem.price * this.selectedItem.num;
+	}
+	
+	buy() {
+		this.buying = true;
+		switch (this.selectedItem.type) {
+			case 1: {
+				const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
+				this.npc.ships[shipIndex].value--;
+			}
+			break;
+			case 2: {
+				const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
+				this.npc.modules[moduleIndex].value--;
+			}
+			break;
+			case 3: {
+				const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
+				this.npc.resources[resourceIndex].value--;
+			}
+			break;
+		}
+		this.selectedItem.max--;
+		this.credits -= this.selectedItem.credits;
+		
+		this.buyEvent.emit(this.credits);
 	}
 }

@@ -146,9 +146,10 @@
 								</div>
 							</div>
 							<div class="selected-item-buy">
-								<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits">
-									<mat-icon>shopping_cart</mat-icon>
-									<span>Comprar</span>
+								<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0" (click)="buy()">
+									<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
+									<span *ngIf="!buying">Comprar</span>
+									<img src="/assets/loading.svg" *ngIf="buying">
 								</button>
 								<span class="selected-item-buy-credits" [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
 									Créditos disponibles: {{credits | number:'1.0-0'}}
