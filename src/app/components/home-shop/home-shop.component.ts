@@ -3,7 +3,7 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer }    from "@angular/platform-browser";
 import { ApiService }      from '../../services/api.service';
 import { NPC, NPCShip, NPCModule, NPCResource, ShopSelectedItem } from '../../interfaces/interfaces';
-import { MODULES }         from '../../shared/constants';
+import { MODULES, HULLS, ENGINES, GENERATORS } from '../../shared/constants';
 
 @Component({
 	selector: 'void-home-shop',
@@ -38,7 +38,10 @@ export class HomeShopComponent implements OnInit {
 	@ViewChild('shopNum', { static: true }) set content(content: ElementRef) {
 		this.shopNum = content;
 	}
-	moduleTypes: any = [];
+	moduleTypes: any    = [];
+	hullTypes: any      = [];
+	engineTypes: any    = [];
+	generatorTypes: any = [];
 
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
 		this.matIconRegistry.addSvgIcon(
@@ -101,7 +104,10 @@ export class HomeShopComponent implements OnInit {
 			"void-resource-14",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/resources/resource_14.svg")
 		);
-		this.moduleTypes = MODULES;
+		this.moduleTypes    = MODULES;
+		this.hullTypes      = HULLS;
+		this.engineTypes    = ENGINES;
+		this.generatorTypes = GENERATORS;
 	}
 	ngOnInit() {}
 

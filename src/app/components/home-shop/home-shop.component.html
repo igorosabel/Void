@@ -13,6 +13,7 @@
 		<div class="shop-body">
 			<mat-tab-group>
 				<mat-tab label="Comprar">
+					<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
 							<h3 mat-subheader *ngIf="npc.ships.length>0">Naves</h3>
@@ -41,8 +42,9 @@
 							</button>
 						</mat-action-list>
 					</div>
-					<div class="shop-selected-item" *ngIf="selectedItem.id">
-						<div class="selected-item-header">
+					<h4 class="shop-title">Objeto seleccionado:</h4>
+					<div class="shop-selected-item" [ngClass]="{'shop-selected-item-disabled':!selectedItem.id}">
+						<div class="selected-item-header" *ngIf="selectedItem.id">
 							<div class="selected-item-name">
 								<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
 								<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
@@ -60,10 +62,51 @@
 								{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
 							</div>
 						</div>
-						<div class="selected-item-body">
+						<div class="selected-item-body" *ngIf="selectedItem.id">
 							<div class="selected-item-details">
 								<div *ngIf="selectedItem.type==1">
-									nave
+									<ul class="selected-item-details-list">
+										<li>
+											<label>Tipo:</label>
+											{{hullTypes['hull_'+selectedItem.ship.idType]}}
+										</li>
+										<li>
+											<label>Integridad:</label>
+											{{selectedItem.ship.strength | number:'1.0-0'}}
+										</li>
+										<li>
+											<label>Resistencia:</label>
+											{{selectedItem.ship.endurance | number:'1.0-0'}}
+										</li>
+										<li>
+											<label>Tipo de motor:</label>
+											{{engineTypes['engine_'+selectedItem.ship.idEngine]}}
+										</li>
+										<li>
+											<label>Velocidad:</label>
+											{{selectedItem.ship.speed | number:'1.0-0'}}
+										</li>
+										<li>
+											<label>Carga:</label>
+											{{selectedItem.ship.cargo | number:'1.0-0'}}
+										</li>
+										<li>
+											<label>Tipo de generador:</label>
+											{{generatorTypes['generator_'+selectedItem.ship.idGenerator]}}
+										</li>
+										<li>
+											<label>Energía:</label>
+											{{selectedItem.ship.energy | number:'1.0-0'}}
+										</li>
+										<li>
+											<label>Slots:</label>
+											{{selectedItem.ship.slots | number:'1.0-0'}}
+										</li>
+										<li>
+											<label>Cabinas:</label>
+											{{selectedItem.ship.crew | number:'1.0-0'}}
+										</li>
+									</ul>
 								</div>
 								<div *ngIf="selectedItem.type==2">
 									<ul class="selected-item-details-list">

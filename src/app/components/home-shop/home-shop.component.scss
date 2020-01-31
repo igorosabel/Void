@@ -44,6 +44,10 @@
 		height: calc(100% - 40px);
 		overflow: auto;
 		
+		.shop-title {
+			padding: 0 16px;
+		}
+		
 		.shop-selling {
 			height: 200px;
 			border: 1px solid #ccc;
@@ -122,13 +126,13 @@
 						list-style-type: none;
 						
 						li {
-							height: 32px;
+							padding: 8px;
 							display: flex;
 							align-items: center;
 							
 							label {
 								display: inline-block;
-								width: 75px;
+								width: 90px;
 							}
 							
 							.negative {
@@ -158,6 +162,11 @@
 					}
 				}
 			}
+		}
+		
+		.shop-selected-item-disabled {
+			border: 1px solid #888;
+			background-color: #ccc;
 		}
 	}
 }
