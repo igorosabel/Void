@@ -36,6 +36,10 @@ export interface RegisterData {
 	conf: string;
 }
 
+export interface StatusResult {
+	status: string;
+}
+
 export interface ShortMessage {
 	id: number;
 	type: number;
@@ -147,4 +151,11 @@ export interface ShopSelectedItem {
 	ship: Ship;
 	module: Module;
 	resource: Resource;
+}
+
+export interface BuyData {
+	idNPC: number;
+	id: number;
+	type: number;
+	num: number;
 }

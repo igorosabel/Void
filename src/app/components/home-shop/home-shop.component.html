@@ -13,150 +13,167 @@
 		<div class="shop-body">
 			<mat-tab-group>
 				<mat-tab label="Comprar">
-					<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
-					<div class="shop-selling">
-						<mat-action-list>
-							<h3 mat-subheader *ngIf="npc.ships.length>0">Naves</h3>
-							<button mat-list-item *ngFor="let ship of npc.ships" (click)="selectShip(ship)">
-								<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
-								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{ship.ship.name | urldecode}}</span>
-									<span class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
-								</h4>
-							</button>
-							<h3 mat-subheader *ngIf="npc.modules.length>0">Módulos</h3>
-							<button mat-list-item *ngFor="let module of npc.modules" (click)="selectModule(module)">
-								<mat-icon mat-list-icon>dns</mat-icon>
-								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{module.module.name | urldecode}}</span>
-									<span class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
-								</h4>
-							</button>
-							<h3 mat-subheader *ngIf="npc.resources.length>0">Recursos</h3>
-							<button mat-list-item *ngFor="let resource of npc.resources" (click)="selectResource(resource)">
-								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
-								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{resource.resource.name | urldecode}}</span>
-									<span class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
-								</h4>
-							</button>
-						</mat-action-list>
-					</div>
-					<h4 class="shop-title">Objeto seleccionado:</h4>
-					<div class="shop-selected-item" [ngClass]="{'shop-selected-item-disabled':!selectedItem.id}">
-						<div class="selected-item-header" *ngIf="selectedItem.id">
-							<div class="selected-item-name">
-								<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
-								<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
-								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
-								<span>{{selectedItem.name | urldecode}}</span>
-							</div>
-							<div class="selected-item-num">
-								<mat-form-field class="selected-item-num-box">
-									<mat-label>Num</mat-label>
-									<input matInput type="number" #shopNum [(ngModel)]="selectedItem.num" [disabled]="selectedItem.max==1" step="1" min="1" [max]="selectedItem.max" (input)="updateSelectedItemCredits()" (keypress)="updateSelectedItemCredits()">
-								</mat-form-field>
-								<span class="selected-item-num-max">(max {{selectedItem.max}})</span>
-							</div>
-							<div class="selected-item-credits">
-								{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
+					
+					<div class="buy-process">
+						
+						<div class="buy-step-one">
+							<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
+							<div class="shop-selling">
+								<mat-action-list>
+									<h3 mat-subheader *ngIf="npc.ships.length>0">Naves</h3>
+									<button mat-list-item *ngFor="let ship of npc.ships" (click)="selectShip(ship)">
+										<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
+										<h4 class="shop-item-title" mat-line>
+											<span class="shop-item-name">{{ship.ship.name | urldecode}}</span>
+											<span class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+										</h4>
+									</button>
+									<h3 mat-subheader *ngIf="npc.modules.length>0">Módulos</h3>
+									<button mat-list-item *ngFor="let module of npc.modules" (click)="selectModule(module)">
+										<mat-icon mat-list-icon>dns</mat-icon>
+										<h4 class="shop-item-title" mat-line>
+											<span class="shop-item-name">{{module.module.name | urldecode}}</span>
+											<span class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+										</h4>
+									</button>
+									<h3 mat-subheader *ngIf="npc.resources.length>0">Recursos</h3>
+									<button mat-list-item *ngFor="let resource of npc.resources" (click)="selectResource(resource)">
+										<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
+										<h4 class="shop-item-title" mat-line>
+											<span class="shop-item-name">{{resource.resource.name | urldecode}}</span>
+											<span class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+										</h4>
+									</button>
+								</mat-action-list>
 							</div>
 						</div>
-						<div class="selected-item-body" *ngIf="selectedItem.id">
-							<div class="selected-item-details">
-								<div *ngIf="selectedItem.type==1">
-									<ul class="selected-item-details-list">
-										<li>
-											<label>Tipo:</label>
-											{{hullTypes['hull_'+selectedItem.ship.idType]}}
-										</li>
-										<li>
-											<label>Integridad:</label>
-											{{selectedItem.ship.strength | number:'1.0-0'}}
-										</li>
-										<li>
-											<label>Resistencia:</label>
-											{{selectedItem.ship.endurance | number:'1.0-0'}}
-										</li>
-										<li>
-											<label>Tipo de motor:</label>
-											{{engineTypes['engine_'+selectedItem.ship.idEngine]}}
-										</li>
-										<li>
-											<label>Velocidad:</label>
-											{{selectedItem.ship.speed | number:'1.0-0'}}
-										</li>
-										<li>
-											<label>Carga:</label>
-											{{selectedItem.ship.cargo | number:'1.0-0'}}
-										</li>
-										<li>
-											<label>Tipo de generador:</label>
-											{{generatorTypes['generator_'+selectedItem.ship.idGenerator]}}
-										</li>
-										<li>
-											<label>Energía:</label>
-											{{selectedItem.ship.energy | number:'1.0-0'}}
-										</li>
-										<li>
-											<label>Slots:</label>
-											{{selectedItem.ship.slots | number:'1.0-0'}}
-										</li>
-										<li>
-											<label>Cabinas:</label>
-											{{selectedItem.ship.crew | number:'1.0-0'}}
-										</li>
-									</ul>
+						
+						<div class="buy-step-two">
+							<h4 class="shop-title">Objeto seleccionado:</h4>
+							<div class="shop-selected-item" [ngClass]="{'shop-selected-item-disabled':!selectedItem.id}">
+								<div class="selected-item-header" *ngIf="selectedItem.id">
+									<div class="selected-item-name">
+										<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
+										<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
+										<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
+										<span>{{selectedItem.name | urldecode}}</span>
+									</div>
+									<div class="selected-item-num">
+										<mat-form-field class="selected-item-num-box">
+											<mat-label>Num</mat-label>
+											<input matInput type="number" #shopNum [(ngModel)]="selectedItem.num" [disabled]="selectedItem.max<2" step="1" min="1" [max]="selectedItem.max" (input)="updateSelectedItemCredits()" (keypress)="updateSelectedItemCredits()">
+										</mat-form-field>
+										<span class="selected-item-num-max">(max {{selectedItem.max}})</span>
+									</div>
+									<div class="selected-item-credits">
+										{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
+									</div>
 								</div>
-								<div *ngIf="selectedItem.type==2">
-									<ul class="selected-item-details-list">
-										<li>
-											<label>Tipo:</label>
-											{{moduleTypes['module_'+selectedItem.module.idType]}}
-										</li>
-										<li *ngIf="selectedItem.module.idType==1">
-											<label>Multiplicador:</label>
-											{{selectedItem.module.engine}}
-										</li>
-										<li *ngIf="selectedItem.module.idType==2">
-											<label>Escudo:</label>
-											{{selectedItem.module.shield | number:'1.0-0'}}
-										</li>
-										<li *ngIf="selectedItem.module.idType==3">
-											<label>Carga:</label>
-											{{selectedItem.module.cargo | number:'1.0-0'}}
-										</li>
-										<li *ngIf="selectedItem.module.idType==4">
-											<label>Daño:</label>
-											{{selectedItem.module.damage | number:'1.0-0'}}
-										</li>
-										<li *ngIf="selectedItem.module.idType==5">
-											<label>Cabinas:</label>
-											{{selectedItem.module.crew}}
-										</li>
-										<li>
-											<label>Energía:</label>
-											<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
-										</li>
-										<li>
-											<label>Slots:</label>
-											{{selectedItem.module.slots}}
-										</li>
-									</ul>
+								<div class="selected-item-body" *ngIf="selectedItem.id">
+									<div class="selected-item-details">
+										<div *ngIf="selectedItem.type==1">
+											<ul class="selected-item-details-list">
+												<li>
+													<label>Tipo:</label>
+													{{hullTypes['hull_'+selectedItem.ship.idType]}}
+												</li>
+												<li>
+													<label>Integridad:</label>
+													{{selectedItem.ship.strength | number:'1.0-0'}}
+												</li>
+												<li>
+													<label>Resistencia:</label>
+													{{selectedItem.ship.endurance | number:'1.0-0'}}
+												</li>
+												<li>
+													<label>Tipo de motor:</label>
+													{{engineTypes['engine_'+selectedItem.ship.idEngine]}}
+												</li>
+												<li>
+													<label>Velocidad:</label>
+													{{selectedItem.ship.speed | number:'1.0-0'}}
+												</li>
+												<li>
+													<label>Carga:</label>
+													{{selectedItem.ship.cargo | number:'1.0-0'}}
+												</li>
+												<li>
+													<label>Tipo de generador:</label>
+													{{generatorTypes['generator_'+selectedItem.ship.idGenerator]}}
+												</li>
+												<li>
+													<label>Energía:</label>
+													{{selectedItem.ship.energy | number:'1.0-0'}}
+												</li>
+												<li>
+													<label>Slots:</label>
+													{{selectedItem.ship.slots | number:'1.0-0'}}
+												</li>
+												<li>
+													<label>Cabinas:</label>
+													{{selectedItem.ship.crew | number:'1.0-0'}}
+												</li>
+											</ul>
+										</div>
+										<div *ngIf="selectedItem.type==2">
+											<ul class="selected-item-details-list">
+												<li>
+													<label>Tipo:</label>
+													{{moduleTypes['module_'+selectedItem.module.idType]}}
+												</li>
+												<li *ngIf="selectedItem.module.idType==1">
+													<label>Multiplicador:</label>
+													{{selectedItem.module.engine}}
+												</li>
+												<li *ngIf="selectedItem.module.idType==2">
+													<label>Escudo:</label>
+													{{selectedItem.module.shield | number:'1.0-0'}}
+												</li>
+												<li *ngIf="selectedItem.module.idType==3">
+													<label>Carga:</label>
+													{{selectedItem.module.cargo | number:'1.0-0'}}
+												</li>
+												<li *ngIf="selectedItem.module.idType==4">
+													<label>Daño:</label>
+													{{selectedItem.module.damage | number:'1.0-0'}}
+												</li>
+												<li *ngIf="selectedItem.module.idType==5">
+													<label>Cabinas:</label>
+													{{selectedItem.module.crew}}
+												</li>
+												<li>
+													<label>Energía:</label>
+													<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
+												</li>
+												<li>
+													<label>Slots:</label>
+													{{selectedItem.module.slots}}
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="selected-item-buy">
+										<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying" (click)="buy()">
+											<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
+											<span *ngIf="!buying">Comprar</span>
+											<img src="/assets/loading.svg" *ngIf="buying">
+										</button>
+										<span class="selected-item-buy-credits" [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
+											Créditos disponibles: {{credits | number:'1.0-0'}}
+										</span>
+									</div>
 								</div>
-							</div>
-							<div class="selected-item-buy">
-								<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0" (click)="buy()">
-									<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
-									<span *ngIf="!buying">Comprar</span>
-									<img src="/assets/loading.svg" *ngIf="buying">
-								</button>
-								<span class="selected-item-buy-credits" [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
-									Créditos disponibles: {{credits | number:'1.0-0'}}
-								</span>
 							</div>
 						</div>
+						
+						<div class="buy-step-three">
+							
+						</div>
+						
 					</div>
+					
+					
+					
 				</mat-tab>
 				<mat-tab label="Vender"> Content 2 </mat-tab>
 			</mat-tab-group>

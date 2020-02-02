@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { MatIconRegistry } from "@angular/material/icon";
-import { DomSanitizer }    from "@angular/platform-browser";
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer }    from '@angular/platform-browser';
 import { ApiService }      from '../../services/api.service';
-import { NPC, NPCShip, NPCModule, NPCResource, ShopSelectedItem } from '../../interfaces/interfaces';
+import { DialogService }   from '../../services/dialog.service';
+import { NPC, NPCShip, NPCModule, NPCResource, ShopSelectedItem, BuyData } from '../../interfaces/interfaces';
 import { MODULES, HULLS, ENGINES, GENERATORS } from '../../shared/constants';
 
 @Component({
@@ -45,7 +46,7 @@ export class HomeShopComponent implements OnInit {
 	engineTypes: any    = [];
 	generatorTypes: any = [];
 
-	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private dialog: DialogService) {
 		this.matIconRegistry.addSvgIcon(
 			"void-ship",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/ship.svg")
@@ -118,6 +119,19 @@ export class HomeShopComponent implements OnInit {
 		this.as.getNPCShop(id).subscribe(result => {
 			this.npc = result.npc;
 			this.loaded = true;
+			this.buying = false;
+			this.selectedItem = {
+				id: null,
+				type: null,
+				name: null,
+				num: null,
+				max: null,
+				price: null,
+				credits: null,
+				ship: null,
+				module: null,
+				resource: null
+			};
 		});
 	}
 
@@ -169,26 +183,34 @@ export class HomeShopComponent implements OnInit {
 	
 	buy() {
 		this.buying = true;
-		switch (this.selectedItem.type) {
-			case 1: {
-				const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
-				this.npc.ships[shipIndex].value--;
+		const params: BuyData = {
+			idNPC: this.npc.id,
+			id: this.selectedItem.id,
+			type: this.selectedItem.type,
+			num: this.selectedItem.num
+		};
+		this.as.buy(params).subscribe(result => {
+			switch (this.selectedItem.type) {
+				case 1: {
+					const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
+					this.npc.ships[shipIndex].value--;
+				}
+				break;
+				case 2: {
+					const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
+					this.npc.modules[moduleIndex].value--;
+				}
+				break;
+				case 3: {
+					const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
+					this.npc.resources[resourceIndex].value--;
+				}
+				break;
 			}
-			break;
-			case 2: {
-				const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
-				this.npc.modules[moduleIndex].value--;
-			}
-			break;
-			case 3: {
-				const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
-				this.npc.resources[resourceIndex].value--;
-			}
-			break;
-		}
-		this.selectedItem.max--;
-		this.credits -= this.selectedItem.credits;
-		
-		this.buyEvent.emit(this.credits);
+			this.selectedItem.max--;
+			this.credits -= this.selectedItem.credits;
+			
+			this.buyEvent.emit(this.credits);
+		});
 	}
 }

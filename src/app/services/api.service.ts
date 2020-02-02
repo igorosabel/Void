@@ -8,7 +8,9 @@ import {
 	LoginResult,
 	RegisterData,
 	CurrentSystemStatus,
-	NPCShopStatus
+	NPCShopStatus,
+	StatusResult,
+	BuyData
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -33,5 +35,9 @@ export class ApiService {
 	
 	getNPCShop(id: number): Observable<NPCShopStatus> {
 		return this.http.post<NPCShopStatus>(this.apiUrl + 'npc-shop', {id});
+	}
+	
+	buy(data: BuyData): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'buy', data);
 	}
 }
