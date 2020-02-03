@@ -10,6 +10,9 @@ $test: mat-dark-theme($primary, $accent, $warn);
 
 @include angular-material-theme($test);
 
+$bgColor: rgba(0,0,0,0.6);
+$cardBgColor: #424242;
+
 html, body {
 	height: 100%;
 }

@@ -1,88 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="24"
-   height="24"
-   viewBox="0 0 6.3499999 6.3500002"
-   version="1.1"
-   id="svg1660"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="resource_9.svg">
-  <defs
-     id="defs1654" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="31.678384"
-     inkscape:cx="11.098773"
-     inkscape:cy="11.807325"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="1920"
-     inkscape:window-height="1001"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata1657">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-290.64999)">
-    <g
-       id="g2547">
+<svg width="24" height="24" viewBox="0 0 6.3499999 6.3500002" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,-290.64999)">
       <circle
          r="2.4537055"
          cy="293.82498"
          cx="3.175"
-         id="path815"
-         style="display:inline;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.38425568;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <g
-         id="g2512"
-         style="display:inline"
-         transform="translate(-0.01568873,290.64045)">
-        <g
-           id="g2506">
-          <g
-             id="g2501">
-            <path
-               style="fill:none;stroke:#000000;stroke-width:0.39140135;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="m 2.3720172,0.80413871 0.016703,4.74405269 v 0"
-               id="path1487"
-               inkscape:connector-curvature="0" />
-            <path
-               style="fill:none;stroke:#000000;stroke-width:0.39644164;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="m 3.9897041,0.82095192 0.017136,4.74394448 v 0"
-               id="path1487-4"
-               inkscape:connector-curvature="0" />
-          </g>
-        </g>
+         style="fill:none;stroke:#fff;stroke-width:0.38425568;" />
+      <g transform="translate(-0.01568873,290.64045)">
+		<path
+		   style="fill:none;stroke:#fff;stroke-width:0.39140135;"
+		   d="m 2.3720172,0.80413871 0.016703,4.74405269 v 0" />
+		<path
+		   style="fill:none;stroke:#fff;stroke-width:0.39644164;"
+		   d="m 3.9897041,0.82095192 0.017136,4.74394448 v 0" />
       </g>
-    </g>
   </g>
 </svg>

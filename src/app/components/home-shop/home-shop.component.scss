@@ -1,9 +1,11 @@
+@import '../../../styles.scss';
+
 .bg {
 	display: none;
 	flex-direction: column;
 	color: #fff;
 	position: fixed;
-	background-color: rgba(0,0,0,0.6);
+	background-color: $bgColor;
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -22,7 +24,7 @@
 }
 
 .shop {
-	background-color: #424242;
+	background-color: $cardBgColor;
 	border-radius: 6px;
 	width: 90%;
 	height: 80%;
