@@ -9,16 +9,15 @@
 	display: flex;
 	height: 80px;
     align-items: center;
-	border-top: 1px solid #ccc;
 	border-bottom: 0;
 	position: fixed;
 	bottom: 0;
 	width: 100%;
 	z-index: 10;
-	background-color: #fff;
+	background-color: #424242;
 	
 	a {
-		color: #888;
+		color: #fff;
 		display: flex;
 		text-decoration: none;
 		flex: 1;
@@ -28,8 +27,8 @@
 		align-items: center;
 		
 		&:hover {
-			background-color: #eee;
-			color: #000;
+			background-color: #353535;
+			color: #fff;
 		}
 		
 		span {
@@ -42,8 +41,7 @@
 }
 
 .selected {
-	background-color: #eee;
-	color: #000 !important;
+	background-color: #353535;
 }
 
 .badge{
@@ -59,8 +57,7 @@
 @media only screen and (min-width: 600px) {
 	.header-menu {
 		height: 40px;
-		border-bottom: 1px solid #ccc;
-		border-top: 0;
+		box-shadow: 0 2px 4px rgba(0,0,0,.5);
 		top: 64px;
 		
 		a {
