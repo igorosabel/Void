@@ -15,6 +15,7 @@ export class HomeShopComponent implements OnInit {
 	show: boolean = false;
 	loaded: boolean = false;
 	buying: boolean = false;
+	shopTab: string = 'buy';
 	@Input() credits : number = 0;
 	@Output() buyEvent = new EventEmitter<number>();
 	npc: NPC = {
@@ -117,6 +118,7 @@ export class HomeShopComponent implements OnInit {
 	loadShop(id: number) {
 		this.show = true;
 		this.as.getNPCShop(id).subscribe(result => {
+			this.shopTab = 'buy';
 			this.npc = result.npc;
 			this.loaded = true;
 			this.buying = false;
@@ -138,6 +140,11 @@ export class HomeShopComponent implements OnInit {
 	closeShop() {
 		this.show = false;
 		this.loaded = false;
+	}
+	
+	selectTab(tab, ev) {
+		ev.preventDefault();
+		this.shopTab = tab;
 	}
 
 	selectShip(ship: NPCShip) {

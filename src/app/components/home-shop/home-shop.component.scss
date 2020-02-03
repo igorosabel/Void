@@ -5,7 +5,7 @@
 	flex-direction: column;
 	color: #fff;
 	position: fixed;
-	background-color: $bgColor;
+	background-color: $bg-color;
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -24,18 +24,21 @@
 }
 
 .shop {
-	background-color: $cardBgColor;
+	background-color: $card-bg-color;
 	border-radius: 6px;
 	width: 90%;
 	height: 80%;
 	color: #fff;
 
 	.shop-header {
+		background-color: $header-bg-color;
 		display: flex;
 		height: 40px;
 		align-items: center;
 		padding: 0 16px;
 		font-size: 1.3em;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
 		
 		span {
 			flex: 1;
@@ -46,11 +49,38 @@
 		height: calc(100% - 40px);
 		overflow: auto;
 		
+		.shop-tabs {
+			background-color: $tabs-bg-color;
+			height: 42px;
+			display: flex;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+	
+			a {
+				color: #fff;
+				display: flex;
+				text-decoration: none;
+				flex: 1;
+				justify-content: center;
+				height: 100%;
+				align-items: center;
+				
+				&:hover {
+					background-color: $tabs-selected-color;
+				}
+			}
+			
+			.selected {
+				background-color: $tabs-selected-color;
+			}
+		}
+		
 		.shop-title {
 			padding: 0 16px;
 		}
 		
 		.buy-process {
+			height: calc(100% - 42px);
+			
 			.buy-step-one {
 				.shop-selling {
 					height: 200px;

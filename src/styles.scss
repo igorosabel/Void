@@ -10,8 +10,11 @@ $test: mat-dark-theme($primary, $accent, $warn);
 
 @include angular-material-theme($test);
 
-$bgColor: rgba(0,0,0,0.6);
-$cardBgColor: #424242;
+$bg-color: rgba(0,0,0,0.6);
+$card-bg-color: #424242;
+$header-bg-color: #212121;
+$tabs-bg-color: #424242;
+$tabs-selected-color: #353535;
 
 html, body {
 	height: 100%;
