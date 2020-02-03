@@ -45,41 +45,62 @@
 		}
 	}
 	
-	.shop-body {
-		height: calc(100% - 40px);
-		overflow: auto;
-		
-		.shop-tabs {
-			background-color: $tabs-bg-color;
-			height: 42px;
+	.shop-tabs {
+		background-color: $tabs-bg-color;
+		height: 42px;
+		display: flex;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+		a {
+			color: #fff;
 			display: flex;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-	
-			a {
-				color: #fff;
-				display: flex;
-				text-decoration: none;
-				flex: 1;
-				justify-content: center;
-				height: 100%;
-				align-items: center;
-				
-				&:hover {
-					background-color: $tabs-selected-color;
-				}
-			}
+			text-decoration: none;
+			flex: 1;
+			justify-content: center;
+			height: 100%;
+			align-items: center;
 			
-			.selected {
+			&:hover {
 				background-color: $tabs-selected-color;
 			}
 		}
+		
+		.selected {
+			background-color: $tabs-selected-color;
+		}
+	}
+	
+	.shop-body {
+		height: calc(100% - 83px);
+		overflow: auto;
 		
 		.shop-title {
 			padding: 0 16px;
 		}
 		
 		.buy-process {
-			height: calc(100% - 42px);
+			height: 100%;
+			position: relative;
+			overflow: hidden;
+			
+			.buy-step {
+				position: absolute;
+			    top: 0;
+			    width: 100%;
+			    transition: all .4s ease-in-out;
+			}
+			
+			.left {
+				left: -100%;
+			}
+			
+			.center {
+				left: 0;
+			}
+			
+			.right {
+				left: 100%;
+			}
 			
 			.buy-step-one {
 				.shop-selling {

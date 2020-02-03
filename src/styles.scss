@@ -10,7 +10,7 @@ $test: mat-dark-theme($primary, $accent, $warn);
 
 @include angular-material-theme($test);
 
-$bg-color: rgba(0,0,0,0.6);
+$bg-color: rgba(255,255,255,0.4);
 $card-bg-color: #424242;
 $header-bg-color: #212121;
 $tabs-bg-color: #424242;

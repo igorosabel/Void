@@ -10,15 +10,14 @@
 				<mat-icon>close</mat-icon>
 			</button>
 		</div>
+		<div class="shop-tabs">
+			<a href="#" [ngClass]="{'selected': shopTab=='buy'}" (click)="selectTab('buy', $event)">Comprar</a>
+			<a href="#" [ngClass]="{'selected': shopTab=='sell'}" (click)="selectTab('sell', $event)">Buy</a>
+		</div>
 		<div class="shop-body">
-			<div class="shop-tabs">
-				<a href="#" [ngClass]="{'selected': shopTab=='buy'}" (click)="selectTab('buy', $event)">Comprar</a>
-				<a href="#" [ngClass]="{'selected': shopTab=='sell'}" (click)="selectTab('sell', $event)">Buy</a>
-			</div>
-		
 			<div *ngIf="shopTab=='buy'" class="buy-process">
 				
-				<div class="buy-step-one">
+				<div class="buy-step-one buy-step center">
 					<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
@@ -50,7 +49,7 @@
 					</div>
 				</div>
 				
-				<div class="buy-step-two">
+				<div class="buy-step-two buy-step right">
 					<h4 class="shop-title">Objeto seleccionado:</h4>
 					<div class="shop-selected-item" [ngClass]="{'shop-selected-item-disabled':!selectedItem.id}">
 						<div class="selected-item-header" *ngIf="selectedItem.id">
@@ -168,7 +167,7 @@
 					</div>
 				</div>
 				
-				<div class="buy-step-three">
+				<div class="buy-step-three buy-step right">
 					
 				</div>
 				
