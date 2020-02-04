@@ -86,6 +86,8 @@
 			.buy-step {
 				position: absolute;
 			    top: 0;
+				height: 100%;
+				overflow: auto;
 			    width: 100%;
 			    transition: all .4s ease-in-out;
 			}
@@ -104,7 +106,7 @@
 			
 			.buy-step-one {
 				.shop-selling {
-					height: 200px;
+					height: calc(100% - 90px);
 					border: 1px solid #ccc;
 					border-radius: 6px;
 					overflow: auto;
@@ -136,42 +138,18 @@
 					
 					.selected-item-header {
 						display: flex;
+						align-items: center;
+						height: 75px;
+						flex: 1;
+						padding: 0 32px;
 						
-						.selected-item-name {
-							display: flex;
-							align-items: center;
-							height: 75px;
-							flex: 1;
-							padding-left: 8px;
-							
-							span{
-								display: inline-block;
-								margin-left: 8px;
-							}
-						}
-						
-						.selected-item-num {
-						
-						}
-						
-						.selected-item-num-max {
-							font-size: 0.8em;
-						}
-						
-						.selected-item-num-box {
-							width: 50px;
-						}
-						
-						.selected-item-credits {
-							display: flex;
-							align-items: center;
-							height: 75px;
+						span{
+							display: inline-block;
 							margin-left: 8px;
 						}
 					}
 					
 					.selected-item-body {
-						display: flex;
 						padding: 0 16px;
 						
 						.selected-item-details {
@@ -188,8 +166,7 @@
 									align-items: center;
 									
 									label {
-										display: inline-block;
-										width: 90px;
+										flex: 1;
 									}
 									
 									.negative {
@@ -198,11 +175,42 @@
 								}
 								
 								li:nth-child(odd) {
-									background-color: #eee;
+									background-color: #212121;
 								}
 							}
 						}
+					}
+					
+					.selected-item-footer {
+						display: flex;
+						flex-direction: column;
 						
+						.selected-item-price {
+							display: flex;
+							justify-content: flex-end;
+							
+							.selected-item-num {
+						
+							}
+							
+							.selected-item-num-max {
+								font-size: 0.8em;
+								display: inline-block;
+								margin-left: 8px;
+							}
+							
+							.selected-item-num-box {
+								width: 50px;
+							}
+							
+							.selected-item-credits {
+								display: flex;
+								align-items: center;
+								height: 75px;
+								margin-left: 8px;
+							}
+						}
+					
 						.selected-item-buy {
 							flex: 1;
 							text-align: right;
@@ -257,6 +265,10 @@
 					.selected-item-credits {
 						margin-left: 32px;
 					}
+				}
+				
+				.selected-item-footer {
+					flex-direction: row;
 				}
 			}
 		}

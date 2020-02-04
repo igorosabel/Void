@@ -50,25 +50,18 @@
 				</div>
 				
 				<div class="buy-step-two buy-step" [ngClass]="{'right': shopStep==1, 'center': shopStep==2, 'left': shopStep==3}">
-					<h4 class="shop-title">Objeto seleccionado:</h4>
+					<h4 class="shop-title">
+						<button mat-icon-button aria-label="Volver a la lista" (click)="backToStepOne()">
+							<mat-icon>arrow_back</mat-icon>
+						</button>
+						Objeto seleccionado:
+					</h4>
 					<div class="shop-selected-item" [ngClass]="{'shop-selected-item-disabled':!selectedItem.id}">
 						<div class="selected-item-header" *ngIf="selectedItem.id">
-							<div class="selected-item-name">
-								<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
-								<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
-								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
-								<span>{{selectedItem.name | urldecode}}</span>
-							</div>
-							<div class="selected-item-num">
-								<mat-form-field class="selected-item-num-box">
-									<mat-label>Num</mat-label>
-									<input matInput type="number" #shopNum [(ngModel)]="selectedItem.num" [disabled]="selectedItem.max<2" step="1" min="1" [max]="selectedItem.max" (input)="updateSelectedItemCredits()" (keypress)="updateSelectedItemCredits()">
-								</mat-form-field>
-								<span class="selected-item-num-max">(max {{selectedItem.max}})</span>
-							</div>
-							<div class="selected-item-credits">
-								{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
-							</div>
+							<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
+							<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
+							<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
+							<span>{{selectedItem.name | urldecode}}</span>
 						</div>
 						<div class="selected-item-body" *ngIf="selectedItem.id">
 							<div class="selected-item-details">
@@ -153,15 +146,29 @@
 									</ul>
 								</div>
 							</div>
-							<div class="selected-item-buy">
-								<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying" (click)="buy()">
-									<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
-									<span *ngIf="!buying">Comprar</span>
-									<img src="/assets/loading.svg" *ngIf="buying">
-								</button>
-								<span class="selected-item-buy-credits" [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
-									Créditos disponibles: {{credits | number:'1.0-0'}}
-								</span>
+							<div class="selected-item-footer">
+								<div class="selected-item-price">
+									<div class="selected-item-num">
+										<mat-form-field class="selected-item-num-box">
+											<mat-label>Num</mat-label>
+											<input matInput type="number" #shopNum [(ngModel)]="selectedItem.num" [disabled]="selectedItem.max<2" step="1" min="1" [max]="selectedItem.max" (input)="updateSelectedItemCredits()" (keypress)="updateSelectedItemCredits()">
+										</mat-form-field>
+										<span class="selected-item-num-max">(max {{selectedItem.max}})</span>
+									</div>
+									<div class="selected-item-credits">
+										{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
+									</div>
+								</div>
+								<div class="selected-item-buy">
+									<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying" (click)="buy()">
+										<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
+										<span *ngIf="!buying">Comprar</span>
+										<img src="/assets/loading.svg" *ngIf="buying">
+									</button>
+									<span class="selected-item-buy-credits" [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
+										Créditos disponibles: {{credits | number:'1.0-0'}}
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>

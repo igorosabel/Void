@@ -185,6 +185,10 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 2;
 	}
 	
+	backToStepOne() {
+		this.shopStep = 1;
+	}
+	
 	updateSelectedItemCredits() {
 		if (this.selectedItem.num > this.selectedItem.max) {
 			this.selectedItem.num = this.selectedItem.max;
