@@ -26,6 +26,7 @@ export class HomeShopComponent implements OnInit {
 		modules: [],
 		resources: []
 	};
+	shopStep: number = 1;
 	selectedItem: ShopSelectedItem = {
 		id: null,
 		type: null,
@@ -119,6 +120,7 @@ export class HomeShopComponent implements OnInit {
 		this.show = true;
 		this.as.getNPCShop(id).subscribe(result => {
 			this.shopTab = 'buy';
+			this.shopStep = 1;
 			this.npc = result.npc;
 			this.loaded = true;
 			this.buying = false;
@@ -156,6 +158,7 @@ export class HomeShopComponent implements OnInit {
 		this.selectedItem.price = ship.ship.credits;
 		this.selectedItem.credits = ship.ship.credits;
 		this.selectedItem.ship = ship.ship;
+		this.shopStep = 2;
 	}
 
 	selectModule(module: NPCModule) {
@@ -167,6 +170,7 @@ export class HomeShopComponent implements OnInit {
 		this.selectedItem.price = module.module.credits;
 		this.selectedItem.credits = module.module.credits;
 		this.selectedItem.module = module.module;
+		this.shopStep = 2;
 	}
 
 	selectResource(resource: NPCResource) {
@@ -178,6 +182,7 @@ export class HomeShopComponent implements OnInit {
 		this.selectedItem.price = resource.resource.credits;
 		this.selectedItem.credits = resource.resource.credits;
 		this.selectedItem.resource = resource.resource;
+		this.shopStep = 2;
 	}
 	
 	updateSelectedItemCredits() {

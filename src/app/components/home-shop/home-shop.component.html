@@ -17,7 +17,7 @@
 		<div class="shop-body">
 			<div *ngIf="shopTab=='buy'" class="buy-process">
 				
-				<div class="buy-step-one buy-step center">
+				<div class="buy-step-one buy-step" [ngClass]="{'center': shopStep==1, 'left': shopStep==2 || shopStep==3}">
 					<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 				
-				<div class="buy-step-two buy-step right">
+				<div class="buy-step-two buy-step" [ngClass]="{'right': shopStep==1, 'center': shopStep==2, 'left': shopStep==3}">
 					<h4 class="shop-title">Objeto seleccionado:</h4>
 					<div class="shop-selected-item" [ngClass]="{'shop-selected-item-disabled':!selectedItem.id}">
 						<div class="selected-item-header" *ngIf="selectedItem.id">
@@ -167,8 +167,8 @@
 					</div>
 				</div>
 				
-				<div class="buy-step-three buy-step right">
-					
+				<div class="buy-step-three buy-step right" [ngClass]="{'right': shopStep==1 || shopStep==2, 'center': shopStep==3}">
+					end
 				</div>
 				
 			</div>
