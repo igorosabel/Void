@@ -160,7 +160,7 @@
 									</div>
 								</div>
 								<div class="selected-item-buy">
-									<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying" (click)="buy()">
+									<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying || selectedItem.num<1" (click)="buy()">
 										<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
 										<span *ngIf="!buying">Comprar</span>
 										<img src="/assets/loading.svg" *ngIf="buying">

@@ -211,21 +211,21 @@ export class HomeShopComponent implements OnInit {
 				switch (this.selectedItem.type) {
 					case 1: {
 						const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
-						this.npc.ships[shipIndex].value--;
+						this.npc.ships[shipIndex].value -= this.selectedItem.num;
 					}
 					break;
 					case 2: {
 						const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
-						this.npc.modules[moduleIndex].value--;
+						this.npc.modules[moduleIndex].value -= this.selectedItem.num;
 					}
 					break;
 					case 3: {
 						const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
-						this.npc.resources[resourceIndex].value--;
+						this.npc.resources[resourceIndex].value -= this.selectedItem.num;
 					}
 					break;
 				}
-				this.selectedItem.max--;
+				this.selectedItem.max -= this.selectedItem.num;
 				this.credits -= this.selectedItem.credits;
 				
 				this.buyEvent.emit(this.credits);
