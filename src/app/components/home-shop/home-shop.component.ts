@@ -206,6 +206,7 @@ export class HomeShopComponent implements OnInit {
 			num: this.selectedItem.num
 		};
 		this.as.buy(params).subscribe(result => {
+			this.buying = false;
 			if (result.status=='ok') {
 				switch (this.selectedItem.type) {
 					case 1: {
@@ -230,9 +231,16 @@ export class HomeShopComponent implements OnInit {
 				this.buyEvent.emit(this.credits);
 				this.shopStep = 3;
 			}
+			else if (result.status=='no-room'){
+				this.dialog.alert({title: 'Error', content: '¡No tienes suficiente espacio de almacenamiento en tu nave para comprar este recurso!', ok: 'Continuar'}).subscribe(result => {});
+			}
 			else{
 				this.dialog.alert({title: 'Error', content: '¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.', ok: 'Continuar'}).subscribe(result => {});
 			}
 		});
+	}
+	
+	buyEnd() {
+		this.shopStep = 1;
 	}
 }

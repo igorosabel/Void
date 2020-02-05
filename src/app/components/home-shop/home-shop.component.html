@@ -12,7 +12,7 @@
 		</div>
 		<div class="shop-tabs">
 			<a href="#" [ngClass]="{'selected': shopTab=='buy'}" (click)="selectTab('buy', $event)">Comprar</a>
-			<a href="#" [ngClass]="{'selected': shopTab=='sell'}" (click)="selectTab('sell', $event)">Buy</a>
+			<a href="#" [ngClass]="{'selected': shopTab=='sell'}" (click)="selectTab('sell', $event)">Vender</a>
 		</div>
 		<div class="shop-body">
 			<div *ngIf="shopTab=='buy'" class="buy-process">
@@ -25,24 +25,24 @@
 							<button mat-list-item *ngFor="let ship of npc.ships" (click)="selectShip(ship)">
 								<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{ship.ship.name | urldecode}}</span>
-									<span class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<div class="shop-item-name">{{ship.ship.name | urldecode}} <span>({{ship.value}})</span></div>
+									<div class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
 							<h3 mat-subheader *ngIf="npc.modules.length>0">Módulos</h3>
 							<button mat-list-item *ngFor="let module of npc.modules" (click)="selectModule(module)">
 								<mat-icon mat-list-icon>dns</mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{module.module.name | urldecode}}</span>
-									<span class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<div class="shop-item-name">{{module.module.name | urldecode}} <span>({{module.value}})</span></div>
+									<div class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
 							<h3 mat-subheader *ngIf="npc.resources.length>0">Recursos</h3>
 							<button mat-list-item *ngFor="let resource of npc.resources" (click)="selectResource(resource)">
 								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<span class="shop-item-name">{{resource.resource.name | urldecode}}</span>
-									<span class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></span>
+									<div class="shop-item-name">{{resource.resource.name | urldecode}} <span>({{resource.value}})</span></div>
+									<div class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
 						</mat-action-list>
@@ -175,7 +175,22 @@
 				</div>
 				
 				<div class="buy-step-three buy-step right" [ngClass]="{'right': shopStep==1 || shopStep==2, 'center': shopStep==3}">
-					end
+					<h3 class="buy-end-title">Recurso comprado</h3>
+					<div class="buy-end-result">
+						<div class="buy-end-product">
+							<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
+							<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
+							<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
+							<span>{{selectedItem.name | urldecode}}</span>
+						</div>
+						<div class="buy-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
+					</div>
+					<div class="buy-end-continue">
+						<button mat-raised-button color="primary" (click)="buyEnd()">
+							<mat-icon>check</mat-icon>
+							<span>Continuar</span>
+						</button>
+					</div>
 				</div>
 				
 			</div>

@@ -119,6 +119,12 @@
 					
 					.shop-item-name {
 						flex: 1;
+						
+						span {
+							display: inline-block;
+							margin-left: 8px;
+							font-size: 0.8em;
+						}
 					}
 					
 					.shop-item-credits {
@@ -200,7 +206,7 @@
 							}
 							
 							.selected-item-num-box {
-								width: 50px;
+								width: 80px;
 							}
 							
 							.selected-item-credits {
@@ -231,7 +237,37 @@
 			}
 			
 			.buy-step-three {
+				.buy-end-title {
+					padding: 0 16px;
+				}
 				
+				.buy-end-result {
+					padding: 0 16px;
+					display: flex;
+					margin-bottom: 32px;
+    
+					.buy-end-product {
+						flex: 1;
+					    display: flex;
+					    align-items: center;
+					    
+					    span {
+						    display: inline-block;
+						    margin-left: 16px;
+					    }
+					}
+					
+					.buy-end-num {
+						display: flex;
+					    align-items: center;
+					}
+				}
+				
+				.buy-end-continue {
+					display: flex;
+				    padding: 0 16px;
+				    justify-content: flex-end;
+				}
 			}
 		}
 		
