@@ -206,27 +206,33 @@ export class HomeShopComponent implements OnInit {
 			num: this.selectedItem.num
 		};
 		this.as.buy(params).subscribe(result => {
-			switch (this.selectedItem.type) {
-				case 1: {
-					const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
-					this.npc.ships[shipIndex].value--;
+			if (result.status=='ok') {
+				switch (this.selectedItem.type) {
+					case 1: {
+						const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
+						this.npc.ships[shipIndex].value--;
+					}
+					break;
+					case 2: {
+						const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
+						this.npc.modules[moduleIndex].value--;
+					}
+					break;
+					case 3: {
+						const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
+						this.npc.resources[resourceIndex].value--;
+					}
+					break;
 				}
-				break;
-				case 2: {
-					const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
-					this.npc.modules[moduleIndex].value--;
-				}
-				break;
-				case 3: {
-					const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
-					this.npc.resources[resourceIndex].value--;
-				}
-				break;
+				this.selectedItem.max--;
+				this.credits -= this.selectedItem.credits;
+				
+				this.buyEvent.emit(this.credits);
+				this.shopStep = 3;
 			}
-			this.selectedItem.max--;
-			this.credits -= this.selectedItem.credits;
-			
-			this.buyEvent.emit(this.credits);
+			else{
+				// error alert
+			}
 		});
 	}
 }
