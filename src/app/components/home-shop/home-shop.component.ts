@@ -231,7 +231,7 @@ export class HomeShopComponent implements OnInit {
 				this.shopStep = 3;
 			}
 			else{
-				// error alert
+				this.dialog.alert({title: 'Error', content: '¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.', ok: 'Continuar'}).subscribe(result => {});
 			}
 		});
 	}
