@@ -137,6 +137,9 @@ export class HomeShopComponent implements OnInit {
 				resource: null
 			};
 		});
+		this.as.getSellItems().subscribe(result => {
+			console.log(result);
+		});
 	}
 
 	closeShop() {
