@@ -159,3 +159,10 @@ export interface BuyData {
 	type: number;
 	num: number;
 }
+
+export interface SellItemsStatus {
+	status: string;
+	ships: Ship[];
+	modules: Module[];
+	resources: Resource[];
+}

@@ -9,6 +9,7 @@ import {
 	RegisterData,
 	CurrentSystemStatus,
 	NPCShopStatus,
+	SellItemsStatus,
 	StatusResult,
 	BuyData
 } from '../interfaces/interfaces';
@@ -35,6 +36,10 @@ export class ApiService {
 	
 	getNPCShop(id: number): Observable<NPCShopStatus> {
 		return this.http.post<NPCShopStatus>(this.apiUrl + 'npc-shop', {id});
+	}
+	
+	getSellItems(): Observable<SellItemsStatus> {
+		return this.http.post<SellItemsStatus>(this.apiUrl + 'get-sell-items', {});
 	}
 	
 	buy(data: BuyData): Observable<StatusResult> {
