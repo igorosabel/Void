@@ -160,7 +160,7 @@
 									</div>
 								</div>
 								<div class="selected-item-buy">
-									<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying || selectedItem.num<1" (click)="buy()">
+									<button mat-raised-button color="primary" [disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying || selectedItem.num<1 || shopStep!=2" (click)="buy()">
 										<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
 										<span *ngIf="!buying">Comprar</span>
 										<img src="/assets/loading.svg" *ngIf="buying">
@@ -186,7 +186,7 @@
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
 					</div>
 					<div class="shop-end-continue">
-						<button mat-raised-button color="primary" (click)="backToStepOne()">
+						<button mat-raised-button color="primary" (click)="backToStepOne()" [disabled]="shopStep!=3">
 							<mat-icon>check</mat-icon>
 							<span>Continuar</span>
 						</button>

@@ -38,6 +38,7 @@ export interface RegisterData {
 
 export interface StatusResult {
 	status: string;
+	info?: string;
 }
 
 export interface ShortMessage {
