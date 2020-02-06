@@ -70,25 +70,6 @@ export interface CurrentSystemStatus {
 	system: CurrentSystem;
 }
 
-export interface Module {
-	id: number;
-	name: string;
-	idType: number;
-	engine: number;
-	shield: number;
-	cargo: number;
-	damage: number;
-	crew: number;
-	energy: number;
-	slots: number;
-	credits: number;
-}
-
-export interface NPCModule {
-	module: Module;
-	value: number;
-}
-
 export interface Ship {
 	id: number;
 	name: string;
@@ -110,8 +91,27 @@ export interface Ship {
 	credits: number;
 }
 
-export interface NPCShip {
+export interface ShopShip {
 	ship: Ship;
+	value: number;
+}
+
+export interface Module {
+	id: number;
+	name: string;
+	idType: number;
+	engine: number;
+	shield: number;
+	cargo: number;
+	damage: number;
+	crew: number;
+	energy: number;
+	slots: number;
+	credits: number;
+}
+
+export interface ShopModule {
+	module: Module;
 	value: number;
 }
 
@@ -121,7 +121,7 @@ export interface Resource {
 	credits: number;
 }
 
-export interface NPCResource {
+export interface ShopResource {
 	resource: Resource;
 	value: number;
 }
@@ -130,9 +130,9 @@ export interface NPC {
 	id: number;
 	name: string;
 	idRace: number;
-	ships: NPCShip[];
-	modules: NPCModule[];
-	resources: NPCResource[];
+	ships: ShopShip[];
+	modules: ShopModule[];
+	resources: ShopResource[];
 }
 
 export interface NPCShopStatus {
@@ -153,7 +153,7 @@ export interface ShopSelectedItem {
 	resource: Resource;
 }
 
-export interface BuyData {
+export interface ShopData {
 	idNPC: number;
 	id: number;
 	type: number;
@@ -164,5 +164,5 @@ export interface SellItemsStatus {
 	status: string;
 	ships: Ship[];
 	modules: Module[];
-	resources: Resource[];
+	resources: ShopResource[];
 }

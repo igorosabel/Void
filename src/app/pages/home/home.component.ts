@@ -34,8 +34,7 @@ export class HomeComponent implements OnInit {
 		this.shop.loadShop(id);
 	}
 	
-	buy(credits) {
-		console.log(credits);
+	buySell(credits) {
 		this.system.credits = credits;
 	}
 }

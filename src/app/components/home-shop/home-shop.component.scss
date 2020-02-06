@@ -78,12 +78,12 @@
 			padding: 0 16px;
 		}
 		
-		.buy-process {
+		.shop-process {
 			height: 100%;
 			position: relative;
 			overflow: hidden;
 			
-			.buy-step {
+			.shop-step {
 				position: absolute;
 			    top: 0;
 				height: 100%;
@@ -104,7 +104,7 @@
 				left: 100%;
 			}
 			
-			.buy-step-one {
+			.shop-step-one {
 				.shop-selling {
 					height: calc(100% - 90px);
 					border: 1px solid #ccc;
@@ -134,7 +134,7 @@
 				}
 			}
 			
-			.buy-step-two {
+			.shop-step-two {
 				.shop-selected-item {
 					border: 1px solid #ccc;
 					border-radius: 6px;
@@ -236,17 +236,17 @@
 				}
 			}
 			
-			.buy-step-three {
-				.buy-end-title {
+			.shop-step-three {
+				.shop-end-title {
 					padding: 0 16px;
 				}
 				
-				.buy-end-result {
+				.shop-end-result {
 					padding: 0 16px;
 					display: flex;
 					margin-bottom: 32px;
     
-					.buy-end-product {
+					.shop-end-product {
 						flex: 1;
 					    display: flex;
 					    align-items: center;
@@ -257,23 +257,18 @@
 					    }
 					}
 					
-					.buy-end-num {
+					.shop-end-num {
 						display: flex;
 					    align-items: center;
 					}
 				}
 				
-				.buy-end-continue {
+				.shop-end-continue {
 					display: flex;
 				    padding: 0 16px;
 				    justify-content: flex-end;
 				}
 			}
-		}
-		
-		.shop-selected-item-disabled {
-			border: 1px solid #888;
-			background-color: #ccc;
 		}
 	}
 }

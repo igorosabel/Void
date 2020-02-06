@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer }    from '@angular/platform-browser';
 import { ApiService }      from '../../services/api.service';
 import { DialogService }   from '../../services/dialog.service';
-import { NPC, NPCShip, NPCModule, NPCResource, ShopSelectedItem, BuyData } from '../../interfaces/interfaces';
+import { NPC, ShopShip, Ship, ShopModule, Module, ShopResource, ShopSelectedItem, ShopData, SellItemsStatus } from '../../interfaces/interfaces';
 import { MODULES, HULLS, ENGINES, GENERATORS } from '../../shared/constants';
 
 @Component({
@@ -12,12 +12,14 @@ import { MODULES, HULLS, ENGINES, GENERATORS } from '../../shared/constants';
 	styleUrls: ['./home-shop.component.scss']
 })
 export class HomeShopComponent implements OnInit {
+	idNPC: number;
 	show: boolean = false;
 	loaded: boolean = false;
 	buying: boolean = false;
+	selling: boolean = false;
 	shopTab: string = 'buy';
 	@Input() credits : number = 0;
-	@Output() buyEvent = new EventEmitter<number>();
+	@Output() buySellEvent = new EventEmitter<number>();
 	npc: NPC = {
 		id: null,
 		name: null,
@@ -47,6 +49,13 @@ export class HomeShopComponent implements OnInit {
 	hullTypes: any      = [];
 	engineTypes: any    = [];
 	generatorTypes: any = [];
+	playerSelling: SellItemsStatus = {
+		status: null,
+		ships: [],
+		modules: [],
+		resources: []
+	};
+	sellStep: number = 1;
 
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private dialog: DialogService) {
 		this.matIconRegistry.addSvgIcon(
@@ -118,27 +127,34 @@ export class HomeShopComponent implements OnInit {
 
 	loadShop(id: number) {
 		this.show = true;
-		this.as.getNPCShop(id).subscribe(result => {
-			this.shopTab = 'buy';
-			this.shopStep = 1;
+		this.idNPC = id;
+		this.shopTab = 'buy';
+		this.shopStep = 1;
+		this.sellStep = 1;
+		this.buying = false;
+		this.selectedItem = {
+			id: null,
+			type: null,
+			name: null,
+			num: null,
+			max: null,
+			price: null,
+			credits: null,
+			ship: null,
+			module: null,
+			resource: null
+		};
+		this.loadNPC();
+	}
+	
+	loadNPC() {
+		this.as.getNPCShop(this.idNPC).subscribe(result => {
 			this.npc = result.npc;
 			this.loaded = true;
-			this.buying = false;
-			this.selectedItem = {
-				id: null,
-				type: null,
-				name: null,
-				num: null,
-				max: null,
-				price: null,
-				credits: null,
-				ship: null,
-				module: null,
-				resource: null
-			};
-		});
-		this.as.getSellItems().subscribe(result => {
-			console.log(result);
+			
+			this.as.getSellItems(this.npc.id).subscribe(result => {
+				this.playerSelling = result;
+			});
 		});
 	}
 
@@ -152,7 +168,7 @@ export class HomeShopComponent implements OnInit {
 		this.shopTab = tab;
 	}
 
-	selectShip(ship: NPCShip) {
+	selectShip(ship: ShopShip) {
 		this.selectedItem.id = ship.ship.id;
 		this.selectedItem.type = 1;
 		this.selectedItem.name = ship.ship.name;
@@ -164,7 +180,7 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 2;
 	}
 
-	selectModule(module: NPCModule) {
+	selectModule(module: ShopModule) {
 		this.selectedItem.id = module.module.id;
 		this.selectedItem.type = 2;
 		this.selectedItem.name = module.module.name;
@@ -176,7 +192,7 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 2;
 	}
 
-	selectResource(resource: NPCResource) {
+	selectResource(resource: ShopResource) {
 		this.selectedItem.id = resource.resource.id;
 		this.selectedItem.type = 3;
 		this.selectedItem.name = resource.resource.name;
@@ -193,16 +209,18 @@ export class HomeShopComponent implements OnInit {
 	}
 	
 	updateSelectedItemCredits() {
+		console.log(this.selectedItem);
 		if (this.selectedItem.num > this.selectedItem.max) {
 			this.selectedItem.num = this.selectedItem.max;
 			this.shopNum.nativeElement.value = this.selectedItem.num;
 		}
 		this.selectedItem.credits = this.selectedItem.price * this.selectedItem.num;
+		console.log(this.selectedItem);
 	}
 	
 	buy() {
 		this.buying = true;
-		const params: BuyData = {
+		const params: ShopData = {
 			idNPC: this.npc.id,
 			id: this.selectedItem.id,
 			type: this.selectedItem.type,
@@ -211,27 +229,10 @@ export class HomeShopComponent implements OnInit {
 		this.as.buy(params).subscribe(result => {
 			this.buying = false;
 			if (result.status=='ok') {
-				switch (this.selectedItem.type) {
-					case 1: {
-						const shipIndex = this.npc.ships.findIndex(x => x.ship.id==this.selectedItem.id);
-						this.npc.ships[shipIndex].value -= this.selectedItem.num;
-					}
-					break;
-					case 2: {
-						const moduleIndex = this.npc.modules.findIndex(x => x.module.id==this.selectedItem.id);
-						this.npc.modules[moduleIndex].value -= this.selectedItem.num;
-					}
-					break;
-					case 3: {
-						const resourceIndex = this.npc.resources.findIndex(x => x.resource.id==this.selectedItem.id);
-						this.npc.resources[resourceIndex].value -= this.selectedItem.num;
-					}
-					break;
-				}
-				this.selectedItem.max -= this.selectedItem.num;
+				this.loadNPC();
 				this.credits -= this.selectedItem.credits;
 				
-				this.buyEvent.emit(this.credits);
+				this.buySellEvent.emit(this.credits * -1);
 				this.shopStep = 3;
 			}
 			else if (result.status=='no-room'){
@@ -245,5 +246,66 @@ export class HomeShopComponent implements OnInit {
 	
 	buyEnd() {
 		this.shopStep = 1;
+	}
+	
+	sellShip(ship: Ship) {
+		this.selectedItem.id = ship.id;
+		this.selectedItem.type = 1;
+		this.selectedItem.name = ship.name;
+		this.selectedItem.num = 1;
+		this.selectedItem.max = 1;
+		this.selectedItem.credits = ship.credits;
+		this.selectedItem.ship = ship;
+		this.sellStep = 2;
+	}
+	
+	sellModule(module: Module) {
+		this.selectedItem.id = module.id;
+		this.selectedItem.type = 2;
+		this.selectedItem.name = module.name;
+		this.selectedItem.num = 1;
+		this.selectedItem.max = 1;
+		this.selectedItem.credits = module.credits;
+		this.selectedItem.module = module;
+		this.sellStep = 2;
+	}
+	
+	sellResource(resource: ShopResource) {
+		this.selectedItem.id = resource.resource.id;
+		this.selectedItem.type = 3;
+		this.selectedItem.name = resource.resource.name;
+		this.selectedItem.num = 1;
+		this.selectedItem.max = resource.value;
+		this.selectedItem.price = resource.resource.credits;
+		this.selectedItem.credits = resource.resource.credits;
+		this.selectedItem.resource = resource.resource;
+		this.sellStep = 2;
+	}
+	
+	backToSellStepOne() {
+		this.sellStep = 1;
+	}
+	
+	sell() {
+		this.selling = true;
+		const params: ShopData = {
+			idNPC: this.npc.id,
+			id: this.selectedItem.id,
+			type: this.selectedItem.type,
+			num: this.selectedItem.num
+		};
+		this.as.sell(params).subscribe(result => {
+			this.selling = false;
+			if (result.status=='ok') {
+				this.loadNPC();
+				this.credits += this.selectedItem.credits;
+				
+				this.buySellEvent.emit(this.credits);
+				this.sellStep = 3;
+			}
+			else{
+				this.dialog.alert({title: 'Error', content: '¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.', ok: 'Continuar'}).subscribe(result => {});
+			}
+		});
 	}
 }

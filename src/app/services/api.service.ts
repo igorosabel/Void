@@ -11,7 +11,7 @@ import {
 	NPCShopStatus,
 	SellItemsStatus,
 	StatusResult,
-	BuyData
+	ShopData
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -38,11 +38,15 @@ export class ApiService {
 		return this.http.post<NPCShopStatus>(this.apiUrl + 'npc-shop', {id});
 	}
 	
-	getSellItems(): Observable<SellItemsStatus> {
-		return this.http.post<SellItemsStatus>(this.apiUrl + 'get-sell-items', {});
+	getSellItems(id: number): Observable<SellItemsStatus> {
+		return this.http.post<SellItemsStatus>(this.apiUrl + 'get-sell-items', {id});
 	}
 	
-	buy(data: BuyData): Observable<StatusResult> {
+	buy(data: ShopData): Observable<StatusResult> {
 		return this.http.post<StatusResult>(this.apiUrl + 'buy', data);
+	}
+	
+	sell(data: ShopData): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'sell', data);
 	}
 }
