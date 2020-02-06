@@ -186,7 +186,7 @@
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
 					</div>
 					<div class="shop-end-continue">
-						<button mat-raised-button color="primary" (click)="buyEnd()">
+						<button mat-raised-button color="primary" (click)="backToStepOne()">
 							<mat-icon>check</mat-icon>
 							<span>Continuar</span>
 						</button>
@@ -363,7 +363,7 @@
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
 					</div>
 					<div class="shop-end-continue">
-						<button mat-raised-button color="primary" (click)="sellEnd()">
+						<button mat-raised-button color="primary" (click)="backToSellStepOne()">
 							<mat-icon>check</mat-icon>
 							<span>Continuar</span>
 						</button>

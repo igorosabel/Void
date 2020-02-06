@@ -244,10 +244,6 @@ export class HomeShopComponent implements OnInit {
 		});
 	}
 	
-	buyEnd() {
-		this.shopStep = 1;
-	}
-	
 	sellShip(ship: Ship) {
 		this.selectedItem.id = ship.id;
 		this.selectedItem.type = 1;
