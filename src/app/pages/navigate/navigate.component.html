@@ -13,7 +13,51 @@
 	
 	<mat-card class="options">
 		<mat-card-content>
-			b
+			<div class="system-info-box">
+				<div class="system-info-box-header">
+					VNU-438
+				</div>
+				<div class="system-info-box-body">
+					<div class="system-info-box-line">
+						<label>Tipo de estrella:</label>
+						<span>
+							V-A
+							<a mat-icon-button color="primary" aria-label="Ver en la Wikipedia" href="https://es.wikipedia.org/wiki/Clasificaci%C3%B3n_estelar" target="_blank">
+								<mat-icon>info</mat-icon>
+							</a>
+							<span class="system-info-box-desc">Estrellas enanas de la secuencia principal</span>
+						</span>
+					</div>
+					<div class="system-info-box-line">
+						<label>Num. planetas:</label>
+						<span>3</span>
+					</div>
+					<div class="system-info-box-line">
+						<label>Descubridor:</label>
+						<span>dunedain</span>
+					</div>
+					<div class="system-info-box-line">
+						<label>Comerciantes:</label>
+						<span>2</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="system-info-box">
+				<div class="system-info-box-header">
+					Planetas
+				</div>
+				<div class="system-info-box-body">
+					<mat-action-list>
+						<button mat-list-item (click)="save()"> VNU-438-1</button>
+					</mat-action-list>
+				</div>
+			</div>
+			
+			<h3 class="navigate-title">
+				<mat-icon>share</mat-icon>
+				Navegar a otro sistema
+			</h3>
 		</mat-card-content>
 	</mat-card>
 </main>

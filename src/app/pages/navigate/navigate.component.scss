@@ -42,6 +42,54 @@ main {
 	.options {
 		flex: 1;
 		margin: 8px;
+		
+		.system-info-box {
+			border: 1px solid #ccc;
+		    border-radius: 4px;
+		    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+		    margin: 10px;
+
+			.system-info-box-header {
+				border-bottom: 1px solid #ccc;
+			    font-size: 1.2em;
+			    height: 30px;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			}
+			
+			.system-info-box-body {
+				.system-info-box-line {
+					padding: 5px 10px;
+					display: flex;
+					
+					label {
+						flex: 4;
+						display: flex;
+						align-items: center;
+					}
+					
+					span {
+						flex: 6;
+						
+						.system-info-box-info {
+							
+						}
+					}
+					
+					.system-info-box-desc {
+						
+					}
+				}
+			}
+		}
+		
+		.navigate-title {
+			display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    margin: 32px 0;
+		}
 	}
 }
 
