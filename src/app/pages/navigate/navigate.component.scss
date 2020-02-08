@@ -1,5 +1,6 @@
 main {
 	display: flex;
+	flex-direction: column;
 	margin-top: 64px;
 	height: calc(100% - 105px);
 	overflow: auto;
@@ -59,5 +60,6 @@ main {
 @media only screen and (min-width: 600px) {
 	main {
 		margin-top: 105px;
+		flex-direction: row;
 	}
 }
