@@ -89,6 +89,29 @@ main {
 		    align-items: center;
 		    justify-content: center;
 		    margin: 32px 0;
+		    
+		    mat-icon {
+			    display: inline-block;
+			    margin-right: 16px;
+		    }
+		}
+		
+		.navigate-system {
+			display: flex;
+			width: 100%;
+			
+			.navigate-system-name {
+				flex: 1;
+				display: inline-block;
+				margin-left: 16px;
+			}
+			
+			.navigate-system-time {
+				display: inline-block;
+			    border: 1px solid #888;
+			    padding: 4px 8px;
+			    border-radius: 4px;
+			}
 		}
 	}
 }

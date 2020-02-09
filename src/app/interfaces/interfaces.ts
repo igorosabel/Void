@@ -167,3 +167,60 @@ export interface SellItemsStatus {
 	modules: Module[];
 	resources: ShopResource[];
 }
+
+export interface SystemResource {
+	id: number;
+	name: string;
+	value: number;
+}
+
+export interface SystemMoon {
+	id: number;
+	name: string;
+	type: string
+	typeLink: string;
+	distance: number;
+	radius: number;
+	rotation: number;
+	explored: boolean;
+	exploreTime: number;
+	resources: SystemResource[];
+}
+
+export interface SystemPlanet {
+	id: number;
+	name: string;
+	type: string;
+	typeLink: string;
+	distance: number;
+	radius: number;
+	rotation: number;
+	explored: boolean;
+	exploreTime: number;
+	resources: SystemResource[];
+	moons: SystemMoon[];
+}
+
+export interface SystemInfo {
+	id: number;
+	name: string;
+	type: string;
+	typeLink: string;
+	typeDesc: string;
+	discover: string;
+	radius: number;
+	numNPC: number;
+	planets: SystemPlanet[];
+}
+
+export interface SystemConnection {
+	idSystemEnd: number;
+	order: number;
+	navigateTime: number;
+	name: string;
+}
+
+export interface SystemResult {
+	system: SystemInfo;
+	connections: SystemConnection[];
+}

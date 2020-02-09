@@ -11,7 +11,8 @@ import {
 	NPCShopStatus,
 	SellItemsStatus,
 	StatusResult,
-	ShopData
+	ShopData,
+	SystemResult
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -48,5 +49,9 @@ export class ApiService {
 	
 	sell(data: ShopData): Observable<StatusResult> {
 		return this.http.post<StatusResult>(this.apiUrl + 'sell', data);
+	}
+	
+	getSystemInfo(): Observable<SystemResult> {
+		return this.http.post<SystemResult>(this.apiUrl + 'get-system-info', {});
 	}
 }
