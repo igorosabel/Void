@@ -29,6 +29,7 @@ main {
 			    border-radius: 50%;
 			    box-shadow: 0 0 0 rgba(204,169,44, 0.4);
 			    animation: pulse 2s infinite;
+				z-index: 2;
 			}
 			
 			.planet-radius {
@@ -39,6 +40,39 @@ main {
 			    top: calc(50% - 150px);
 			    border: 1px solid #ccc;
 			    border-radius: 50%;
+				z-index: 1;
+			}
+			
+			.planet {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				left: calc(50% - 50px);
+				top: calc(50% - 50px);
+				background-color: #ccc;
+			    border-radius: 50%;
+				z-index: 2;
+				cursor: pointer;
+				
+				&:hover {
+					background-color: #f00;
+				}
+				
+				span{
+					display: none;
+					border-radius: 4px;
+					background-color: #f00;
+					bottom: -25px;
+					left: 50%;
+					margin-left: -60px;
+					position: absolute;
+					text-align: center;
+					width: 120px;
+				}
+				
+				&:hover span{
+					display: block;
+				}
 			}
 		}
 	}
