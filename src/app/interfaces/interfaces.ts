@@ -177,8 +177,6 @@ export interface SystemResource {
 export interface SystemMoon {
 	id: number;
 	name: string;
-	type: string
-	typeLink: string;
 	distance: number;
 	radius: number;
 	rotation: number;
@@ -192,6 +190,7 @@ export interface SystemPlanet {
 	name: string;
 	type: string;
 	typeLink: string;
+	typeDesc: string;
 	distance: number;
 	radius: number;
 	rotation: number;
@@ -207,7 +206,8 @@ export interface SystemInfo {
 	type: string;
 	typeLink: string;
 	typeDesc: string;
-	discover: string;
+	idDiscoverer: number;
+	discoverer: string;
 	radius: number;
 	numNPC: number;
 	planets: SystemPlanet[];

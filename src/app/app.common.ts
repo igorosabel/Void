@@ -37,10 +37,12 @@ export const COMPONENTS: any[] = [
 /*
  * Pipes
  */
-import { UrldecodePipe } from './pipes/urldecode.pipe';
+import { UrldecodePipe }  from './pipes/urldecode.pipe';
+import { TimeFormatPipe } from './pipes/time-format.pipe';
 
 export const PIPES: any[] = [
-	UrldecodePipe
+	UrldecodePipe,
+	TimeFormatPipe
 ];
 
 /*

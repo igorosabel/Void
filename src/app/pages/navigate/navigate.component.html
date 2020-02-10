@@ -15,30 +15,30 @@
 		<mat-card-content>
 			<div class="system-info-box">
 				<div class="system-info-box-header">
-					VNU-438
+					{{system.name | urldecode}}
 				</div>
 				<div class="system-info-box-body">
 					<div class="system-info-box-line">
 						<label>Tipo de estrella:</label>
 						<span>
-							V-A
-							<a mat-icon-button color="primary" aria-label="Ver en la Wikipedia" href="https://es.wikipedia.org/wiki/Clasificaci%C3%B3n_estelar" target="_blank">
+							{{system.type}}
+							<a mat-icon-button color="primary" aria-label="Ver en la Wikipedia" href="{{system.typeLink | urldecode}}" target="_blank">
 								<mat-icon>info</mat-icon>
 							</a>
-							<span class="system-info-box-desc">Estrellas enanas de la secuencia principal</span>
+							<span class="system-info-box-desc">{{system.typeDesc | urldecode}}</span>
 						</span>
 					</div>
 					<div class="system-info-box-line">
 						<label>Num. planetas:</label>
-						<span>3</span>
+						<span>{{system.planets.length}}</span>
 					</div>
 					<div class="system-info-box-line">
 						<label>Descubridor:</label>
-						<span>dunedain</span>
+						<span>{{system.discoverer}}</span>
 					</div>
 					<div class="system-info-box-line">
 						<label>Comerciantes:</label>
-						<span>2</span>
+						<span>{{system.numNPC}}</span>
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="system-info-box-body">
 					<mat-action-list>
-						<button mat-list-item>VNU-438-1</button>
+						<button mat-list-item *ngFor="let planet of system.planets">{{planet.name | urldecode}}</button>
 					</mat-action-list>
 				</div>
 			</div>
@@ -60,27 +60,13 @@
 			</h3>
 			
 			<mat-action-list>
-				<button mat-list-item>
+				<button mat-list-item *ngFor="let conn of connections">
 					<div class="navigate-system">
-						<mat-icon svgIcon="void-system"></mat-icon>
-						<span class="navigate-system-name">ABC-123</span>
-						<span class="navigate-system-time">01:46</span>
-					</div>
-					<mat-divider></mat-divider>
-				</button>
-				<button mat-list-item>
-					<div class="navigate-system">
-						<mat-icon svgIcon="void-system"></mat-icon>
-						<span class="navigate-system-name">XYZ-987</span>
-						<span class="navigate-system-time">02:37</span>
-					</div>
-					<mat-divider></mat-divider>
-				</button>
-				<button mat-list-item>
-					<div class="navigate-system">
-						<mat-icon>help</mat-icon>
-						<span class="navigate-system-name">Desconocido</span>
-						<span class="navigate-system-time">03:01</span>
+						<mat-icon svgIcon="void-system" *ngIf="conn.idSystemEnd"></mat-icon>
+						<mat-icon *ngIf="!conn.idSystemEnd">help</mat-icon>
+						<span class="navigate-system-name" *ngIf="conn.name">{{ conn.name | urldecode}}</span>
+						<span class="navigate-system-name" *ngIf="!conn.name">Desconocido</span>
+						<span class="navigate-system-time">{{conn.navigateTime | timeFormat}}</span>
 					</div>
 					<mat-divider></mat-divider>
 				</button>
