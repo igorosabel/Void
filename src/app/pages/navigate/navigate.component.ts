@@ -99,14 +99,14 @@ export class NavigateComponent implements OnInit {
 				animation: 'planetRotate'+p.id+' '+p.rotation+'s infinite linear'
 			});
 			
-			let distanceHalf = ( (p.radius *2) * ratio );
+			let distanceHalf = orbit/2;
 			animations += `
 				@keyframes planetRotate${p.id}{
 					from{
-						transform:rotate(0deg) translate(-${distanceHalf}px) rotate(0deg);
+						transform: rotate(0deg) translate(-${distanceHalf}px) rotate(0deg);
 					}
 					to{
-						transform:rotate(360deg) translate(-${distanceHalf}px) rotate(-360deg);
+						transform: rotate(360deg) translate(-${distanceHalf}px) rotate(-360deg);
 					}
 				}
 			`;
