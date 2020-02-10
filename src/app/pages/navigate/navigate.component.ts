@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer }    from '@angular/platform-browser';
 import { ApiService }      from '../../services/api.service';
+import { CommonService }   from '../../services/common.service';
+import { DialogService }   from '../../services/dialog.service';
 import { SystemInfo, SystemConnection } from '../../interfaces/interfaces';
 
 @Component({
@@ -10,6 +12,7 @@ import { SystemInfo, SystemConnection } from '../../interfaces/interfaces';
 	styleUrls: ['./navigate.component.scss']
 })
 export class NavigateComponent implements OnInit {
+	idPlayer: number = null;
 	system: SystemInfo = {
 		id: null,
 		name: null,
@@ -32,8 +35,10 @@ export class NavigateComponent implements OnInit {
 	};
 	orbits = [];
 	planets = [];
+	editNameShow: boolean = false;
+	editName: string = null;
 	
-	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private cs: CommonService, private dialog: DialogService) {
 		this.matIconRegistry.addSvgIcon(
 			"void-system",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/system.svg")
@@ -42,6 +47,7 @@ export class NavigateComponent implements OnInit {
 
 	ngOnInit() {
 		this.as.getSystemInfo().subscribe(result => {
+			this.idPlayer = result.idPlayer;
 			this.system = result.system;
 			this.connections = result.connections;
 			this.calculateSystemCSS();
@@ -117,5 +123,23 @@ export class NavigateComponent implements OnInit {
 		style.type = 'text/css';
 		style.appendChild(document.createTextNode(animations));
 		head.appendChild(style);
+	}
+	
+	openEditName() {
+		this.editName = this.cs.urldecode(this.system.name);
+		this.editNameShow = true;
+	}
+	
+	closeEditName() {
+		this.editNameShow = false;
+	}
+	
+	saveEditName() {
+		if (this.editName=='') {
+			this.dialog.alert({title: 'Error', content: '¡No puedes dejar el nombre en blanco!', ok: 'Continuar'}).subscribe(result => {});
+		}
+		else {
+			
+		}
 	}
 }

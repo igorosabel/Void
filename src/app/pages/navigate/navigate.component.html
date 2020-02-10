@@ -20,13 +20,16 @@
 			<div class="system-info-box">
 				<div class="system-info-box-header">
 					{{system.name | urldecode}}
+					<button *ngIf="idPlayer==system.idDiscoverer" mat-icon-button aria-label="Editar nombre" (click)="openEditName()">
+						<mat-icon>edit</mat-icon>
+					</button>
 				</div>
 				<div class="system-info-box-body">
 					<div class="system-info-box-line">
 						<label>Tipo de estrella:</label>
 						<span>
 							{{system.type}}
-							<a mat-icon-button color="primary" aria-label="Ver en la Wikipedia" href="{{system.typeLink | urldecode}}" target="_blank">
+							<a mat-icon-button aria-label="Ver en la Wikipedia" href="{{system.typeLink | urldecode}}" target="_blank">
 								<mat-icon>info</mat-icon>
 							</a>
 							<span class="system-info-box-desc">{{system.typeDesc | urldecode}}</span>
@@ -78,3 +81,22 @@
 		</mat-card-content>
 	</mat-card>
 </main>
+
+<div class="edit-name" [ngClass]="{'edit-name-show': editNameShow}">
+	<mat-card>
+		<mat-card-title>Editar nombre</mat-card-title>
+		<mat-card-content>
+			<p>Al haber descubierto tu este sistema puedes cambiar su nombre, el de sus planetas o sus lunas.</p>
+			<p>
+				<mat-form-field class="edit-name-field">
+					<mat-label>Nombre del sistema</mat-label>
+					<input matInput [(ngModel)]="editName" maxlength="50">
+				</mat-form-field>
+			</p>
+		</mat-card-content>
+		<mat-card-actions align="end">
+			<button mat-button (click)="closeEditName()">CANCELAR</button>
+			<button mat-button (click)="saveEditName()">GUARDAR</button>
+		</mat-card-actions>
+	</mat-card>
+</div>

@@ -12,7 +12,8 @@ import {
 	SellItemsStatus,
 	StatusResult,
 	ShopData,
-	SystemResult
+	SystemResult,
+	EditNameData
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -53,5 +54,9 @@ export class ApiService {
 	
 	getSystemInfo(): Observable<SystemResult> {
 		return this.http.post<SystemResult>(this.apiUrl + 'get-system-info', {});
+	}
+	
+	editName(data: EditNameData): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'edit-name', data);
 	}
 }

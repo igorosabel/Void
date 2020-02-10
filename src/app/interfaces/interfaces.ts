@@ -221,6 +221,12 @@ export interface SystemConnection {
 }
 
 export interface SystemResult {
+	status: string;
+	idPlayer: number;
 	system: SystemInfo;
 	connections: SystemConnection[];
+}
+
+export interface EditNameData {
+	
 }
