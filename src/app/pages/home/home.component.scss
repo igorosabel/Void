@@ -1,8 +1,11 @@
 main {
-	margin-top: 64px;
+	position: fixed;
+	width: 100%;
+	top: 64px;
 	height: calc(100% - 105px);
 	overflow: auto;
 	padding: 0 16px;
+	box-sizing: border-box;
 }
 
 .first-row {
@@ -72,7 +75,7 @@ main {
 
 @media only screen and (min-width: 600px) {
 	main {
-		margin-top: 105px;
+		top: 105px;
 	}
 
 	.first-row {

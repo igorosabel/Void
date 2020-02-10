@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIconRegistry }   from '@angular/material/icon';
-import { DomSanitizer }      from '@angular/platform-browser';
-import { ApiService }        from '../../services/api.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer }    from '@angular/platform-browser';
+import { ApiService }      from '../../services/api.service';
 import { SystemInfo, SystemConnection } from '../../interfaces/interfaces';
 
 @Component({
@@ -23,6 +23,7 @@ export class NavigateComponent implements OnInit {
 		planets: []
 	};
 	connections: SystemConnection[] = [];
+	@ViewChild('systemContent', { static: true }) systemContent: ElementRef;
 	
 	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService) {
 		this.matIconRegistry.addSvgIcon(
@@ -35,6 +36,8 @@ export class NavigateComponent implements OnInit {
 		this.as.getSystemInfo().subscribe(result => {
 			this.system = result.system;
 			this.connections = result.connections;
+			
+			console.log(this.systemContent.nativeElement.offsetWidth);
 		});
 	}
 }
