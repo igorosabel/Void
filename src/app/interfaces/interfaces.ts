@@ -206,6 +206,7 @@ export interface SystemInfo {
 	type: string;
 	typeLink: string;
 	typeDesc: string;
+	typeColor: string;
 	idDiscoverer: number;
 	discoverer: string;
 	radius: number;

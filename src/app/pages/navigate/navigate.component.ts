@@ -19,6 +19,7 @@ export class NavigateComponent implements OnInit {
 		type: null,
 		typeLink: null,
 		typeDesc: null,
+		typeColor: null,
 		idDiscoverer: null,
 		discoverer: null,
 		radius: null,
@@ -28,6 +29,7 @@ export class NavigateComponent implements OnInit {
 	connections: SystemConnection[] = [];
 	@ViewChild('systemContent', { static: true }) systemContent: ElementRef;
 	sun = {
+		backgroundColor: null,
 		width: null,
 		height: null,
 		left: null,
@@ -84,6 +86,7 @@ export class NavigateComponent implements OnInit {
 		
 		const sunWidth = ( (this.system.radius * 2) * ratio);
 		this.sun = {
+			backgroundColor: this.system.typeColor,
 			width: sunWidth + 'px',
 			height: sunWidth + 'px',
 			left: 'calc(50% - ' + (sunWidth/2) + 'px)',
@@ -110,6 +113,7 @@ export class NavigateComponent implements OnInit {
 				height: planetWidth + 'px',
 				left: 'calc( 50% - ' + (planetWidth / 2) + 'px)',
 				top: 'calc( 50% - ' + (planetWidth / 2) + 'px)',
+				background: "url('/assets/planets/"+p.type+".png') no-repeat scroll center center",
 				name: p.name,
 				animation: 'planetRotate'+p.id+' '+p.rotation+'s infinite linear'
 			});
