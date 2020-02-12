@@ -89,7 +89,9 @@
 			<p>Al haber descubierto tu este sistema puedes cambiar su nombre, el de sus planetas o sus lunas.</p>
 			<p>
 				<mat-form-field class="edit-name-field">
-					<mat-label>Nombre del sistema</mat-label>
+					<mat-label *ngIf="selectedItem.type=='system'">Nombre del sistema</mat-label>
+					<mat-label *ngIf="selectedItem.type=='planet'">Nombre del planeta</mat-label>
+					<mat-label *ngIf="selectedItem.type=='moon'">Nombre de la luna</mat-label>
 					<input matInput [(ngModel)]="editName" maxlength="50">
 				</mat-form-field>
 			</p>

@@ -4,7 +4,7 @@ import { DomSanitizer }    from '@angular/platform-browser';
 import { ApiService }      from '../../services/api.service';
 import { CommonService }   from '../../services/common.service';
 import { DialogService }   from '../../services/dialog.service';
-import { SystemInfo, SystemConnection } from '../../interfaces/interfaces';
+import { SystemInfo, SystemConnection, EditNameData } from '../../interfaces/interfaces';
 
 @Component({
 	selector: 'void-navigate',
@@ -35,6 +35,13 @@ export class NavigateComponent implements OnInit {
 	};
 	orbits = [];
 	planets = [];
+	selectedItem = {
+		type: 'system',
+		id: null,
+		idSystem: null,
+		idPlanet: null,
+		idMoon: null
+	};
 	editNameShow: boolean = false;
 	editName: string = null;
 	
@@ -50,6 +57,8 @@ export class NavigateComponent implements OnInit {
 			this.idPlayer = result.idPlayer;
 			this.system = result.system;
 			this.connections = result.connections;
+			this.selectedItem.id = this.system.id;
+			this.selectedItem.idSystem = this.system.id;
 			this.calculateSystemCSS();
 		});
 	}
@@ -139,7 +148,36 @@ export class NavigateComponent implements OnInit {
 			this.dialog.alert({title: 'Error', content: '¡No puedes dejar el nombre en blanco!', ok: 'Continuar'}).subscribe(result => {});
 		}
 		else {
-			
+			const params: EditNameData = {
+				id: this.selectedItem.id,
+				type: this.selectedItem.type,
+				name: this.editName
+			};
+			this.as.editName(params).subscribe(result => {
+				if (result.status=='ok'){
+					switch (this.selectedItem.type) {
+						case 'system': {
+							this.system.name = this.cs.urlencode(this.editName);
+						}
+						break;
+						case 'planet': {
+							let pIndex = this.system.planets.findIndex(x => x.id==this.selectedItem.idPlanet);
+							this.system.planets[pIndex].name = this.cs.urlencode(this.editName);
+						}
+						break;
+						case 'moon': {
+							let pIndex = this.system.planets.findIndex(x => x.id==this.selectedItem.idPlanet);
+							let mIndex = this.system.planets[pIndex].moons.findIndex(x => x.id==this.selectedItem.idPlanet);
+							this.system.planets[pIndex].moons[mIndex].name = this.cs.urlencode(this.editName);
+						}
+						break;
+					}
+					this.closeEditName();
+				}
+				else {
+					this.dialog.alert({title: 'Error', content: '¡Ha ocurrido un error al cambiar el nombre! Por favor vuelve a intentarlo.', ok: 'Continuar'}).subscribe(result => {});
+				}
+			});
 		}
 	}
 }

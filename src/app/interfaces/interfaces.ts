@@ -228,5 +228,7 @@ export interface SystemResult {
 }
 
 export interface EditNameData {
-	
+	id: number;
+	type: string;
+	name: string;
 }
