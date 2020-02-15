@@ -1,19 +1,7 @@
 <void-header [selected]="'navigate'"></void-header>
 
 <main>
-	<mat-card class="system">
-		<mat-card-header>
-			<mat-card-title>Sistema</mat-card-title>
-		</mat-card-header>
-		<mat-card-content class="system-content" #systemContent>
-			<div class="sun" [ngStyle]="sun"></div>
-			<div class="planet-radius" *ngFor="let o of orbits" [ngStyle]="o"></div>
-			<div class="planet" *ngFor="let p of planets" [ngStyle]="p" [id]="'planet_'+p.id">
-				<span>{{p.name}}</span>
-			</div>
-			<style type="text/css" [innerHTML]="animations"></style>
-		</mat-card-content>
-	</mat-card>
+	<void-star-system #starSystem></void-star-system>
 	
 	<mat-card class="options">
 		<mat-card-content>

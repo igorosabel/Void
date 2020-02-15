@@ -25,13 +25,15 @@ import { AlertDialogComponent }   from './components/dialogs/alert-dialog/alert-
 import { FormDialogComponent }    from './components/dialogs/form-dialog/form-dialog.component';
 import { HeaderComponent }        from './components/header/header.component';
 import { HomeShopComponent }      from './components/home-shop/home-shop.component';
+import { StarSystemComponent }    from './components/star-system/star-system.component';
 
 export const COMPONENTS: any[] = [
 	ConfirmDialogComponent,
 	AlertDialogComponent,
 	FormDialogComponent,
 	HeaderComponent,
-	HomeShopComponent
+	HomeShopComponent,
+	StarSystemComponent
 ];
 
 /*
