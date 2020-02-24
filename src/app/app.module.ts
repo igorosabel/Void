@@ -41,7 +41,6 @@ registerLocaleData(localeEs);
 		BrowserAnimationsModule,
 		...MATERIAL
 	],
-	entryComponents: [ConfirmDialogComponent, AlertDialogComponent, FormDialogComponent],
 	providers: [
 		{
 			provide: LOCALE_ID,
