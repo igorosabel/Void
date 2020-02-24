@@ -59,6 +59,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 	loadSystem(system : SystemInfo) {
 		this.system = system;
+		console.log(this.system);
 		this.calculateSystemCSS();
 	}
 	
@@ -76,6 +77,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	selectPlanet(p, ev=null) {
 		ev && ev.preventDefault();
 		if (p){
+			console.log(p);
 			const params: StarSystemSelect = {
 				type: 'planet',
 				id: p.id
@@ -168,7 +170,9 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	calculatePlanetCSS() {
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
 		let planetInd = this.system.planets.findIndex(x => x.id = this.planet.id);
+console.log(this.system.planets);
 		const p = this.system.planets[planetInd];
+		console.log(p);
 		let maxKm = 0;
 		let mMaxRadius = 0;
 		let mMaxDistance = 0;
