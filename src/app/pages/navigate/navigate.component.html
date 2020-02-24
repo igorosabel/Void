@@ -1,7 +1,7 @@
 <void-header [selected]="'navigate'"></void-header>
 
 <main>
-	<void-star-system #starSystem></void-star-system>
+	<void-star-system #starSystem (onselect)="starSystemSelect($event)"></void-star-system>
 	
 	<mat-card class="options">
 		<mat-card-content>

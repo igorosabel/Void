@@ -1,13 +1,26 @@
 <mat-card class="system">
 	<mat-card-header>
-		<mat-card-title>Sistema</mat-card-title>
+		<mat-card-title>
+			<a href="#" class="system-header-go" (click)="selectSystem($event)">Sistema ({{system.name}})</a>
+			<span *ngIf="planet.id" class="system-header-divider">&gt;</span>
+			<a href="#" *ngIf="planet.id" class="system-header-go" (click)="selectPlanet(null, $event)">Planeta ({{planet.name}})</a>
+		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content class="system-content" #systemContent>
-		<div class="sun" [ngStyle]="sun"></div>
-		<div class="planet-radius" *ngFor="let o of orbits" [ngStyle]="o"></div>
-		<div class="planet" *ngFor="let p of planets" [ngStyle]="p" [id]="'planet_'+p.id">
-			<span>{{p.name}}</span>
-		</div>
-		<style type="text/css" [innerHTML]="animations"></style>
+		<ng-container *ngIf="!planet.id">
+			<div class="sun" [ngStyle]="sun"></div>
+			<div class="planet-radius" *ngFor="let o of planetOrbits" [ngStyle]="o"></div>
+			<div class="planet" *ngFor="let p of planets" [ngStyle]="p" [id]="'planet_'+p.id" (click)="selectPlanet(p)">
+				<span>{{p.name}}</span>
+			</div>
+		</ng-container>
+		
+		<ng-container *ngIf="planet.id">
+			<div class="one-planet" [ngStyle]="planet"></div>
+			<div class="moon-radius" *ngFor="let o of moonOrbits" [ngStyle]="o"></div>
+			<div class="moon" *ngFor="let m of moons" [ngStyle]="m" [id]="'moon_'+m.id" (click)="selectMoon(m)">
+				<span>{{m.name}}</span>
+			</div>
+		</ng-container>
 	</mat-card-content>
 </mat-card>

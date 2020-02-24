@@ -5,7 +5,7 @@ import { ApiService }      from '../../services/api.service';
 import { CommonService }   from '../../services/common.service';
 import { DialogService }   from '../../services/dialog.service';
 import { StarSystemComponent } from '../../components/star-system/star-system.component';
-import { SystemInfo, SystemConnection, EditNameData } from '../../interfaces/interfaces';
+import { SystemInfo, SystemConnection, EditNameData, StarSystemSelect } from '../../interfaces/interfaces';
 
 @Component({
 	selector: 'void-navigate',
@@ -101,6 +101,28 @@ export class NavigateComponent implements OnInit {
 					this.dialog.alert({title: 'Error', content: '¡Ha ocurrido un error al cambiar el nombre! Por favor vuelve a intentarlo.', ok: 'Continuar'}).subscribe(result => {});
 				}
 			});
+		}
+	}
+	
+	starSystemSelect(ev: StarSystemSelect) {
+		this.selectedItem.type = ev.type;
+		this.selectedItem.id = ev.id;
+		switch (ev.type){
+			case 'system': {
+				this.selectedItem.idSystem = ev.id;
+				this.selectedItem.idPlanet = null;
+				this.selectedItem.idMoon = null;
+			}
+			break;
+			case 'planet': {
+				this.selectedItem.idPlanet = ev.id;
+				this.selectedItem.idMoon = null;
+			}
+			break;
+			case 'moon': {
+				this.selectedItem.idMoon = ev.id;
+			}
+			break;
 		}
 	}
 }

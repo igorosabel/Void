@@ -233,3 +233,8 @@ export interface EditNameData {
 	type: string;
 	name: string;
 }
+
+export interface StarSystemSelect {
+	type: string;
+	id: number;
+}

@@ -6,6 +6,24 @@
 	margin: 8px;
 	height: 675px;
 	
+	.system-header-go {
+		color: #fff;
+		text-decoration: none;
+		display: inline-block;
+		margin-right: 16px;
+
+		&:hover {
+			color: #ccc;
+		}
+	}
+	
+	.system-header-divider {
+		display: inline-block;
+		margin-right: 16px;
+		text-align: center;
+		color: #fff;
+	}
+	
 	.system-content {
 		position: relative;
 		width: 100%;
@@ -41,6 +59,61 @@
 		}
 		
 		.planet {
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			left: calc(50% - 50px);
+			top: calc(50% - 50px);
+			background-color: #ccc;
+			border: 2px solid transparent;
+		    border-radius: 50%;
+			z-index: 2;
+			cursor: pointer;
+			
+			&:hover {
+				border: 2px solid #fff;
+			}
+			
+			span{
+				display: none;
+				border-radius: 4px;
+				background-color: #f00;
+				bottom: -25px;
+				left: 50%;
+				margin-left: -60px;
+				position: absolute;
+				text-align: center;
+				width: 120px;
+			}
+			
+			&:hover span{
+				display: block;
+			}
+		}
+		
+		.one-planet {
+			position: absolute;
+		    width: 100px;
+		    height: 100px;
+		    left: calc(50% - 50px);
+		    top: calc(50% - 50px);
+		    background-color: #cca92c;
+		    border-radius: 50%;
+			z-index: 2;
+		}
+		
+		.moon-radius {
+			position: absolute;
+		    width: 300px;
+		    height: 300px;
+		    left: calc(50% - 150px);
+		    top: calc(50% - 150px);
+		    border: 1px solid #ccc;
+		    border-radius: 50%;
+			z-index: 1;
+		}
+		
+		.moon {
 			position: absolute;
 			width: 100px;
 			height: 100px;
