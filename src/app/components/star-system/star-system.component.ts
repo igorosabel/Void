@@ -113,7 +113,6 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		
 		const sunWidth = ( (this.system.radius * 2) * ratio);
 		const typeInfo = this.system.type.split('-');
-		console.log(typeInfo);
 		this.sun = {
 			background: "url('/assets/sun/"+typeInfo[1]+".png') no-repeat scroll center center / 100%",
 			backgroundColor: this.system.typeColor,
@@ -143,7 +142,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 				height: planetWidth + 'px',
 				left: 'calc( 50% - ' + (planetWidth / 2) + 'px)',
 				top: 'calc( 50% - ' + (planetWidth / 2) + 'px)',
-				background: "url('/assets/planets/"+p.type+".png') no-repeat scroll center center / 100%",
+				background: "url('/assets/planet/"+p.type+".png') no-repeat scroll center center / 100%",
 				name: p.name,
 				animation: 'planetRotate'+p.id+' '+p.rotation+'s infinite linear'
 			});
