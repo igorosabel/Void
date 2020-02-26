@@ -23,6 +23,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	};
 	@ViewChild('systemContent', { static: true }) systemContent: ElementRef;
 	sun = {
+		background: null,
 		backgroundColor: null,
 		width: null,
 		height: null,
@@ -59,7 +60,6 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 	loadSystem(system : SystemInfo) {
 		this.system = system;
-		console.log(this.system);
 		this.calculateSystemCSS();
 	}
 	
@@ -77,7 +77,6 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	selectPlanet(p, ev=null) {
 		ev && ev.preventDefault();
 		if (p){
-			console.log(p);
 			const params: StarSystemSelect = {
 				type: 'planet',
 				id: p.id
@@ -113,7 +112,10 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		const ratio = maxWidth / maxKm;
 		
 		const sunWidth = ( (this.system.radius * 2) * ratio);
+		const typeInfo = this.system.type.split('-');
+		console.log(typeInfo);
 		this.sun = {
+			background: "url('/assets/sun/"+typeInfo[1]+".png') no-repeat scroll center center / 100%",
 			backgroundColor: this.system.typeColor,
 			width: sunWidth + 'px',
 			height: sunWidth + 'px',
@@ -169,10 +171,9 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	
 	calculatePlanetCSS() {
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
-		let planetInd = this.system.planets.findIndex(x => x.id = this.planet.id);
-console.log(this.system.planets);
+		let planetInd = this.system.planets.findIndex(x => x.id == this.planet.id);
 		const p = this.system.planets[planetInd];
-		console.log(p);
+
 		let maxKm = 0;
 		let mMaxRadius = 0;
 		let mMaxDistance = 0;
@@ -194,7 +195,7 @@ console.log(this.system.planets);
 		this.planet = {
 			id: p.id,
 			name: p.name,
-			background: "url('/assets/planets/"+p.type+".png') no-repeat scroll center center / 100%",
+			background: "url('/assets/planet/"+p.type+".png') no-repeat scroll center center / 100%",
 			width: planetWidth + 'px',
 			height: planetWidth + 'px',
 			left: 'calc(50% - ' + (planetWidth/2) + 'px)',
@@ -202,6 +203,8 @@ console.log(this.system.planets);
 		};
 		
 		let animations = '';
+		this.moons = [];
+		this.moonOrbits = [];
 		for (let m of p.moons) {
 			let moonDistance = oneDistance * m.distance;			
 			let orbit = moonDistance * ratio;
@@ -221,7 +224,7 @@ console.log(this.system.planets);
 				height: moonWidth + 'px',
 				left: 'calc( 50% - ' + (moonWidth / 2) + 'px)',
 				top: 'calc( 50% - ' + (moonWidth / 2) + 'px)',
-				//background: "url('/assets/planets/"+p.type+".png') no-repeat scroll center center / 100%",
+				background: "url('/assets/moon/"+m.type+".png') no-repeat scroll center center / 100%",
 				name: m.name,
 				animation: 'moonRotate'+m.id+' '+m.rotation+'s infinite linear'
 			});

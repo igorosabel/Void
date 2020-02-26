@@ -177,6 +177,7 @@ export interface SystemResource {
 export interface SystemMoon {
 	id: number;
 	name: string;
+	type: number;
 	distance: number;
 	radius: number;
 	rotation: number;
