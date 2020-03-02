@@ -36,6 +36,8 @@ export class NavigateComponent implements OnInit {
 		idPlanet: null,
 		idMoon: null
 	};
+	planetInd: number = null;
+	moonInd: number = null;
 	editNameShow: boolean = false;
 	editName: string = null;
 	
@@ -117,10 +119,13 @@ export class NavigateComponent implements OnInit {
 			case 'planet': {
 				this.selectedItem.idPlanet = ev.id;
 				this.selectedItem.idMoon = null;
+				
+				this.planetInd = this.system.planets.findIndex(x => x.id==ev.id);
 			}
 			break;
 			case 'moon': {
 				this.selectedItem.idMoon = ev.id;
+				this.moonInd = this.system.planets[this.planetInd].moons.findIndex(x => x.id==ev.id);
 			}
 			break;
 		}

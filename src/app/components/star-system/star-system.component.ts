@@ -169,6 +169,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	}
 	
 	calculatePlanetCSS() {
+		debugger;
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
 		let planetInd = this.system.planets.findIndex(x => x.id == this.planet.id);
 		const p = this.system.planets[planetInd];
