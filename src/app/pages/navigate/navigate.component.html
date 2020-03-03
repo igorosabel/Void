@@ -90,27 +90,30 @@
 						</div>
 						<div class="system-info-box-line">
 							<label>Num. lunas:</label>
-							<span>{{system.planets.length}}</span>
-						</div>
-						<div class="system-info-box-line">
-							<label>Descubridor:</label>
-							<span>{{system.discoverer}}</span>
-						</div>
-						<div class="system-info-box-line">
-							<label>Comerciantes:</label>
-							<span>{{system.numNPC}}</span>
+							<span>{{system.planets[planetInd].moons.length}}</span>
 						</div>
 					</div>
 				</div>
 				
 				<div class="system-info-box">
 					<div class="system-info-box-header">
-						Planetas
+						Lunas
 					</div>
 					<div class="system-info-box-body">
 						<mat-action-list>
-							<button mat-list-item *ngFor="let planet of system.planets">{{planet.name | urldecode}}</button>
+							<button mat-list-item *ngFor="let moon of system.planets[planetInd].moons">{{moon.name | urldecode}}</button>
 						</mat-action-list>
+					</div>
+				</div>
+			</ng-container>
+			
+			<ng-container *ngIf="selectedItem.type=='moon'">
+				<div class="system-info-box">
+					<div class="system-info-box-header">
+						{{system.planets[planetInd].moons[moonInd].name | urldecode}}
+						<button *ngIf="idPlayer==system.idDiscoverer" mat-icon-button aria-label="Editar nombre" (click)="openEditName()">
+							<mat-icon>edit</mat-icon>
+						</button>
 					</div>
 				</div>
 			</ng-container>
