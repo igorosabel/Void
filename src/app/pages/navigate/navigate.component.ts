@@ -26,6 +26,7 @@ export class NavigateComponent implements OnInit {
 		discoverer: null,
 		radius: null,
 		numNPC: null,
+		fullyExplored: false,
 		planets: []
 	};
 	connections: SystemConnection[] = [];

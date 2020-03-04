@@ -19,6 +19,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		discoverer: null,
 		radius: null,
 		numNPC: null,
+		fullyExplored: false,
 		planets: []
 	};
 	@ViewChild('systemContent', { static: true }) systemContent: ElementRef;

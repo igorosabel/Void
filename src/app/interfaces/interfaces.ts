@@ -212,6 +212,7 @@ export interface SystemInfo {
 	discoverer: string;
 	radius: number;
 	numNPC: number;
+	fullyExplored: boolean;
 	planets: SystemPlanet[];
 }
 
