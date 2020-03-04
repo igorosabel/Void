@@ -72,6 +72,9 @@
 					</h4>
 					<mat-divider *ngIf="!last"></mat-divider>
 				</mat-list-item>
+				<mat-list-item *ngIf="system.characters.length==0">
+					<div class="no-characters">No se ha encontrado ningún jugador o vendedor en el sistema. ¿Has explorado todos los planetas y lunas?</div>
+				</mat-list-item>
 			</mat-list>
 		</mat-card>
 	</div>
