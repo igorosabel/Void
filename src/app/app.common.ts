@@ -26,6 +26,7 @@ import { FormDialogComponent }    from './components/dialogs/form-dialog/form-di
 import { HeaderComponent }        from './components/header/header.component';
 import { HomeShopComponent }      from './components/home-shop/home-shop.component';
 import { StarSystemComponent }    from './components/star-system/star-system.component';
+import { JobComponent } from './components/job/job.component';
 
 export const COMPONENTS: any[] = [
 	ConfirmDialogComponent,
@@ -33,7 +34,8 @@ export const COMPONENTS: any[] = [
 	FormDialogComponent,
 	HeaderComponent,
 	HomeShopComponent,
-	StarSystemComponent
+	StarSystemComponent,
+	JobComponent
 ];
 
 /*
