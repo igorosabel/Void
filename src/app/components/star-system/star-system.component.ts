@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { SystemInfo, StarSystemSelect } from '../../interfaces/interfaces';
+import { SystemInfo, SystemPlanet, StarSystemSelect } from '../../interfaces/interfaces';
 
 @Component({
 	selector: 'void-star-system',
@@ -88,7 +88,12 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		}
 		this.moon.id = null;
 	}
-	
+
+	selectPlanetFromMenu(planet: SystemPlanet) {
+		let ind = this.planets.findIndex(x => x.id==planet.id);
+		this.selectPlanet(this.planets[ind]);
+	}
+
 	selectMoon(m) {
 		console.log(m);
 	}

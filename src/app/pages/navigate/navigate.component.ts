@@ -5,7 +5,7 @@ import { ApiService }      from '../../services/api.service';
 import { CommonService }   from '../../services/common.service';
 import { DialogService }   from '../../services/dialog.service';
 import { StarSystemComponent } from '../../components/star-system/star-system.component';
-import { SystemInfo, SystemConnection, EditNameData, StarSystemSelect } from '../../interfaces/interfaces';
+import { SystemInfo, SystemPlanet, SystemConnection, EditNameData, StarSystemSelect } from '../../interfaces/interfaces';
 
 @Component({
 	selector: 'void-navigate',
@@ -130,5 +130,9 @@ export class NavigateComponent implements OnInit {
 			}
 			break;
 		}
+	}
+
+	selectPlanet(planet: SystemPlanet) {
+		this.starSystem.selectPlanetFromMenu(planet);
 	}
 }

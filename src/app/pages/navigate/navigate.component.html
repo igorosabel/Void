@@ -45,7 +45,7 @@
 					</div>
 					<div class="system-info-box-body">
 						<mat-action-list>
-							<button mat-list-item *ngFor="let planet of system.planets">{{planet.name | urldecode}}</button>
+							<button mat-list-item *ngFor="let planet of system.planets" (click)="selectPlanet(planet)">{{planet.name | urldecode}}</button>
 						</mat-action-list>
 					</div>
 				</div>
