@@ -81,11 +81,10 @@
 						<div class="system-info-box-line">
 							<label>Tipo de planeta:</label>
 							<span>
-								{{system.planets[planetInd].type}}
+								{{system.planets[planetInd].typeDesc | urldecode}}
 								<a mat-icon-button aria-label="Ver en la Wikipedia" href="{{system.planets[planetInd].typeLink | urldecode}}" target="_blank">
 									<mat-icon>info</mat-icon>
 								</a>
-								<span class="system-info-box-desc">{{system.planets[planetInd].typeDesc | urldecode}}</span>
 							</span>
 						</div>
 						<div class="system-info-box-line">
@@ -105,6 +104,13 @@
 						</mat-action-list>
 					</div>
 				</div>
+				
+				<h3 class="navigate-title">
+					<mat-icon>build</mat-icon>
+					Acciones
+				</h3>
+				
+				
 			</ng-container>
 			
 			<ng-container *ngIf="selectedItem.type=='moon'">
