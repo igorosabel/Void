@@ -5,6 +5,7 @@ import { ApiService }      from '../../services/api.service';
 import { CommonService }   from '../../services/common.service';
 import { DialogService }   from '../../services/dialog.service';
 import { StarSystemComponent } from '../../components/star-system/star-system.component';
+import { JobComponent }    from '../../components/job/job.component';
 import { SystemInfo, SystemPlanet, SystemConnection, EditNameData, StarSystemSelect } from '../../interfaces/interfaces';
 
 @Component({
@@ -15,6 +16,7 @@ import { SystemInfo, SystemPlanet, SystemConnection, EditNameData, StarSystemSel
 export class NavigateComponent implements OnInit {
 	idPlayer: number = null;
 	@ViewChild('starSystem', { static: true }) starSystem: StarSystemComponent;
+	@ViewChild('job', { static: true }) job: JobComponent;
 	system : SystemInfo = {
 		id: null,
 		name: null,
@@ -134,5 +136,9 @@ export class NavigateComponent implements OnInit {
 
 	selectPlanet(planet: SystemPlanet) {
 		this.starSystem.selectPlanetFromMenu(planet);
+	}
+	
+	explorePlanet() {
+		this.job.startJob(1, this.system.planets[this.planetInd].exploreTime);
 	}
 }

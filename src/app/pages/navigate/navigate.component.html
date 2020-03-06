@@ -110,13 +110,13 @@
 					Acciones
 				</h3>
 				<div *ngIf="!system.planets[planetInd].explored">
-					<button mat-raised-button color="warn">
+					<button mat-raised-button color="warn" class="sidebar-options" [disabled]="job.working" (click)="explorePlanet()">
 						<mat-icon>360</mat-icon>
-						Explorar
+						Explorar ({{system.planets[planetInd].exploreTime | timeFormat}})
 					</button>
 				</div>
 				<div *ngIf="system.planets[planetInd].explored">
-					<button mat-raised-button color="warn">
+					<button mat-raised-button color="warn" class="sidebar-options">
 						<mat-icon>terrain</mat-icon>
 						Extraer recursos
 					</button>
@@ -158,3 +158,5 @@
 		</mat-card-actions>
 	</mat-card>
 </div>
+
+<void-job #job></void-job>
