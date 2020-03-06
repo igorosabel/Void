@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				
-				<h3 class="navigate-title">
+				<h3 class="sidebar-title">
 					<mat-icon>share</mat-icon>
 					Navegar a otro sistema
 				</h3>
@@ -105,11 +105,22 @@
 					</div>
 				</div>
 				
-				<h3 class="navigate-title">
+				<h3 class="sidebar-title">
 					<mat-icon>build</mat-icon>
 					Acciones
 				</h3>
-				
+				<div *ngIf="!system.planets[planetInd].explored">
+					<button mat-raised-button color="warn">
+						<mat-icon>360</mat-icon>
+						Explorar
+					</button>
+				</div>
+				<div *ngIf="system.planets[planetInd].explored">
+					<button mat-raised-button color="warn">
+						<mat-icon>terrain</mat-icon>
+						Extraer recursos
+					</button>
+				</div>
 				
 			</ng-container>
 			
