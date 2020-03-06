@@ -16,6 +16,10 @@ main {
 		margin: 8px;
 		height: 675px;
 		
+		.options-content {
+			min-height: 600px;
+		}
+		
 		.system-info-box {
 			border: 1px solid #ccc;
 		    border-radius: 4px;

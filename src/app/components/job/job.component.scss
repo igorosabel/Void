@@ -1,12 +1,16 @@
+@import '../../../styles.scss';
+
 .job-notice {
 	position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #212121;
+    top: 8px;
+    left: calc(50% - 125px);
+    right: auto;
+    background-color: $card-bg-color;
     border-radius: 6px;
-    padding: 16px;
+    padding: 12px 16px;
     display: flex;
-    min-width: 250px;
+    width: 250px;
+    z-index: 100;
 
 	.job-description {
 		flex: 1;
@@ -14,5 +18,13 @@
 	
 	.job-time {
 		font-weight: bold;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.job-notice {
+		left: auto;
+		right: 8px;
+		padding: 16px;
 	}
 }
