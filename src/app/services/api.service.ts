@@ -13,7 +13,8 @@ import {
 	StatusResult,
 	ShopData,
 	SystemResult,
-	EditNameData
+	EditNameData,
+	ExploreData
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -58,5 +59,9 @@ export class ApiService {
 	
 	editName(data: EditNameData): Observable<StatusResult> {
 		return this.http.post<StatusResult>(this.apiUrl + 'edit-name', data);
+	}
+	
+	explore(data: ExploreData): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'explore', data);
 	}
 }

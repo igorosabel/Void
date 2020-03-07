@@ -240,3 +240,8 @@ export interface StarSystemSelect {
 	type: string;
 	id: number;
 }
+
+export interface ExploreData {
+	type: string;
+	id: number;
+}
