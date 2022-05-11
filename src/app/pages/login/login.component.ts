@@ -28,27 +28,27 @@ export class LoginComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		if (this.auth.isAuthenticated()){
+		if (this.auth.isAuthenticated()) {
 			this.router.navigate(['/home']);
 		}
 	}
 
 	doLogin(f: NgForm): void {
-		if (this.loginData.name==='' || this.loginData.pass===''){
+		if (this.loginData.name==='' || this.loginData.pass==='') {
 			return;
 		}
 
 		this.loginSending = true;
 		this.as.login(this.loginData).subscribe(result => {
 			this.loginSending = false;
-			if (result.status==='ok'){
+			if (result.status==='ok') {
 				this.us.logged = true;
 				this.us.user = new User().fromInterface(result.user);
 				this.us.saveLogin();
 
 				this.router.navigate(['/home']);
 			}
-			else{
+			else {
 				this.loginError = true;
 			}
 		});

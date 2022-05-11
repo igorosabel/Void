@@ -45,7 +45,7 @@ export interface StatusResult {
 	info?: string;
 }
 
-export interface ShortMessage {
+export interface ShortMessageInterface {
 	id: number;
 	type: number;
 	name: string;
@@ -53,26 +53,26 @@ export interface ShortMessage {
 	message: string;
 }
 
-export interface HomeCharacter {
+export interface HomeCharacterInterface {
 	id: number;
 	type: number;
 	name: string;
 }
 
-export interface CurrentSystem {
+export interface CurrentSystemInterface {
 	system: string;
 	star: string;
 	numPlanets: number;
 	credits: number;
 	maxStrength: number;
 	strength: number;
-	messages: ShortMessage[];
-	characters: HomeCharacter[];
+	messages: ShortMessageInterface[];
+	characters: HomeCharacterInterface[];
 }
 
 export interface CurrentSystemStatus {
 	status: string;
-	system: CurrentSystem;
+	system: CurrentSystemInterface;
 }
 
 export interface Ship {
@@ -172,13 +172,13 @@ export interface SellItemsStatus {
 	resources: ShopResource[];
 }
 
-export interface SystemResource {
+export interface SystemResourceInterface {
 	id: number;
 	name: string;
 	value: number;
 }
 
-export interface SystemMoon {
+export interface SystemMoonInterface {
 	id: number;
 	name: string;
 	type: number;
@@ -187,10 +187,10 @@ export interface SystemMoon {
 	rotation: number;
 	explored: boolean;
 	exploreTime: number;
-	resources: SystemResource[];
+	resources: SystemResourceInterface[];
 }
 
-export interface SystemPlanet {
+export interface SystemPlanetInterface {
 	id: number;
 	name: string;
 	type: string;
@@ -201,8 +201,8 @@ export interface SystemPlanet {
 	rotation: number;
 	explored: boolean;
 	exploreTime: number;
-	resources: SystemResource[];
-	moons: SystemMoon[];
+	resources: SystemResourceInterface[];
+	moons: SystemMoonInterface[];
 }
 
 export interface SystemInfo {

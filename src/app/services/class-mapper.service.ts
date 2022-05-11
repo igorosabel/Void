@@ -1,26 +1,14 @@
-import { Injectable }  from '@angular/core';
-/*import { Resource }    from 'src/app/model/resource.model';
-import { NPCResource } from 'src/app/interfaces/interfaces';*/
+import { Injectable } from '@angular/core';
+import { CurrentSystem } from 'src/app/model/current-system.model';
+import { CurrentSystemInterface } from 'src/app/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassMapperService {
-	constructor() { }
+	constructor() {}
 
-	/*getResources(response: NPCResource[], idNPC: number) {
-		const resources: Resource[] = [];
-
-		for (let r of response) {
-			let resource = this.getResource(r, idNPC);
-			resources.push(resource);
-		}
-
-		return resources;
+	getCurrentSystem(cs: CurrentSystemInterface): CurrentSystem {
+		return new CurrentSystem().fromInterface(cs);
 	}
-
-	getResource(r: NPCResource, idNPC: number) {
-		const resource = new Resource(r.resource.id, r.resource.name, r.resource.minPrice, r.resource.maxPrice, r.value, idNPC);
-		return resource;
-	}*/
 }
