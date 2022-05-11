@@ -1,12 +1,12 @@
 /*
  * Páginas
  */
-import { LoginComponent }    from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { HomeComponent }     from './pages/home/home.component';
-import { NavigateComponent } from './pages/navigate/navigate.component';
-import { ShipComponent }     from './pages/ship/ship.component';
-import { MessagesComponent } from './pages/messages/messages.component';
+import { LoginComponent }    from 'src/app/pages/login/login.component';
+import { RegisterComponent } from 'src/app/pages/register/register.component';
+import { HomeComponent }     from 'src/app/pages/home/home.component';
+import { NavigateComponent } from 'src/app/pages/navigate/navigate.component';
+import { ShipComponent }     from 'src/app/pages/ship/ship.component';
+import { MessagesComponent } from 'src/app/pages/messages/messages.component';
 
 export const PAGES: any[] = [
 	LoginComponent,
@@ -20,13 +20,13 @@ export const PAGES: any[] = [
 /*
  * Componentes
  */
-import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
-import { AlertDialogComponent }   from './components/dialogs/alert-dialog/alert-dialog.component';
-import { FormDialogComponent }    from './components/dialogs/form-dialog/form-dialog.component';
-import { HeaderComponent }        from './components/header/header.component';
-import { HomeShopComponent }      from './components/home-shop/home-shop.component';
-import { StarSystemComponent }    from './components/star-system/star-system.component';
-import { JobComponent } from './components/job/job.component';
+import { ConfirmDialogComponent } from 'src/app/components/dialogs/confirm-dialog/confirm-dialog.component';
+import { AlertDialogComponent }   from 'src/app/components/dialogs/alert-dialog/alert-dialog.component';
+import { FormDialogComponent }    from 'src/app/components/dialogs/form-dialog/form-dialog.component';
+import { HeaderComponent }        from 'src/app/components/header/header.component';
+import { HomeShopComponent }      from 'src/app/components/home-shop/home-shop.component';
+import { StarSystemComponent }    from 'src/app/components/star-system/star-system.component';
+import { JobComponent }           from 'src/app/components/job/job.component';
 
 export const COMPONENTS: any[] = [
 	ConfirmDialogComponent,
@@ -41,8 +41,8 @@ export const COMPONENTS: any[] = [
 /*
  * Pipes
  */
-import { UrldecodePipe }  from './pipes/urldecode.pipe';
-import { TimeFormatPipe } from './pipes/time-format.pipe';
+import { UrldecodePipe }  from 'src/app/pipes/urldecode.pipe';
+import { TimeFormatPipe } from 'src/app/pipes/time-format.pipe';
 
 export const PIPES: any[] = [
 	UrldecodePipe,
@@ -52,13 +52,13 @@ export const PIPES: any[] = [
 /*
  * Servicios
  */
-import { CommonService }      from './services/common.service';
-import { ApiService }         from './services/api.service';
-import { DataShareService }   from './services/data-share.service';
-import { DialogService }      from './services/dialog.service';
-import { UserService }        from './services/user.service';
-import { AuthService }        from './services/auth.service';
-import { ClassMapperService } from './services/class-mapper.service';
+import { CommonService }      from 'src/app/services/common.service';
+import { ApiService }         from 'src/app/services/api.service';
+import { DataShareService }   from 'src/app/services/data-share.service';
+import { DialogService }      from 'src/app/services/dialog.service';
+import { UserService }        from 'src/app/services/user.service';
+import { AuthService }        from 'src/app/services/auth.service';
+import { ClassMapperService } from 'src/app/services/class-mapper.service';
 
 export const SERVICES: any[] = [
 	CommonService,

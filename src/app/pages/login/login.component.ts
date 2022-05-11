@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
-import { LoginData }         from '../../interfaces/interfaces';
-import { ApiService }        from '../../services/api.service';
-import { UserService }       from '../../services/user.service';
-import { CommonService }     from '../../services/common.service';
-import { AuthService }       from '../../services/auth.service';
+import { NgForm }            from '@angular/forms';
+import { LoginData }         from 'src/app/interfaces/interfaces';
+import { ApiService }        from 'src/app/services/api.service';
+import { UserService }       from 'src/app/services/user.service';
+import { CommonService }     from 'src/app/services/common.service';
+import { AuthService }       from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'void-login',
@@ -12,29 +13,30 @@ import { AuthService }       from '../../services/auth.service';
 	styleUrls: []
 })
 export class LoginComponent implements OnInit {
-	loginData = {
+	loginData: LoginData = {
 		name: '',
 		pass: ''
-	} as LoginData;
+	};
 	loginError: boolean = false;
 	loginSending: boolean = false;
 
-	constructor(private as: ApiService,
-				private user: UserService,
-				private cs: CommonService,
-				private router: Router,
-				private auth: AuthService) { }
-	ngOnInit() {
+	constructor(
+		private as: ApiService,
+		private user: UserService,
+		private cs: CommonService,
+		private router: Router,
+		private auth: AuthService
+	) {}
+
+	ngOnInit(): void {
 		if (this.auth.isAuthenticated()){
 			this.router.navigate(['/home']);
 		}
 	}
 
-	doLogin(ev) {
-		ev.preventDefault();
-
+	doLogin(f: NgForm): void {
 		if (this.loginData.name==='' || this.loginData.pass===''){
-			return false;
+			return;
 		}
 
 		this.loginSending = true;

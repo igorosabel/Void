@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { SystemInfo, SystemPlanet, StarSystemSelect } from '../../interfaces/interfaces';
+import { SystemInfo, SystemPlanet, StarSystemSelect } from 'src/app/interfaces/interfaces';
 
 @Component({
 	selector: 'void-star-system',
@@ -7,7 +7,7 @@ import { SystemInfo, SystemPlanet, StarSystemSelect } from '../../interfaces/int
 	styleUrls: ['./star-system.component.scss']
 })
 export class StarSystemComponent implements OnInit, OnDestroy {
-	@Output() onselect = new EventEmitter<StarSystemSelect>();
+	@Output() onselect: EventEmitter<StarSystemSelect> = new EventEmitter<StarSystemSelect>();
 	system : SystemInfo = {
 		id: null,
 		name: null,
@@ -52,19 +52,19 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		const systemElem = document.getElementById('navigateStyles');
 		systemElem.parentNode.removeChild(systemElem);
 		const planetElem = document.getElementById('planetStyles');
 		planetElem.parentNode.removeChild(planetElem);
 	}
 
-	loadSystem(system : SystemInfo) {
+	loadSystem(system : SystemInfo): void {
 		this.system = system;
 		this.calculateSystemCSS();
 	}
-	
-	selectSystem(ev) {
+
+	selectSystem(ev: MouseEvent): void {
 		ev && ev.preventDefault();
 		const params: StarSystemSelect = {
 			type: 'system',
@@ -74,8 +74,8 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		this.planet.id = null;
 		this.moon.id = null;
 	}
-	
-	selectPlanet(p, ev=null) {
+
+	selectPlanet(p: SystemPlanet, ev: MouseEvent=null): void {
 		ev && ev.preventDefault();
 		if (p){
 			const params: StarSystemSelect = {
@@ -89,16 +89,16 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		this.moon.id = null;
 	}
 
-	selectPlanetFromMenu(planet: SystemPlanet) {
-		let ind = this.planets.findIndex(x => x.id==planet.id);
+	selectPlanetFromMenu(planet: SystemPlanet): void {
+		const ind = this.planets.findIndex(x => x.id==planet.id);
 		this.selectPlanet(this.planets[ind]);
 	}
 
-	selectMoon(m) {
+	selectMoon(m): void {
 		console.log(m);
 	}
 	
-	calculateSystemCSS() {
+	calculateSystemCSS(): void {
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
 		let maxKm = 0;
 		let pMaxRadius = 0;
@@ -174,8 +174,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		head.appendChild(style);
 	}
 	
-	calculatePlanetCSS() {
-		debugger;
+	calculatePlanetCSS(): void {
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
 		let planetInd = this.system.planets.findIndex(x => x.id == this.planet.id);
 		const p = this.system.planets[planetInd];

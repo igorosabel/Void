@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService }        from '../../services/api.service';
+import { ApiService }        from 'src/app/services/api.service';
 
 @Component({
 	selector: 'void-job',
@@ -19,15 +19,15 @@ export class JobComponent implements OnInit {
 	constructor(private as: ApiService) {}
 	ngOnInit(): void {}
 	
-	updateTime() {
+	updateTime(): void {
 		clearTimeout(this.timer);
 		this.time--;
 		this.timer = setTimeout(() => {
 			this.updateTime();
 		}, 1000);
 	}
-	
-	startJob(type, time) {
+
+	startJob(type: number, time: number): void {
 		this.time = time;
 		this.type = type;
 		this.message = this.messages['type'+this.type];

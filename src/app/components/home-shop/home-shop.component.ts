@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer }    from '@angular/platform-browser';
-import { ApiService }      from '../../services/api.service';
-import { DialogService }   from '../../services/dialog.service';
-import { NPC, ShopShip, Ship, ShopModule, Module, ShopResource, ShopSelectedItem, ShopData, SellItemsStatus } from '../../interfaces/interfaces';
-import { MODULES, HULLS, ENGINES, GENERATORS } from '../../shared/constants';
+import { ApiService }      from 'src/app/services/api.service';
+import { DialogService }   from 'src/app/services/dialog.service';
+import { NPC, ShopShip, Ship, ShopModule, Module, ShopResource, ShopSelectedItem, ShopData, SellItemsStatus } from 'src/app/interfaces/interfaces';
+import { MODULES, HULLS, ENGINES, GENERATORS } from 'src/app/shared/constants';
 
 @Component({
 	selector: 'void-home-shop',
@@ -19,7 +19,7 @@ export class HomeShopComponent implements OnInit {
 	selling: boolean = false;
 	shopTab: string = 'buy';
 	@Input() credits : number = 0;
-	@Output() buySellEvent = new EventEmitter<number>();
+	@Output() buySellEvent: EventEmitter<number> = new EventEmitter<number>();
 	npc: NPC = {
 		id: null,
 		name: null,
@@ -123,9 +123,9 @@ export class HomeShopComponent implements OnInit {
 		this.engineTypes    = ENGINES;
 		this.generatorTypes = GENERATORS;
 	}
-	ngOnInit() {}
+	ngOnInit(): void {}
 
-	loadShop(id: number) {
+	loadShop(id: number): void {
 		this.show = true;
 		this.idNPC = id;
 		this.shopTab = 'buy';
@@ -147,7 +147,7 @@ export class HomeShopComponent implements OnInit {
 		this.loadNPC();
 	}
 	
-	loadNPC() {
+	loadNPC(): void {
 		this.as.getNPCShop(this.idNPC).subscribe(result => {
 			this.npc = result.npc;
 			this.loaded = true;
@@ -158,17 +158,17 @@ export class HomeShopComponent implements OnInit {
 		});
 	}
 
-	closeShop() {
+	closeShop(): void {
 		this.show = false;
 		this.loaded = false;
 	}
 	
-	selectTab(tab, ev) {
+	selectTab(tab: string, ev: MouseEvent): void {
 		ev.preventDefault();
 		this.shopTab = tab;
 	}
 
-	selectShip(ship: ShopShip) {
+	selectShip(ship: ShopShip): void {
 		this.selectedItem.id = ship.ship.id;
 		this.selectedItem.type = 1;
 		this.selectedItem.name = ship.ship.name;
@@ -180,7 +180,7 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 2;
 	}
 
-	selectModule(module: ShopModule) {
+	selectModule(module: ShopModule): void {
 		this.selectedItem.id = module.module.id;
 		this.selectedItem.type = 2;
 		this.selectedItem.name = module.module.name;
@@ -192,7 +192,7 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 2;
 	}
 
-	selectResource(resource: ShopResource) {
+	selectResource(resource: ShopResource): void {
 		this.selectedItem.id = resource.resource.id;
 		this.selectedItem.type = 3;
 		this.selectedItem.name = resource.resource.name;
@@ -204,11 +204,11 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 2;
 	}
 	
-	backToStepOne() {
+	backToStepOne(): void {
 		this.shopStep = 1;
 	}
 	
-	updateSelectedItemCredits() {
+	updateSelectedItemCredits(): void {
 		console.log(this.selectedItem);
 		if (this.selectedItem.num > this.selectedItem.max) {
 			this.selectedItem.num = this.selectedItem.max;
@@ -218,7 +218,7 @@ export class HomeShopComponent implements OnInit {
 		console.log(this.selectedItem);
 	}
 	
-	buy() {
+	buy(): void {
 		this.buying = true;
 		const params: ShopData = {
 			idNPC: this.npc.id,
@@ -244,7 +244,7 @@ export class HomeShopComponent implements OnInit {
 		});
 	}
 	
-	sellShip(ship: Ship) {
+	sellShip(ship: Ship): void {
 		this.selectedItem.id = ship.id;
 		this.selectedItem.type = 1;
 		this.selectedItem.name = ship.name;
@@ -255,7 +255,7 @@ export class HomeShopComponent implements OnInit {
 		this.sellStep = 2;
 	}
 	
-	sellModule(module: Module) {
+	sellModule(module: Module): void {
 		this.selectedItem.id = module.id;
 		this.selectedItem.type = 2;
 		this.selectedItem.name = module.name;
@@ -266,7 +266,7 @@ export class HomeShopComponent implements OnInit {
 		this.sellStep = 2;
 	}
 	
-	sellResource(resource: ShopResource) {
+	sellResource(resource: ShopResource): void {
 		this.selectedItem.id = resource.resource.id;
 		this.selectedItem.type = 3;
 		this.selectedItem.name = resource.resource.name;
@@ -278,11 +278,11 @@ export class HomeShopComponent implements OnInit {
 		this.sellStep = 2;
 	}
 	
-	backToSellStepOne() {
+	backToSellStepOne(): void {
 		this.sellStep = 1;
 	}
 	
-	sell() {
+	sell(): void {
 		this.selling = true;
 		const params: ShopData = {
 			idNPC: this.npc.id,

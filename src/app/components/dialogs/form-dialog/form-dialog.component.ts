@@ -1,11 +1,11 @@
 import { Component }    from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DialogField }  from '../../../interfaces/interfaces';
+import { DialogField }  from 'src/app/interfaces/interfaces';
 
 @Component({
-  selector: 'otpv-form-dialog',
-  templateUrl: './form-dialog.component.html',
-  styleUrls: ['../scss/dialog.component.scss']
+	selector: 'otpv-form-dialog',
+	templateUrl: './form-dialog.component.html',
+	styleUrls: ['../scss/dialog.component.scss']
 })
 export class FormDialogComponent {
     public title: string;

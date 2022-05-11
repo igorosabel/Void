@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
-import { RegisterData }      from '../../interfaces/interfaces';
-import { ApiService }        from '../../services/api.service';
-import { UserService }       from '../../services/user.service';
-import { CommonService }     from '../../services/common.service';
+import { NgForm }            from '@angular/forms';
+import { RegisterData }      from 'src/app/interfaces/interfaces';
+import { ApiService }        from 'src/app/services/api.service';
+import { UserService }       from 'src/app/services/user.service';
+import { CommonService }     from 'src/app/services/common.service';
 
 @Component({
   selector: 'void-register',
@@ -11,25 +12,29 @@ import { CommonService }     from '../../services/common.service';
   styleUrls: []
 })
 export class RegisterComponent implements OnInit {
-	registerData = {
+	registerData: RegisterData = {
 		name: '',
 		email: '',
 		pass: '',
 		conf: ''
-	} as RegisterData;
+	};
 	registerNameError: boolean = false;
 	registerEmailError: boolean = false;
 	registerPassError: boolean = false;
 	registerSending: boolean = false;
 
-	constructor(private as: ApiService, private user: UserService, private cs: CommonService, private router: Router) {}
-	ngOnInit() {}
+	constructor(
+		private as: ApiService,
+		private user: UserService,
+		private cs: CommonService,
+		private router: Router
+	) {}
 
-	doRegister(ev) {
-		ev.preventDefault();
+	ngOnInit(): void {}
 
+	doRegister(f: NgForm): void {
 		if (this.registerData.name==='' || this.registerData.email==='' || this.registerData.pass==='' || this.registerData.conf==='') {
-			return false;
+			return;
 		}
 		
 		this.registerNameError = false;
@@ -37,7 +42,7 @@ export class RegisterComponent implements OnInit {
 		this.registerPassError = false;
 		if (this.registerData.pass !== this.registerData.conf){
 			this.registerPassError = true;
-			return false;
+			return;
 		}
 		
 		this.registerSending = true;

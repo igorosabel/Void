@@ -1,18 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { FormsModule }             from '@angular/forms';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AppComponent } from 'src/app/app.component';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment } from 'src/environments/environment';
 
-import { TokenInterceptor }        from './interceptors/token.interceptor';
+import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
-import { PAGES, COMPONENTS, PIPES, SERVICES, MATERIAL } from './app.common';
+import { PAGES, COMPONENTS, PIPES, SERVICES, MATERIAL } from 'src/app/app.common';
 
 const appearance: MatFormFieldDefaultOptions = {
 	appearance: 'outline'
@@ -31,7 +30,6 @@ registerLocaleData(localeEs);
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		HttpClientModule,
 		FormsModule,
 		BrowserAnimationsModule,
@@ -55,4 +53,4 @@ registerLocaleData(localeEs);
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

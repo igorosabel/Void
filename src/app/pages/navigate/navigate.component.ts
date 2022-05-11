@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer }    from '@angular/platform-browser';
-import { ApiService }      from '../../services/api.service';
-import { CommonService }   from '../../services/common.service';
-import { DialogService }   from '../../services/dialog.service';
-import { StarSystemComponent } from '../../components/star-system/star-system.component';
-import { JobComponent }    from '../../components/job/job.component';
-import { SystemInfo, SystemPlanet, SystemConnection, EditNameData, StarSystemSelect } from '../../interfaces/interfaces';
+import { MatIconRegistry }     from '@angular/material/icon';
+import { DomSanitizer }        from '@angular/platform-browser';
+import { ApiService }          from 'src/app/services/api.service';
+import { CommonService }       from 'src/app/services/common.service';
+import { DialogService }       from 'src/app/services/dialog.service';
+import { StarSystemComponent } from 'src/app/components/star-system/star-system.component';
+import { JobComponent }        from 'src/app/components/job/job.component';
+import { SystemInfo, SystemPlanet, SystemConnection, EditNameData, StarSystemSelect } from 'src/app/interfaces/interfaces';
 
 @Component({
 	selector: 'void-navigate',
@@ -51,7 +51,7 @@ export class NavigateComponent implements OnInit {
 		);
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.as.getSystemInfo().subscribe(result => {
 			this.idPlayer = result.idPlayer;
 			this.system = result.system;
@@ -62,16 +62,16 @@ export class NavigateComponent implements OnInit {
 		});
 	}
 	
-	openEditName() {
+	openEditName(): void {
 		this.editName = this.cs.urldecode(this.system.name);
 		this.editNameShow = true;
 	}
 	
-	closeEditName() {
+	closeEditName(): void {
 		this.editNameShow = false;
 	}
 	
-	saveEditName() {
+	saveEditName(): void {
 		if (this.editName=='') {
 			this.dialog.alert({title: 'Error', content: '¡No puedes dejar el nombre en blanco!', ok: 'Continuar'}).subscribe(result => {});
 		}
@@ -109,7 +109,7 @@ export class NavigateComponent implements OnInit {
 		}
 	}
 	
-	starSystemSelect(ev: StarSystemSelect) {
+	starSystemSelect(ev: StarSystemSelect): void {
 		this.selectedItem.type = ev.type;
 		this.selectedItem.id = ev.id;
 		switch (ev.type){
@@ -134,11 +134,11 @@ export class NavigateComponent implements OnInit {
 		}
 	}
 
-	selectPlanet(planet: SystemPlanet) {
+	selectPlanet(planet: SystemPlanet): void {
 		this.starSystem.selectPlanetFromMenu(planet);
 	}
 	
-	explorePlanet() {
+	explorePlanet(): void {
 		this.job.startJob(1, this.system.planets[this.planetInd].exploreTime);
 	}
 }
