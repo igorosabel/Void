@@ -4,8 +4,8 @@ import { NgForm }            from '@angular/forms';
 import { LoginData }         from 'src/app/interfaces/interfaces';
 import { ApiService }        from 'src/app/services/api.service';
 import { UserService }       from 'src/app/services/user.service';
-import { CommonService }     from 'src/app/services/common.service';
 import { AuthService }       from 'src/app/services/auth.service';
+import { User }              from 'src/app/model/user.model';
 
 @Component({
 	selector: 'void-login',
@@ -22,8 +22,7 @@ export class LoginComponent implements OnInit {
 
 	constructor(
 		private as: ApiService,
-		private user: UserService,
-		private cs: CommonService,
+		private us: UserService,
 		private router: Router,
 		private auth: AuthService
 	) {}
@@ -43,11 +42,9 @@ export class LoginComponent implements OnInit {
 		this.as.login(this.loginData).subscribe(result => {
 			this.loginSending = false;
 			if (result.status==='ok'){
-				this.user.logged = true;
-				this.user.id     = result.id;
-				this.user.name   = this.cs.urldecode(result.name);
-				this.user.token  = this.cs.urldecode(result.token);
-				this.user.saveLogin();
+				this.us.logged = true;
+				this.us.user = new User().fromInterface(result.user);
+				this.us.saveLogin();
 
 				this.router.navigate(['/home']);
 			}

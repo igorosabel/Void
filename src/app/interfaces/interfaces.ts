@@ -22,11 +22,15 @@ export interface LoginData {
 	pass: string;
 }
 
-export interface LoginResult {
-	status: string;
+export interface UserInterface {
 	id: number;
 	name: string;
 	token: string;
+}
+
+export interface LoginResult {
+	status: string;
+	user: UserInterface;
 }
 
 export interface RegisterData {

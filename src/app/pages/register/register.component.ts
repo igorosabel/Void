@@ -4,7 +4,7 @@ import { NgForm }            from '@angular/forms';
 import { RegisterData }      from 'src/app/interfaces/interfaces';
 import { ApiService }        from 'src/app/services/api.service';
 import { UserService }       from 'src/app/services/user.service';
-import { CommonService }     from 'src/app/services/common.service';
+import { User }              from 'src/app/model/user.model';
 
 @Component({
   selector: 'void-register',
@@ -25,8 +25,7 @@ export class RegisterComponent implements OnInit {
 
 	constructor(
 		private as: ApiService,
-		private user: UserService,
-		private cs: CommonService,
+		private us: UserService,
 		private router: Router
 	) {}
 
@@ -36,7 +35,7 @@ export class RegisterComponent implements OnInit {
 		if (this.registerData.name==='' || this.registerData.email==='' || this.registerData.pass==='' || this.registerData.conf==='') {
 			return;
 		}
-		
+
 		this.registerNameError = false;
 		this.registerEmailError = false;
 		this.registerPassError = false;
@@ -44,17 +43,15 @@ export class RegisterComponent implements OnInit {
 			this.registerPassError = true;
 			return;
 		}
-		
+
 		this.registerSending = true;
 		this.as.register(this.registerData).subscribe(result => {
 			this.registerSending = false;
 			if (result.status==='ok') {
-				this.user.logged = true;
-				this.user.id     = result.id;
-				this.user.name   = this.cs.urldecode(result.name);
-				this.user.token  = this.cs.urldecode(result.token);
-				this.user.saveLogin();
-				
+				this.us.logged = true;
+				this.us.user = new User().fromInterface(result.user);
+				this.us.saveLogin();
+
 				this.router.navigate(['/home']);
 			}
 			else{
