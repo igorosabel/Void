@@ -43,9 +43,9 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		const systemElem = document.getElementById('navigateStyles');
-		systemElem.parentNode.removeChild(systemElem);
+		systemElem && systemElem.parentNode.removeChild(systemElem);
 		const planetElem = document.getElementById('planetStyles');
-		planetElem.parentNode.removeChild(planetElem);
+		planetElem && planetElem.parentNode.removeChild(planetElem);
 	}
 
 	loadSystem(system : SystemInfo): void {
