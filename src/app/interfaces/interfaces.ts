@@ -75,7 +75,7 @@ export interface CurrentSystemStatus {
 	system: CurrentSystemInterface;
 }
 
-export interface Ship {
+export interface ShipInterface {
 	id: number;
 	name: string;
 	idType: number;
@@ -96,12 +96,12 @@ export interface Ship {
 	credits: number;
 }
 
-export interface ShopShip {
-	ship: Ship;
+export interface ShopShipInterface {
+	ship: ShipInterface;
 	value: number;
 }
 
-export interface Module {
+export interface ModuleInterface {
 	id: number;
 	name: string;
 	idType: number;
@@ -115,37 +115,37 @@ export interface Module {
 	credits: number;
 }
 
-export interface ShopModule {
-	module: Module;
+export interface ShopModuleInterface {
+	module: ModuleInterface;
 	value: number;
 }
 
-export interface Resource {
+export interface ResourceInterface {
 	id: number;
 	name: string;
 	credits: number;
 }
 
-export interface ShopResource {
-	resource: Resource;
+export interface ShopResourceInterface {
+	resource: ResourceInterface;
 	value: number;
 }
 
-export interface NPC {
+export interface NPCInterface {
 	id: number;
 	name: string;
 	idRace: number;
-	ships: ShopShip[];
-	modules: ShopModule[];
-	resources: ShopResource[];
+	ships: ShopShipInterface[];
+	modules: ShopModuleInterface[];
+	resources: ShopResourceInterface[];
 }
 
 export interface NPCShopStatus {
 	status: string;
-	npc: NPC;
+	npc: NPCInterface;
 }
 
-export interface ShopSelectedItem {
+export interface ShopSelectedItemInterface {
 	id: number;
 	type: number;
 	name: string;
@@ -153,9 +153,9 @@ export interface ShopSelectedItem {
 	max: number;
 	price: number;
 	credits: number;
-	ship: Ship;
-	module: Module;
-	resource: Resource;
+	ship: ShipInterface;
+	module: ModuleInterface;
+	resource: ResourceInterface;
 }
 
 export interface ShopData {
@@ -167,9 +167,9 @@ export interface ShopData {
 
 export interface SellItemsStatus {
 	status: string;
-	ships: Ship[];
-	modules: Module[];
-	resources: ShopResource[];
+	ships: ShipInterface[];
+	modules: ModuleInterface[];
+	resources: ShopResourceInterface[];
 }
 
 export interface SystemResourceInterface {
@@ -205,7 +205,7 @@ export interface SystemPlanetInterface {
 	moons: SystemMoonInterface[];
 }
 
-export interface SystemInfo {
+export interface SystemInfoInterface {
 	id: number;
 	name: string;
 	type: string;
@@ -217,10 +217,10 @@ export interface SystemInfo {
 	radius: number;
 	numNPC: number;
 	fullyExplored: boolean;
-	planets: SystemPlanet[];
+	planets: SystemPlanetInterface[];
 }
 
-export interface SystemConnection {
+export interface SystemConnectionInterface {
 	idSystemEnd: number;
 	order: number;
 	navigateTime: number;
@@ -230,8 +230,8 @@ export interface SystemConnection {
 export interface SystemResult {
 	status: string;
 	idPlayer: number;
-	system: SystemInfo;
-	connections: SystemConnection[];
+	system: SystemInfoInterface;
+	connections: SystemConnectionInterface[];
 }
 
 export interface EditNameData {

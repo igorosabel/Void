@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { SystemInfo, SystemPlanet, StarSystemSelect } from 'src/app/interfaces/interfaces';
+import { StarSystemSelect } from 'src/app/interfaces/interfaces';
+import { SystemPlanet } from 'src/app/model/system-planet.model';
+import { SystemInfo } from 'src/app/model/system-info.model';
 
 @Component({
 	selector: 'void-star-system',
@@ -8,20 +10,7 @@ import { SystemInfo, SystemPlanet, StarSystemSelect } from 'src/app/interfaces/i
 })
 export class StarSystemComponent implements OnInit, OnDestroy {
 	@Output() onselect: EventEmitter<StarSystemSelect> = new EventEmitter<StarSystemSelect>();
-	system : SystemInfo = {
-		id: null,
-		name: null,
-		type: null,
-		typeLink: null,
-		typeDesc: null,
-		typeColor: null,
-		idDiscoverer: null,
-		discoverer: null,
-		radius: null,
-		numNPC: null,
-		fullyExplored: false,
-		planets: []
-	};
+	system: SystemInfo = new SystemInfo();
 	@ViewChild('systemContent', { static: true }) systemContent: ElementRef;
 	sun = {
 		background: null,

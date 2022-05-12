@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { ClassMapperService } from 'src/app/services/class-mapper.service';
 import { HomeShopComponent } from 'src/app/components/home-shop/home-shop.component';
 import { CurrentSystem } from 'src/app/model/current-system.model';
 
@@ -13,15 +12,12 @@ export class HomeComponent implements OnInit {
 	system: CurrentSystem = new CurrentSystem();
 	@ViewChild('shop', { static: true }) shop: HomeShopComponent;
 
-	constructor(
-		private as: ApiService,
-		private cms: ClassMapperService
-	) {}
+	constructor(private as: ApiService) {}
 
 	ngOnInit(): void {
 		this.as.getCurrentSystem().subscribe(response => {
 			if (response.status=='ok') {
-				this.system = this.cms.getCurrentSystem(response.system);
+				this.system = new CurrentSystem().fromInterface(response.system);
 			}
 		});
 	}

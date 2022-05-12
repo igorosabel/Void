@@ -6,7 +6,10 @@ import { CommonService }       from 'src/app/services/common.service';
 import { DialogService }       from 'src/app/services/dialog.service';
 import { StarSystemComponent } from 'src/app/components/star-system/star-system.component';
 import { JobComponent }        from 'src/app/components/job/job.component';
-import { SystemInfo, SystemPlanet, SystemConnection, EditNameData, StarSystemSelect } from 'src/app/interfaces/interfaces';
+import { SystemPlanet }        from 'src/app/model/system-planet.model';
+import { SystemInfo }          from 'src/app/model/system-info.model';
+import { SystemConnection }    from 'src/app/model/system-connection.model';
+import { EditNameData, StarSystemSelect } from 'src/app/interfaces/interfaces';
 
 @Component({
 	selector: 'void-navigate',
@@ -17,20 +20,7 @@ export class NavigateComponent implements OnInit {
 	idPlayer: number = null;
 	@ViewChild('starSystem', { static: true }) starSystem: StarSystemComponent;
 	@ViewChild('job', { static: true }) job: JobComponent;
-	system : SystemInfo = {
-		id: null,
-		name: null,
-		type: null,
-		typeLink: null,
-		typeDesc: null,
-		typeColor: null,
-		idDiscoverer: null,
-		discoverer: null,
-		radius: null,
-		numNPC: null,
-		fullyExplored: false,
-		planets: []
-	};
+	system: SystemInfo = new SystemInfo();
 	connections: SystemConnection[] = [];
 	selectedItem = {
 		type: 'system',
@@ -54,11 +44,11 @@ export class NavigateComponent implements OnInit {
 	ngOnInit(): void {
 		this.as.getSystemInfo().subscribe(result => {
 			this.idPlayer = result.idPlayer;
-			this.system = result.system;
-			this.connections = result.connections;
+			this.system = new SystemInfo().fromInterface(result.system);
+			this.connections = result.connections.map((item) => { return new SystemConnection().fromInterface(item); });
 			this.selectedItem.id = this.system.id;
 			this.selectedItem.idSystem = this.system.id;
-			this.starSystem.loadSystem(result.system);
+			this.starSystem.loadSystem(this.system);
 		});
 	}
 	

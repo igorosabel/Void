@@ -1,9 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer }    from '@angular/platform-browser';
-import { ApiService }      from 'src/app/services/api.service';
-import { DialogService }   from 'src/app/services/dialog.service';
-import { NPC, ShopShip, Ship, ShopModule, Module, ShopResource, ShopSelectedItem, ShopData, SellItemsStatus } from 'src/app/interfaces/interfaces';
+import { MatIconRegistry }  from '@angular/material/icon';
+import { DomSanitizer }     from '@angular/platform-browser';
+import { ApiService }       from 'src/app/services/api.service';
+import { DialogService }    from 'src/app/services/dialog.service';
+import { Ship }             from 'src/app/model/ship.model';
+import { Module }           from 'src/app/model/module.model';
+import { ShopShip }         from 'src/app/model/shop-ship.model';
+import { ShopModule }       from 'src/app/model/shop-module.model';
+import { ShopResource }     from 'src/app/model/shop-resource.model';
+import { NPC }              from 'src/app/model/npc.model';
+import { ShopSelectedItem } from 'src/app/model/shop-selected-item.model';
+import { ShopData, SellItemsStatus } from 'src/app/interfaces/interfaces';
 import { MODULES, HULLS, ENGINES, GENERATORS } from 'src/app/shared/constants';
 
 @Component({
@@ -20,27 +27,9 @@ export class HomeShopComponent implements OnInit {
 	shopTab: string = 'buy';
 	@Input() credits : number = 0;
 	@Output() buySellEvent: EventEmitter<number> = new EventEmitter<number>();
-	npc: NPC = {
-		id: null,
-		name: null,
-		idRace: null,
-		ships: [],
-		modules: [],
-		resources: []
-	};
+	npc: NPC = new NPC();
 	shopStep: number = 1;
-	selectedItem: ShopSelectedItem = {
-		id: null,
-		type: null,
-		name: null,
-		num: null,
-		max: null,
-		price: null,
-		credits: null,
-		ship: null,
-		module: null,
-		resource: null
-	};
+	selectedItem: ShopSelectedItem = new ShopSelectedItem();
 	private shopNum: ElementRef;
 	@ViewChild('shopNum', { static: true }) set content(content: ElementRef) {
 		this.shopNum = content;
@@ -132,24 +121,13 @@ export class HomeShopComponent implements OnInit {
 		this.shopStep = 1;
 		this.sellStep = 1;
 		this.buying = false;
-		this.selectedItem = {
-			id: null,
-			type: null,
-			name: null,
-			num: null,
-			max: null,
-			price: null,
-			credits: null,
-			ship: null,
-			module: null,
-			resource: null
-		};
+		this.selectedItem = new ShopSelectedItem();
 		this.loadNPC();
 	}
 	
 	loadNPC(): void {
 		this.as.getNPCShop(this.idNPC).subscribe(result => {
-			this.npc = result.npc;
+			this.npc = new NPC().fromInterface(result.npc);
 			this.loaded = true;
 			
 			this.as.getSellItems(this.npc.id).subscribe(result => {
