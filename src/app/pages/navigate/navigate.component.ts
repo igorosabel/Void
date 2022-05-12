@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatIconRegistry }     from '@angular/material/icon';
 import { DomSanitizer }        from '@angular/platform-browser';
 import { ApiService }          from 'src/app/services/api.service';
-import { CommonService }       from 'src/app/services/common.service';
 import { DialogService }       from 'src/app/services/dialog.service';
 import { StarSystemComponent } from 'src/app/components/star-system/star-system.component';
 import { JobComponent }        from 'src/app/components/job/job.component';
@@ -34,7 +33,7 @@ export class NavigateComponent implements OnInit {
 	editNameShow: boolean = false;
 	editName: string = null;
 	
-	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private cs: CommonService, private dialog: DialogService) {
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private as: ApiService, private dialog: DialogService) {
 		this.matIconRegistry.addSvgIcon(
 			"void-system",
 			this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/system.svg")
@@ -53,7 +52,7 @@ export class NavigateComponent implements OnInit {
 	}
 	
 	openEditName(): void {
-		this.editName = this.cs.urldecode(this.system.name);
+		this.editName = this.system.name
 		this.editNameShow = true;
 	}
 	
@@ -75,18 +74,18 @@ export class NavigateComponent implements OnInit {
 				if (result.status=='ok'){
 					switch (this.selectedItem.type) {
 						case 'system': {
-							this.system.name = this.cs.urlencode(this.editName);
+							this.system.name = this.editName
 						}
 						break;
 						case 'planet': {
 							let pIndex = this.system.planets.findIndex(x => x.id==this.selectedItem.idPlanet);
-							this.system.planets[pIndex].name = this.cs.urlencode(this.editName);
+							this.system.planets[pIndex].name = this.editName
 						}
 						break;
 						case 'moon': {
 							let pIndex = this.system.planets.findIndex(x => x.id==this.selectedItem.idPlanet);
 							let mIndex = this.system.planets[pIndex].moons.findIndex(x => x.id==this.selectedItem.idPlanet);
-							this.system.planets[pIndex].moons[mIndex].name = this.cs.urlencode(this.editName);
+							this.system.planets[pIndex].moons[mIndex].name = this.editName
 						}
 						break;
 					}

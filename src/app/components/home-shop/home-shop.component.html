@@ -5,7 +5,7 @@
 	<div class="shop" *ngIf="loaded">
 		<div class="shop-header">
 			<mat-icon mat-list-icon>monetization_on</mat-icon>
-			<span>{{npc.name | urldecode}}</span>
+			<span>{{npc.name}}</span>
 			<button mat-icon-button aria-label="Cerrar tienda" (click)="closeShop()">
 				<mat-icon>close</mat-icon>
 			</button>
@@ -25,7 +25,7 @@
 							<button mat-list-item *ngFor="let ship of npc.ships" (click)="selectShip(ship)">
 								<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<div class="shop-item-name">{{ship.ship.name | urldecode}} <span>({{ship.value}})</span></div>
+									<div class="shop-item-name">{{ship.ship.name}} <span>({{ship.value}})</span></div>
 									<div class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
@@ -33,7 +33,7 @@
 							<button mat-list-item *ngFor="let module of npc.modules" (click)="selectModule(module)">
 								<mat-icon mat-list-icon>dns</mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<div class="shop-item-name">{{module.module.name | urldecode}} <span>({{module.value}})</span></div>
+									<div class="shop-item-name">{{module.module.name}} <span>({{module.value}})</span></div>
 									<div class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
@@ -41,7 +41,7 @@
 							<button mat-list-item *ngFor="let resource of npc.resources" (click)="selectResource(resource)">
 								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<div class="shop-item-name">{{resource.resource.name | urldecode}} <span>({{resource.value}})</span></div>
+									<div class="shop-item-name">{{resource.resource.name}} <span>({{resource.value}})</span></div>
 									<div class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
@@ -61,7 +61,7 @@
 							<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
 							<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
 							<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
-							<span>{{selectedItem.name | urldecode}}</span>
+							<span>{{selectedItem.name}}</span>
 						</div>
 						<div class="selected-item-body" *ngIf="selectedItem.id">
 							<div class="selected-item-details">
@@ -181,7 +181,7 @@
 							<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
 							<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
 							<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
-							<span>{{selectedItem.name | urldecode}}</span>
+							<span>{{selectedItem.name}}</span>
 						</div>
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
 					</div>
@@ -205,7 +205,7 @@
 							<button mat-list-item *ngFor="let ship of playerSelling.ships" (click)="sellShip(ship)">
 								<mat-icon mat-list-icon svgIcon="void-ship"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<div class="shop-item-name">{{ship.name | urldecode}}</div>
+									<div class="shop-item-name">{{ship.name}}</div>
 									<div class="shop-item-credits">{{ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
@@ -213,7 +213,7 @@
 							<button mat-list-item *ngFor="let module of playerSelling.modules" (click)="sellModule(module)">
 								<mat-icon mat-list-icon>dns</mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<div class="shop-item-name">{{module.name | urldecode}}</div>
+									<div class="shop-item-name">{{module.name}}</div>
 									<div class="shop-item-credits">{{module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
@@ -221,7 +221,7 @@
 							<button mat-list-item *ngFor="let resource of playerSelling.resources" (click)="sellResource(resource)">
 								<mat-icon mat-list-icon [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
 								<h4 class="shop-item-title" mat-line>
-									<div class="shop-item-name">{{resource.resource.name | urldecode}} <span>({{resource.value}})</span></div>
+									<div class="shop-item-name">{{resource.resource.name}} <span>({{resource.value}})</span></div>
 									<div class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
@@ -241,7 +241,7 @@
 							<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
 							<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
 							<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
-							<span>{{selectedItem.name | urldecode}}</span>
+							<span>{{selectedItem.name}}</span>
 						</div>
 						<div class="selected-item-body" *ngIf="selectedItem.id">
 							<div class="selected-item-details">
@@ -358,7 +358,7 @@
 							<mat-icon mat-list-icon svgIcon="void-ship" *ngIf="selectedItem.type==1"></mat-icon>
 							<mat-icon mat-list-icon *ngIf="selectedItem.type==2">dns</mat-icon>
 							<mat-icon mat-list-icon [svgIcon]="'void-resource-'+selectedItem.id" *ngIf="selectedItem.type==3"></mat-icon>
-							<span>{{selectedItem.name | urldecode}}</span>
+							<span>{{selectedItem.name}}</span>
 						</div>
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
 					</div>

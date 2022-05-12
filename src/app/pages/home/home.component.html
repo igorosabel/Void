@@ -55,7 +55,7 @@
 					<mat-icon mat-list-icon *ngIf="character.type==1">account_box</mat-icon>
 					<mat-icon mat-list-icon *ngIf="character.type==2">monetization_on</mat-icon>
 					<h4 class="character-item" mat-line>
-						{{ character.name | urldecode }}
+						{{ character.name }}
 						<span class="flex-space"></span>
 						<button mat-raised-button color="primary" *ngIf="character.type==1">
 							<mat-icon>email</mat-icon>
