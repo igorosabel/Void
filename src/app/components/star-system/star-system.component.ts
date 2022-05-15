@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { StarSystemSelect } from 'src/app/interfaces/interfaces';
 import { SystemPlanet } from 'src/app/model/system-planet.model';
+import { SystemMoon } from 'src/app/model/system-moon.model';
 import { SystemInfo } from 'src/app/model/system-info.model';
+import { Star } from 'src/app/model/star.model';
+import { Utils } from 'src/app/model/utils.class';
+import { NUM_STARS } from 'src/app/shared/constants';
 
 @Component({
 	selector: 'void-star-system',
@@ -12,6 +16,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 	@Output() onselect: EventEmitter<StarSystemSelect> = new EventEmitter<StarSystemSelect>();
 	system: SystemInfo = new SystemInfo();
 	@ViewChild('systemContent', { static: true }) systemContent: ElementRef;
+	stars: Star[] = [];
 	sun = {
 		background: null,
 		backgroundColor: null,
@@ -39,13 +44,19 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 	constructor() {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.generateStars();
+	}
 
 	ngOnDestroy(): void {
 		const systemElem = document.getElementById('navigateStyles');
 		systemElem && systemElem.parentNode.removeChild(systemElem);
 		const planetElem = document.getElementById('planetStyles');
 		planetElem && planetElem.parentNode.removeChild(planetElem);
+	}
+
+	generateStars(): void {
+		this.stars = Utils.stars(NUM_STARS);
 	}
 
 	loadSystem(system : SystemInfo): void {
@@ -62,6 +73,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		this.onselect.emit(params);
 		this.planet.id = null;
 		this.moon.id = null;
+		this.generateStars();
 	}
 
 	selectPlanet(p: SystemPlanet, ev: MouseEvent=null): void {
@@ -76,6 +88,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 			this.calculatePlanetCSS();
 		}
 		this.moon.id = null;
+		this.generateStars();
 	}
 
 	selectPlanetFromMenu(planet: SystemPlanet): void {
@@ -83,10 +96,10 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		this.selectPlanet(this.planets[ind]);
 	}
 
-	selectMoon(m): void {
+	selectMoon(m: SystemMoon): void {
 		console.log(m);
 	}
-	
+
 	calculateSystemCSS(): void {
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
 		let maxKm = 0;
@@ -103,9 +116,9 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 		const oneDistance = this.system.radius + (pMaxRadius * 1.10);
 		maxKm = (oneDistance * pMaxDistance) + pMaxRadius;
-		
+
 		const ratio = maxWidth / maxKm;
-		
+
 		const sunWidth = ( (this.system.radius * 2) * ratio);
 		const typeInfo = this.system.type.split('-');
 		this.sun = {
@@ -116,21 +129,21 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 			left: 'calc(50% - ' + (sunWidth/2) + 'px)',
 			top: 'calc(50% - ' + (sunWidth/2) + 'px)'
 		};
-		
+
 		let animations = '';
 		for (let p of this.system.planets) {
-			let planetDistance = oneDistance * p.distance;			
+			let planetDistance = oneDistance * p.distance;
 			let orbit = planetDistance * ratio;
 			let planetWidth = ( (p.radius * 2) * ratio);
 			let planetOrbit = ( (planetDistance/2) - p.radius) * ratio;
-			
+
 			this.planetOrbits.push({
 				width: orbit + 'px',
 				height: orbit + 'px',
 				top: 'calc( 50% - ' + (orbit / 2) + 'px)',
 				left: 'calc( 50% - ' + (orbit / 2) + 'px)'
 			});
-			
+
 			this.planets.push({
 				id: p.id,
 				width: planetWidth + 'px',
@@ -141,7 +154,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 				name: p.name,
 				animation: 'planetRotate'+p.id+' '+p.rotation+'s infinite linear'
 			});
-			
+
 			let distanceHalf = orbit/2;
 			animations += `
 				@keyframes planetRotate${p.id}{
@@ -154,7 +167,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 				}
 			`;
 		}
-		
+
 		const head = document.getElementsByTagName('head')[0];
 		const style = document.createElement('style');
 		style.id = 'navigateStyles';
@@ -162,7 +175,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 		style.appendChild(document.createTextNode(animations));
 		head.appendChild(style);
 	}
-	
+
 	calculatePlanetCSS(): void {
 		const maxWidth = Math.min(...[this.systemContent.nativeElement.offsetWidth, this.systemContent.nativeElement.offsetHeight]);
 		let planetInd = this.system.planets.findIndex(x => x.id == this.planet.id);
@@ -182,9 +195,9 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 
 		const oneDistance = p.radius + (mMaxRadius * 1.10);
 		maxKm = (oneDistance * mMaxDistance) + mMaxRadius;
-		
+
 		const ratio = maxWidth / maxKm;
-		
+
 		const planetWidth = ( (p.radius * 2) * ratio);
 		this.planet = {
 			id: p.id,
@@ -195,23 +208,23 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 			left: 'calc(50% - ' + (planetWidth/2) + 'px)',
 			top: 'calc(50% - ' + (planetWidth/2) + 'px)'
 		};
-		
+
 		let animations = '';
 		this.moons = [];
 		this.moonOrbits = [];
 		for (let m of p.moons) {
-			let moonDistance = oneDistance * m.distance;			
+			let moonDistance = oneDistance * m.distance;
 			let orbit = moonDistance * ratio;
 			let moonWidth = ( (m.radius * 2) * ratio);
 			let moonOrbit = ( (moonDistance/2) - m.radius) * ratio;
-			
+
 			this.moonOrbits.push({
 				width: orbit + 'px',
 				height: orbit + 'px',
 				top: 'calc( 50% - ' + (orbit / 2) + 'px)',
 				left: 'calc( 50% - ' + (orbit / 2) + 'px)'
 			});
-			
+
 			this.moons.push({
 				id: m.id,
 				width: moonWidth + 'px',
@@ -222,7 +235,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 				name: m.name,
 				animation: 'moonRotate'+m.id+' '+m.rotation+'s infinite linear'
 			});
-			
+
 			let distanceHalf = orbit/2;
 			animations += `
 				@keyframes moonRotate${m.id}{
@@ -235,7 +248,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
 				}
 			`;
 		}
-		
+
 		const head = document.getElementsByTagName('head')[0];
 		const style = document.createElement('style');
 		style.id = 'planetStyles';

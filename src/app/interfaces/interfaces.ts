@@ -234,6 +234,13 @@ export interface SystemResult {
 	connections: SystemConnectionInterface[];
 }
 
+export interface StarInterface {
+	top: number;
+	right: number;
+	width: number;
+	pulse: number;
+}
+
 export interface EditNameData {
 	id: number;
 	type: string;

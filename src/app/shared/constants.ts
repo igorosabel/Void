@@ -21,3 +21,5 @@ export const GENERATORS = {
 	generator_1: 'Nuclear',
 	generator_2: 'Fusión'
 };
+
+export const NUM_STARS = 40;

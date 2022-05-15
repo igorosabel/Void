@@ -7,6 +7,14 @@
 		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content class="system-content" #systemContent>
+		<div *ngFor="let star of stars" class="stars"
+			[ngStyle]="{
+				'top': star.top + '%',
+				'right': star.right + '%',
+				'width': star.width + 'px',
+				'height': star.width + 'px',
+				'animation': 'small-pulse ' + star.pulse + 's infinite'
+			}"></div>
 		<ng-container *ngIf="!planet.id">
 			<div class="sun" [ngStyle]="sun"></div>
 			<div class="planet-radius" *ngFor="let o of planetOrbits" [ngStyle]="o"></div>
@@ -14,7 +22,7 @@
 				<span>{{p.name}}</span>
 			</div>
 		</ng-container>
-		
+
 		<ng-container *ngIf="planet.id">
 			<div class="one-planet" [ngStyle]="planet"></div>
 			<div class="moon-radius" *ngFor="let o of moonOrbits" [ngStyle]="o"></div>
