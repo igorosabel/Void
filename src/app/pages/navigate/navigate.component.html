@@ -1,15 +1,19 @@
 <void-header [selected]="'navigate'"></void-header>
 
 <main>
-	<void-star-system #starSystem (onselect)="starSystemSelect($event)"></void-star-system>
-	
+	<void-star-system #starSystem
+					  (onselect)="starSystemSelect($event)"></void-star-system>
+
 	<mat-card class="options">
 		<mat-card-content class="options-content">
 			<ng-container *ngIf="selectedItem.type=='system'">
 				<div class="system-info-box">
 					<div class="system-info-box-header">
 						{{system.name}}
-						<button *ngIf="idPlayer==system.idDiscoverer" mat-icon-button aria-label="Editar nombre" (click)="openEditName()">
+						<button *ngIf="idPlayer==system.idDiscoverer"
+								mat-icon-button
+								aria-label="Editar nombre"
+								(click)="openEditName()">
 							<mat-icon>edit</mat-icon>
 						</button>
 					</div>
@@ -18,7 +22,10 @@
 							<label>Tipo de estrella:</label>
 							<span>
 								{{system.type}}
-								<a mat-icon-button aria-label="Ver en la Wikipedia" href="{{system.typeLink}}" target="_blank">
+								<a mat-icon-button
+								   aria-label="Ver en la Wikipedia"
+								   href="{{system.typeLink}}"
+								   target="_blank">
 									<mat-icon>info</mat-icon>
 								</a>
 								<span class="system-info-box-desc">{{system.typeDesc}}</span>
@@ -38,42 +45,51 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="system-info-box">
 					<div class="system-info-box-header">
 						Planetas
 					</div>
 					<div class="system-info-box-body">
 						<mat-action-list>
-							<button mat-list-item *ngFor="let planet of system.planets" (click)="selectPlanet(planet)">{{planet.name}}</button>
+							<button mat-list-item
+									*ngFor="let planet of system.planets"
+									(click)="selectPlanet(planet)">{{planet.name}}</button>
 						</mat-action-list>
 					</div>
 				</div>
-				
+
 				<h3 class="sidebar-title">
 					<mat-icon>share</mat-icon>
 					Navegar a otro sistema
 				</h3>
-				
+
 				<mat-action-list>
-					<button mat-list-item *ngFor="let conn of connections">
+					<button mat-list-item
+							*ngFor="let conn of connections">
 						<div class="navigate-system">
-							<mat-icon svgIcon="void-system" *ngIf="conn.idSystemEnd"></mat-icon>
+							<mat-icon svgIcon="void-system"
+									  *ngIf="conn.idSystemEnd"></mat-icon>
 							<mat-icon *ngIf="!conn.idSystemEnd">help</mat-icon>
-							<span class="navigate-system-name" *ngIf="conn.name">{{ conn.name }}</span>
-							<span class="navigate-system-name" *ngIf="!conn.name">Desconocido</span>
+							<span class="navigate-system-name"
+								  *ngIf="conn.name">{{ conn.name }}</span>
+							<span class="navigate-system-name"
+								  *ngIf="!conn.name">Desconocido</span>
 							<span class="navigate-system-time">{{conn.navigateTime | timeFormat}}</span>
 						</div>
 						<mat-divider></mat-divider>
 					</button>
 				</mat-action-list>
 			</ng-container>
-			
+
 			<ng-container *ngIf="selectedItem.type=='planet'">
 				<div class="system-info-box">
 					<div class="system-info-box-header">
 						{{system.planets[planetInd].name}}
-						<button *ngIf="idPlayer==system.idDiscoverer" mat-icon-button aria-label="Editar nombre" (click)="openEditName()">
+						<button *ngIf="idPlayer==system.idDiscoverer"
+								mat-icon-button
+								aria-label="Editar nombre"
+								(click)="openEditName()">
 							<mat-icon>edit</mat-icon>
 						</button>
 					</div>
@@ -82,7 +98,10 @@
 							<label>Tipo de planeta:</label>
 							<span>
 								{{system.planets[planetInd].typeDesc}}
-								<a mat-icon-button aria-label="Ver en la Wikipedia" href="{{system.planets[planetInd].typeLink}}" target="_blank">
+								<a mat-icon-button
+								   aria-label="Ver en la Wikipedia"
+								   href="{{system.planets[planetInd].typeLink}}"
+								   target="_blank">
 									<mat-icon>info</mat-icon>
 								</a>
 							</span>
@@ -93,42 +112,54 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="system-info-box">
 					<div class="system-info-box-header">
 						Lunas
 					</div>
 					<div class="system-info-box-body">
 						<mat-action-list>
-							<button mat-list-item *ngFor="let moon of system.planets[planetInd].moons">{{moon.name}}</button>
+							<button mat-list-item
+									*ngFor="let moon of system.planets[planetInd].moons">
+								<div matListItemLine>{{moon.name}}</div>
+							</button>
 						</mat-action-list>
 					</div>
 				</div>
-				
+
 				<h3 class="sidebar-title">
 					<mat-icon>build</mat-icon>
 					Acciones
 				</h3>
 				<div *ngIf="!system.planets[planetInd].explored">
-					<button mat-raised-button color="warn" class="sidebar-options" [disabled]="job.working" (click)="explorePlanet()">
+					<button mat-raised-button
+							color="warn"
+							class="sidebar-options"
+							[disabled]="job.working"
+							(click)="explorePlanet()">
 						<mat-icon>360</mat-icon>
 						Explorar ({{system.planets[planetInd].exploreTime | timeFormat}})
 					</button>
 				</div>
 				<div *ngIf="system.planets[planetInd].explored">
-					<button mat-raised-button color="warn" class="sidebar-options">
+					<button mat-raised-button
+							color="warn"
+							class="sidebar-options">
 						<mat-icon>terrain</mat-icon>
 						Extraer recursos
 					</button>
 				</div>
-				
+
 			</ng-container>
-			
+
 			<ng-container *ngIf="selectedItem.type=='moon'">
 				<div class="system-info-box">
 					<div class="system-info-box-header">
 						{{system.planets[planetInd].moons[moonInd].name}}
-						<button *ngIf="idPlayer==system.idDiscoverer" mat-icon-button aria-label="Editar nombre" (click)="openEditName()">
+						<button *ngIf="idPlayer==system.idDiscoverer"
+								mat-icon-button
+								aria-label="Editar nombre"
+								(click)="openEditName()">
 							<mat-icon>edit</mat-icon>
 						</button>
 					</div>
@@ -138,9 +169,12 @@
 	</mat-card>
 </main>
 
-<div class="edit-name" [ngClass]="{'edit-name-show': editNameShow}">
+<div class="edit-name"
+	 [ngClass]="{'edit-name-show': editNameShow}">
 	<mat-card>
-		<mat-card-title>Editar nombre</mat-card-title>
+		<mat-card-header>
+			<mat-card-title>Editar nombre</mat-card-title>
+		</mat-card-header>
 		<mat-card-content>
 			<p>Al haber descubierto tu este sistema puedes cambiar su nombre, el de sus planetas o sus lunas.</p>
 			<p>
@@ -148,13 +182,17 @@
 					<mat-label *ngIf="selectedItem.type=='system'">Nombre del sistema</mat-label>
 					<mat-label *ngIf="selectedItem.type=='planet'">Nombre del planeta</mat-label>
 					<mat-label *ngIf="selectedItem.type=='moon'">Nombre de la luna</mat-label>
-					<input matInput [(ngModel)]="editName" maxlength="50">
+					<input matInput
+						   [(ngModel)]="editName"
+						   maxlength="50">
 				</mat-form-field>
 			</p>
 		</mat-card-content>
 		<mat-card-actions align="end">
-			<button mat-button (click)="closeEditName()">CANCELAR</button>
-			<button mat-button (click)="saveEditName()">GUARDAR</button>
+			<button mat-button
+					(click)="closeEditName()">CANCELAR</button>
+			<button mat-button
+					(click)="saveEditName()">GUARDAR</button>
 		</mat-card-actions>
 	</mat-card>
 </div>

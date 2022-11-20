@@ -1,22 +1,35 @@
 @use '@angular/material' as mat;
 /* You can add global styles to this file, and also import other style files */
-@include mat.core();
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
+@include mat.all-legacy-component-typographies();
+@include mat.legacy-core();
 
-$primary: mat.define-palette(mat.$indigo-palette,A400);
-$accent: mat.define-palette(mat.$lime-palette,A400);
+$primary: mat.define-palette(mat.$indigo-palette, A400);
+$accent: mat.define-palette(mat.$lime-palette, A400);
 $warn: mat.define-palette(mat.$red-palette);
 
 $test: mat.define-dark-theme($primary, $accent, $warn);
 
-@include mat.all-component-themes($test);
+@include mat.all-legacy-component-themes($test);
 
-$bg-color: rgba(255,255,255,0.4);
-$card-bg-color: #424242;
-$header-bg-color: #212121;
-$tabs-bg-color: #424242;
-$tabs-selected-color: #353535;
+:root {
+	--bg-color: rgba(255, 255, 255, 0.4);
+	--card-bg-color: #424242;
+	--card-color: #fff;
+	--header-bg-color: #212121;
+	--tabs-bg-color: #424242;
+	--tabs-selected-color: #353535;
+}
 
-html, body {
+html,
+body {
 	height: 100%;
 }
 
@@ -30,14 +43,14 @@ body {
 	margin: 50px auto;
 }
 
-.center-card-fields > * {
+.center-card-fields>* {
 	width: 100%;
 }
 
 .center-card-buttons {
 	display: flex !important;
 	justify-content: space-between;
-	
+
 	img {
 		width: 20px;
 	}
@@ -50,8 +63,29 @@ body {
 
 .center-card-error {
 	border-radius: 6px;
-    box-sizing: border-box;
-    border-color: #f44336;
-    color: #f44336;
-    border-width: 2px;
+	box-sizing: border-box;
+	border-color: #f44336;
+	color: #f44336;
+	border-width: 2px;
+}
+
+.mat-mdc-card {
+	background-color: var(--card-bg-color) !important;
+	color: var(--card-color) !important;
+}
+
+.mdc-button {
+	color: var(--card-color) !important;
+}
+
+.mat-mdc-input-element,
+.mat-mdc-floating-label {
+	color: var(--card-color) !important;
+}
+
+.mat-mdc-list-item-title,
+.mat-mdc-list-item-line,
+.mat-mdc-list-item-icon,
+.mdc-list-item__primary-text {
+	color: var(--card-color) !important;
 }

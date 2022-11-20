@@ -1,21 +1,19 @@
-@import '../../../styles.scss';
-
 .job-notice {
 	position: fixed;
-    top: 8px;
-    left: calc(50% - 125px);
-    right: auto;
-    background-color: $card-bg-color;
-    border-radius: 6px;
-    padding: 12px 16px;
-    display: flex;
-    width: 250px;
-    z-index: 100;
+	top: 8px;
+	left: calc(50% - 125px);
+	right: auto;
+	background-color: var(--card-bg-color);
+	border-radius: 6px;
+	padding: 12px 16px;
+	display: flex;
+	width: 250px;
+	z-index: 100;
 
 	.job-description {
 		flex: 1;
 	}
-	
+
 	.job-time {
 		font-weight: bold;
 	}

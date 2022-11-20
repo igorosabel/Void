@@ -3,73 +3,96 @@
 <main>
 	<div class="first-row">
 		<mat-card>
-			<div class="info-col">
-				<div class="info-row">
-					<label>Sistema:</label>
-					<span>{{system.system}}</span>
+			<mat-card-content>
+				<div class="info-col">
+					<div class="info-row">
+						<label>Sistema:</label>
+						<span>{{system.system}}</span>
+					</div>
+					<div class="info-row">
+						<label>Tipo de estrella:</label>
+						<span>
+							{{system.star}}
+							<a mat-icon-button
+							   color="primary"
+							   aria-label="Ver en la Wikipedia"
+							   href="https://es.wikipedia.org/wiki/Clasificaci%C3%B3n_estelar"
+							   target="_blank">
+								<mat-icon>info</mat-icon>
+							</a>
+						</span>
+					</div>
+					<div class="info-row">
+						<label>Num. planetas:</label>
+						<span>{{system.numPlanets}}</span>
+					</div>
 				</div>
-				<div class="info-row">
-					<label>Tipo de estrella:</label>
-					<span>
-						{{system.star}}
-						<a mat-icon-button color="primary" aria-label="Ver en la Wikipedia" href="https://es.wikipedia.org/wiki/Clasificaci%C3%B3n_estelar" target="_blank">
-							<mat-icon>info</mat-icon>
-						</a>
-					</span>
+				<div class="info-col">
+					<div class="info-row">
+						<label>Créditos:</label>
+						<span>{{system.credits | number:'1.0-0'}}</span>
+					</div>
+					<div class="info-row">
+						<label>Integridad nave:</label>
+						<span>{{system.strength | number:'1.0-0'}} / {{system.maxStrength | number:'1.0-0'}}</span>
+					</div>
 				</div>
-				<div class="info-row">
-					<label>Num. planetas:</label>
-					<span>{{system.numPlanets}}</span>
-				</div>
-			</div>
-			<div class="info-col">
-				<div class="info-row">
-					<label>Créditos:</label>
-					<span>{{system.credits | number:'1.0-0'}}</span>
-				</div>
-				<div class="info-row">
-					<label>Integridad nave:</label>
-					<span>{{system.strength | number:'1.0-0'}} / {{system.maxStrength | number:'1.0-0'}}</span>
-				</div>
-			</div>
+			</mat-card-content>
 		</mat-card>
 		<mat-card>
-			<div class="message-list">
-				<mat-nav-list *ngIf="system.messages.length>0">
-					<a mat-list-item href="#" *ngFor="let message of system.messages; let last = last;">
-						<mat-icon mat-list-icon *ngIf="message.type==0">email</mat-icon>
-						<mat-icon mat-list-icon *ngIf="message.type==1">monetization_on</mat-icon>
-						<h4 mat-line>{{ message.name }} <span class="message-date">{{message.date}}</span></h4>
-						<p mat-line> {{ message.message }}</p>
-						<mat-divider *ngIf="!last"></mat-divider>
-					</a>
-				</mat-nav-list>
-				<span *ngIf="system.messages.length==0">No hay ningún mensaje nuevo</span>
-			</div>
+			<mat-card-content>
+				<div class="message-list">
+					<mat-nav-list *ngIf="system.messages.length>0">
+						<a mat-list-item
+						   href="#"
+						   *ngFor="let message of system.messages; let last = last;">
+							<mat-icon matListItemIcon
+									  *ngIf="message.type==0">email</mat-icon>
+							<mat-icon matListItemIcon
+									  *ngIf="message.type==1">monetization_on</mat-icon>
+							<div matListItemTitle>{{ message.name }} <span class="message-date">{{message.date}}</span></div>
+							<div matListItemLine> {{ message.message }}</div>
+							<mat-divider *ngIf="!last"></mat-divider>
+						</a>
+					</mat-nav-list>
+					<span *ngIf="system.messages.length==0">No hay ningún mensaje nuevo</span>
+				</div>
+			</mat-card-content>
 		</mat-card>
 	</div>
 	<div class="second-row">
 		<mat-card>
 			<mat-list>
 				<mat-list-item *ngFor="let character of system.characters; let last = last;">
-					<mat-icon mat-list-icon *ngIf="character.type==1">account_box</mat-icon>
-					<mat-icon mat-list-icon *ngIf="character.type==2">monetization_on</mat-icon>
-					<h4 class="character-item" mat-line>
+					<mat-icon matListItemIcon
+							  *ngIf="character.type==1">account_box</mat-icon>
+					<mat-icon matListItemIcon
+							  *ngIf="character.type==2">monetization_on</mat-icon>
+					<div class="character-item"
+						 matListItemLine>
 						{{ character.name }}
 						<span class="flex-space"></span>
-						<button mat-raised-button color="primary" *ngIf="character.type==1">
+						<button mat-raised-button
+								color="primary"
+								*ngIf="character.type==1">
 							<mat-icon>email</mat-icon>
 							<span>Mensaje</span>
 						</button>
-						<button mat-raised-button color="warn" *ngIf="character.type==1" class="button-separator">
+						<button mat-raised-button
+								color="warn"
+								*ngIf="character.type==1"
+								class="button-separator">
 							<mat-icon>compare_arrows</mat-icon>
 							<span>Atacar</span>
 						</button>
-						<button mat-raised-button color="primary" *ngIf="character.type==2" (click)="openShop(character.id)">
+						<button mat-raised-button
+								color="primary"
+								*ngIf="character.type==2"
+								(click)="openShop(character.id)">
 							<mat-icon>shopping_cart</mat-icon>
 							<span>Abrir tienda</span>
 						</button>
-					</h4>
+					</div>
 					<mat-divider *ngIf="!last"></mat-divider>
 				</mat-list-item>
 				<mat-list-item *ngIf="system.characters.length==0">
@@ -80,4 +103,6 @@
 	</div>
 </main>
 
-<void-home-shop #shop [credits]="system.credits" (buySellEvent)="buySell($event)"></void-home-shop>
+<void-home-shop #shop
+				[credits]="system.credits"
+				(buySellEvent)="buySell($event)"></void-home-shop>

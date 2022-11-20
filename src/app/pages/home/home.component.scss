@@ -13,16 +13,16 @@ main {
 	flex-direction: column;
 	justify-content: space-around;
 	padding: 16px 0;
-	
+
 	mat-card {
 		width: 90%;
 		margin-bottom: 16px;
 		display: flex;
 	}
-	
+
 	.info-col {
 		flex: 1;
-		
+
 		.info-row {
 			padding-top: 12px;
 			display: flex;
@@ -31,18 +31,18 @@ main {
 			label {
 				flex: 1;
 			}
-			
+
 			span {
 				flex: 1;
 			}
 		}
 	}
-	
-	.message-list{
+
+	.message-list {
 		width: 100%;
 		height: 150px;
 		overflow: auto;
-		
+
 		.message-date {
 			display: inline-block;
 			color: #888;
@@ -53,28 +53,29 @@ main {
 }
 
 .second-row {
-	.character-item{
+	.character-item {
 		display: flex;
 		align-items: center;
 
-		.flex-space{
+		.flex-space {
 			flex: 1;
 		}
 
-		.button-separator{
+		.button-separator {
 			margin-left: 16px;
 		}
-		
+
 		button {
 			span {
 				display: none;
 			}
 		}
 	}
-	
-	.no-characters{
+
+	.no-characters {
 		width: 100%;
 		text-align: center;
+		color: var(--card-color);
 	}
 }
 
@@ -91,9 +92,9 @@ main {
 			margin-bottom: 0;
 		}
 	}
-	
+
 	.second-row {
-		.character-item{
+		.character-item {
 			button {
 				span {
 					display: inline-block;

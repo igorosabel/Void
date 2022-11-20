@@ -1,5 +1,3 @@
-@import '../../../styles.scss';
-
 .header-bar {
 	position: fixed;
 	top: 0;
@@ -10,14 +8,14 @@
 .header-menu {
 	display: flex;
 	height: 80px;
-    align-items: center;
+	align-items: center;
 	border-bottom: 0;
 	position: fixed;
 	bottom: 0;
 	width: 100%;
 	z-index: 10;
-	background-color: $tabs-bg-color;
-	
+	background-color: var(--tabs-bg-color);
+
 	a {
 		color: #fff;
 		display: flex;
@@ -27,12 +25,12 @@
 		height: 100%;
 		justify-content: center;
 		align-items: center;
-		
+
 		&:hover {
-			background-color: $tabs-selected-color;
+			background-color: var(--tabs-selected-color);
 			color: #fff;
 		}
-		
+
 		span {
 			display: inline-block;
 			text-align: center;
@@ -43,10 +41,10 @@
 }
 
 .selected {
-	background-color: $tabs-selected-color;
+	background-color: var(--tabs-selected-color);
 }
 
-.badge{
+.badge {
 	display: inline-block;
 	background-color: #3f51b5;
 	color: #fff;
@@ -59,12 +57,12 @@
 @media only screen and (min-width: 600px) {
 	.header-menu {
 		height: 40px;
-		box-shadow: 0 2px 4px rgba(0,0,0,.5);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
 		top: 64px;
-		
+
 		a {
 			flex-direction: row;
-			
+
 			span {
 				margin-left: 6px;
 				align-items: center;
