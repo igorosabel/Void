@@ -1,67 +1,72 @@
-import { HttpClient }  from '@angular/common/http';
-import { Injectable }  from '@angular/core';
-import { Observable }  from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 import {
-	LoginData,
-	LoginResult,
-	RegisterData,
-	CurrentSystemStatus,
-	NPCShopStatus,
-	SellItemsStatus,
-	StatusResult,
-	ShopData,
-	SystemResult,
-	EditNameData,
-	ExploreData
-} from 'src/app/interfaces/interfaces';
+  CurrentSystemStatus,
+  EditNameData,
+  ExploreData,
+  LoginData,
+  LoginResult,
+  NPCShopStatus,
+  RegisterData,
+  SellItemsStatus,
+  ShopData,
+  StatusResult,
+  SystemResult,
+} from "src/app/interfaces/interfaces";
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: "root",
 })
 export class ApiService {
-	apiUrl: string = environment.apiUrl;
+  apiUrl: string = environment.apiUrl;
 
-	constructor(private http : HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-	login(data: LoginData): Observable<LoginResult> {
-		return this.http.post<LoginResult>(this.apiUrl + 'login', data);
-	}
+  login(data: LoginData): Observable<LoginResult> {
+    return this.http.post<LoginResult>(this.apiUrl + "login", data);
+  }
 
-	register(data: RegisterData): Observable<LoginResult> {
-		return this.http.post<LoginResult>(this.apiUrl + 'register', data);
-	}
+  register(data: RegisterData): Observable<LoginResult> {
+    return this.http.post<LoginResult>(this.apiUrl + "register", data);
+  }
 
-	getCurrentSystem(): Observable<CurrentSystemStatus> {
-		return this.http.post<CurrentSystemStatus>(this.apiUrl + 'current-system', {});
-	}
+  getCurrentSystem(): Observable<CurrentSystemStatus> {
+    return this.http.post<CurrentSystemStatus>(
+      this.apiUrl + "current-system",
+      {}
+    );
+  }
 
-	getNPCShop(id: number): Observable<NPCShopStatus> {
-		return this.http.post<NPCShopStatus>(this.apiUrl + 'npc-shop', {id});
-	}
+  getNPCShop(id: number): Observable<NPCShopStatus> {
+    return this.http.post<NPCShopStatus>(this.apiUrl + "npc-shop", { id });
+  }
 
-	getSellItems(id: number): Observable<SellItemsStatus> {
-		return this.http.post<SellItemsStatus>(this.apiUrl + 'get-sell-items', {id});
-	}
+  getSellItems(id: number): Observable<SellItemsStatus> {
+    return this.http.post<SellItemsStatus>(this.apiUrl + "get-sell-items", {
+      id,
+    });
+  }
 
-	buy(data: ShopData): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'buy', data);
-	}
+  buy(data: ShopData): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "buy", data);
+  }
 
-	sell(data: ShopData): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'sell', data);
-	}
+  sell(data: ShopData): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "sell", data);
+  }
 
-	getSystemInfo(): Observable<SystemResult> {
-		return this.http.post<SystemResult>(this.apiUrl + 'get-system-info', {});
-	}
+  getSystemInfo(): Observable<SystemResult> {
+    return this.http.post<SystemResult>(this.apiUrl + "get-system-info", {});
+  }
 
-	editName(data: EditNameData): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'edit-name', data);
-	}
+  editName(data: EditNameData): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "edit-name", data);
+  }
 
-	explore(data: ExploreData): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'explore', data);
-	}
+  explore(data: ExploreData): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "explore", data);
+  }
 }

@@ -13,13 +13,7 @@ import {
 } from "@angular/material/form-field";
 import { TokenInterceptor } from "src/app/interceptors/token.interceptor";
 
-import {
-  COMPONENTS,
-  MATERIAL,
-  PAGES,
-  PIPES,
-  SERVICES,
-} from "src/app/app.common";
+import { SERVICES } from "src/app/app.common";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: "outline",
@@ -29,14 +23,13 @@ import localeEs from "@angular/common/locales/es";
 registerLocaleData(localeEs);
 
 @NgModule({
-  declarations: [AppComponent, ...PAGES, ...COMPONENTS, ...PIPES],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ...MATERIAL,
   ],
   providers: [
     {
