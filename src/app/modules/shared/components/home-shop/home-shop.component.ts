@@ -8,7 +8,10 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { MatIconRegistry } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
 import { DomSanitizer } from "@angular/platform-browser";
 import {
   NPCShopStatus,
@@ -22,7 +25,6 @@ import { ShopModule } from "src/app/model/shop-module.model";
 import { ShopResource } from "src/app/model/shop-resource.model";
 import { ShopSelectedItem } from "src/app/model/shop-selected-item.model";
 import { ShopShip } from "src/app/model/shop-ship.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import {
   ENGINES,
   GENERATORS,
@@ -38,7 +40,14 @@ import { DialogService } from "src/app/services/dialog.service";
   selector: "void-home-shop",
   templateUrl: "./home-shop.component.html",
   styleUrls: ["./home-shop.component.scss"],
-  imports: [CommonModule, FormsModule, MaterialModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatIconModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatButtonModule,
+  ],
   providers: [DialogService],
 })
 export class HomeShopComponent {

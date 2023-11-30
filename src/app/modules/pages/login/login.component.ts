@@ -1,10 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { LoginData, LoginResult } from "src/app/interfaces/interfaces";
 import { User } from "src/app/model/user.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
 import { UserService } from "src/app/services/user.service";
@@ -13,7 +16,15 @@ import { UserService } from "src/app/services/user.service";
   standalone: true,
   selector: "void-login",
   templateUrl: "./login.component.html",
-  imports: [CommonModule, FormsModule, MaterialModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatButtonModule,
+  ],
 })
 export class LoginComponent implements OnInit {
   loginData: LoginData = {

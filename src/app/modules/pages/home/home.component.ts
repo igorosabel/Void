@@ -1,8 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
 import { CurrentSystemStatus } from "src/app/interfaces/interfaces";
 import { CurrentSystem } from "src/app/model/current-system.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { HeaderComponent } from "src/app/modules/shared/components/header/header.component";
 import { HomeShopComponent } from "src/app/modules/shared/components/home-shop/home-shop.component";
 import { ApiService } from "src/app/services/api.service";
@@ -12,7 +14,14 @@ import { ApiService } from "src/app/services/api.service";
   selector: "void-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
-  imports: [CommonModule, MaterialModule, HeaderComponent, HomeShopComponent],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    HomeShopComponent,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+  ],
 })
 export default class HomeComponent implements OnInit {
   system: CurrentSystem = new CurrentSystem();

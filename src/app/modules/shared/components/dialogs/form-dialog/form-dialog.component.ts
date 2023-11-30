@@ -1,15 +1,22 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { DialogField } from "src/app/interfaces/interfaces";
-import { MaterialModule } from "src/app/modules/material/material.module";
 
 @Component({
   standalone: true,
   selector: "void-form-dialog",
   templateUrl: "./form-dialog.component.html",
-  imports: [CommonModule, FormsModule, MaterialModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+  ],
 })
 export class FormDialogComponent {
   public title: string;

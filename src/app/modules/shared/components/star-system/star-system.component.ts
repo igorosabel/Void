@@ -8,6 +8,7 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
+import { MatCardModule } from "@angular/material/card";
 import {
   OrbitInterface,
   PlanetDetailInterface,
@@ -19,7 +20,6 @@ import { Star } from "src/app/model/star.model";
 import { SystemInfo } from "src/app/model/system-info.model";
 import { SystemPlanet } from "src/app/model/system-planet.model";
 import { Utils } from "src/app/model/utils.class";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { NUM_STARS } from "src/app/modules/shared/constants";
 
 @Component({
@@ -27,7 +27,7 @@ import { NUM_STARS } from "src/app/modules/shared/constants";
   selector: "void-star-system",
   templateUrl: "./star-system.component.html",
   styleUrls: ["./star-system.component.scss"],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MatCardModule],
 })
 export class StarSystemComponent implements OnInit, OnDestroy {
   @Output() onselect: EventEmitter<StarSystemSelect> =

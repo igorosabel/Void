@@ -1,10 +1,14 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
 import { User } from "src/app/model/user.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { UserService } from "src/app/services/user.service";
 
@@ -12,7 +16,16 @@ import { UserService } from "src/app/services/user.service";
   standalone: true,
   selector: "void-register",
   templateUrl: "./register.component.html",
-  imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+  ],
 })
 export default class RegisterComponent {
   registerData: RegisterData = {

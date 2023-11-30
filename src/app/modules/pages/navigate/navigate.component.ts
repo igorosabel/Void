@@ -1,7 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { MatIconRegistry } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
 import { DomSanitizer } from "@angular/platform-browser";
 import {
   EditNameData,
@@ -15,7 +19,6 @@ import { SystemConnection } from "src/app/model/system-connection.model";
 import { SystemInfo } from "src/app/model/system-info.model";
 import { SystemMoon } from "src/app/model/system-moon.model";
 import { SystemPlanet } from "src/app/model/system-planet.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { HeaderComponent } from "src/app/modules/shared/components/header/header.component";
 import { JobComponent } from "src/app/modules/shared/components/job/job.component";
 import { StarSystemComponent } from "src/app/modules/shared/components/star-system/star-system.component";
@@ -31,11 +34,15 @@ import { DialogService } from "src/app/services/dialog.service";
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule,
     HeaderComponent,
     StarSystemComponent,
     JobComponent,
     TimeFormatPipe,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatListModule,
+    MatFormFieldModule,
   ],
   providers: [DialogService],
 })
