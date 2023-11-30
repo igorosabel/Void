@@ -72,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Void:build"
+            "buildTarget": "Void:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Void:build:production"
+              "buildTarget": "Void:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Void:build"
+            "buildTarget": "Void:build"
           }
         },
         "test": {
