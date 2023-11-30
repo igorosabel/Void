@@ -423,26 +423,36 @@
 											<label>Tipo:</label>
 											{{moduleTypes['module_'+selectedItem.module.idType]}}
 										</li>
-										<li *ngIf="selectedItem.module.idType === 1">
+										@if (selectedItem.module.idType === 1) {
+										<li>
 											<label>Multiplicador:</label>
 											{{selectedItem.module.engine}}
 										</li>
-										<li *ngIf="selectedItem.module.idType === 2">
+										}
+										@if (selectedItem.module.idType === 2) {
+										<li>
 											<label>Escudo:</label>
 											{{selectedItem.module.shield | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType === 3">
+										}
+										@if (selectedItem.module.idType === 3) {
+										<li>
 											<label>Carga:</label>
 											{{selectedItem.module.cargo | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType === 4">
+										}
+										@if (selectedItem.module.idType === 4) {
+										<li>
 											<label>Daño:</label>
 											{{selectedItem.module.damage | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType === 5">
+										}
+										@if (selectedItem.module.idType === 5) {
+										<li>
 											<label>Cabinas:</label>
 											{{selectedItem.module.crew}}
 										</li>
+										}
 										<li>
 											<label>Energía:</label>
 											<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
