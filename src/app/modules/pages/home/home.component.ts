@@ -24,7 +24,7 @@ export default class HomeComponent implements OnInit {
     this.as
       .getCurrentSystem()
       .subscribe((response: CurrentSystemStatus): void => {
-        if (response.status == "ok") {
+        if (response.status === "ok") {
           this.system = new CurrentSystem().fromInterface(response.system);
         }
       });

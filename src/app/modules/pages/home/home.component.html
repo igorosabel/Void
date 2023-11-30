@@ -1,4 +1,4 @@
-<void-header [numMessages]="system.messages.length"></void-header>
+<void-header [numMessages]="system.messages.length" />
 
 <main>
 	<div class="first-row">
@@ -42,20 +42,29 @@
 		<mat-card>
 			<mat-card-content>
 				<div class="message-list">
-					<mat-nav-list *ngIf="system.messages.length>0">
+					@if (system.messages.length > 0) {
+					<mat-nav-list>
+						@for (message of system.messages; track message.id; let last = $last;) {
 						<a mat-list-item
-						   href="#"
-						   *ngFor="let message of system.messages; let last = last;">
-							<mat-icon matListItemIcon
-									  *ngIf="message.type==0">email</mat-icon>
-							<mat-icon matListItemIcon
-									  *ngIf="message.type==1">monetization_on</mat-icon>
+						   href="#">
+							@if (message.type === 0) {
+							<mat-icon matListItemIcon>email</mat-icon>
+							}
+							@if (message.type === 1) {
+							<mat-icon matListItemIcon>monetization_on</mat-icon>
+							}
 							<div matListItemTitle>{{ message.name }} <span class="message-date">{{message.date}}</span></div>
 							<div matListItemLine> {{ message.message }}</div>
-							<mat-divider *ngIf="!last"></mat-divider>
+							@if (!last) {
+							<mat-divider></mat-divider>
+							}
 						</a>
+						}
 					</mat-nav-list>
-					<span *ngIf="system.messages.length==0">No hay ningún mensaje nuevo</span>
+					}
+					@if (system.messages.length === 0){
+					<span>No hay ningún mensaje nuevo</span>
+					}
 				</div>
 			</mat-card-content>
 		</mat-card>
@@ -63,41 +72,50 @@
 	<div class="second-row">
 		<mat-card>
 			<mat-list>
-				<mat-list-item *ngFor="let character of system.characters; let last = last;">
-					<mat-icon matListItemIcon
-							  *ngIf="character.type==1">account_box</mat-icon>
-					<mat-icon matListItemIcon
-							  *ngIf="character.type==2">monetization_on</mat-icon>
+				@for (character of system.characters; track character.id; let last = $last;) {
+				<mat-list-item>
+					@if (character.type === 1) {
+					<mat-icon matListItemIcon>account_box</mat-icon>
+					}
+					@if (character.type === 2) {
+					<mat-icon matListItemIcon>monetization_on</mat-icon>
+					}
 					<div class="character-item"
 						 matListItemLine>
 						{{ character.name }}
 						<span class="flex-space"></span>
+						@if (character.type === 1) {
 						<button mat-raised-button
-								color="primary"
-								*ngIf="character.type==1">
+								color="primary">
 							<mat-icon>email</mat-icon>
 							<span>Mensaje</span>
 						</button>
 						<button mat-raised-button
 								color="warn"
-								*ngIf="character.type==1"
 								class="button-separator">
 							<mat-icon>compare_arrows</mat-icon>
 							<span>Atacar</span>
 						</button>
+						}
+						@if (character.type === 2) {
 						<button mat-raised-button
 								color="primary"
-								*ngIf="character.type==2"
 								(click)="openShop(character.id)">
 							<mat-icon>shopping_cart</mat-icon>
 							<span>Abrir tienda</span>
 						</button>
+						}
 					</div>
-					<mat-divider *ngIf="!last"></mat-divider>
+					@if (!last) {
+					<mat-divider></mat-divider>
+					}
 				</mat-list-item>
-				<mat-list-item *ngIf="system.characters.length==0">
+				}
+				@empty {
+				<mat-list-item>
 					<div class="no-characters">No se ha encontrado ningún jugador o vendedor en el sistema. ¿Has explorado todos los planetas y lunas?</div>
 				</mat-list-item>
+				}
 			</mat-list>
 		</mat-card>
 	</div>
@@ -105,4 +123,4 @@
 
 <void-home-shop #shop
 				[credits]="system.credits"
-				(buySellEvent)="buySell($event)"></void-home-shop>
+				(buySellEvent)="buySell($event)" />

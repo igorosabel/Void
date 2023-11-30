@@ -7,7 +7,7 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 
 @Component({
   standalone: true,
-  selector: "otpv-form-dialog",
+  selector: "void-form-dialog",
   templateUrl: "./form-dialog.component.html",
   imports: [CommonModule, FormsModule, MaterialModule],
 })

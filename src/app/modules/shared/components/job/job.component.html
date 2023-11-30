@@ -1,5 +1,6 @@
-<div *ngIf="working"
-	 class="job-notice">
+@if (working) {
+<div class="job-notice">
 	<div class="job-description">{{message}}</div>
 	<div class="job-time">{{time | timeFormat}}</div>
 </div>
+}

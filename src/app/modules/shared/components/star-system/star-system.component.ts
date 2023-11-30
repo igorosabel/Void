@@ -17,7 +17,6 @@ import {
 } from "src/app/interfaces/interfaces";
 import { Star } from "src/app/model/star.model";
 import { SystemInfo } from "src/app/model/system-info.model";
-import { SystemMoon } from "src/app/model/system-moon.model";
 import { SystemPlanet } from "src/app/model/system-planet.model";
 import { Utils } from "src/app/model/utils.class";
 import { MaterialModule } from "src/app/modules/material/material.module";
@@ -115,7 +114,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
     this.selectPlanet(this.planets[ind]);
   }
 
-  selectMoon(m: SystemMoon): void {
+  selectMoon(m: PlanetMoonInterface): void {
     console.log(m);
   }
 
@@ -129,7 +128,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
     let maxKm: number = 0;
     let pMaxRadius: number = 0;
     let pMaxDistance: number = 0;
-    for (let p of this.system.planets) {
+    for (const p of this.system.planets) {
       if (p.radius > pMaxRadius) {
         pMaxRadius = p.radius;
       }
@@ -158,11 +157,11 @@ export class StarSystemComponent implements OnInit, OnDestroy {
     };
 
     let animations: string = "";
-    for (let p of this.system.planets) {
-      let planetDistance: number = oneDistance * p.distance;
-      let orbit: number = planetDistance * ratio;
-      let planetWidth: number = p.radius * 2 * ratio;
-      let planetOrbit: number = (planetDistance / 2 - p.radius) * ratio;
+    for (const p of this.system.planets) {
+      const planetDistance: number = oneDistance * p.distance;
+      const orbit: number = planetDistance * ratio;
+      const planetWidth: number = p.radius * 2 * ratio;
+      //const planetOrbit: number = (planetDistance / 2 - p.radius) * ratio;
 
       this.planetOrbits.push({
         width: orbit + "px",
@@ -186,7 +185,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
           "planetRotate" + p.id + " " + p.rotation + "s infinite linear",
       });
 
-      let distanceHalf: number = orbit / 2;
+      const distanceHalf: number = orbit / 2;
       animations += `
 				@keyframes planetRotate${p.id}{
 					from{
@@ -214,7 +213,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
         this.systemContent.nativeElement.offsetHeight,
       ]
     );
-    let planetInd: number = this.system.planets.findIndex(
+    const planetInd: number = this.system.planets.findIndex(
       (x: SystemPlanet): boolean => x.id == this.planet.id
     );
     const p: SystemPlanet = this.system.planets[planetInd];
@@ -222,7 +221,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
     let maxKm: number = 0;
     let mMaxRadius: number = 0;
     let mMaxDistance: number = 0;
-    for (let m of p.moons) {
+    for (const m of p.moons) {
       if (m.radius > mMaxRadius) {
         mMaxRadius = m.radius;
       }
@@ -253,11 +252,11 @@ export class StarSystemComponent implements OnInit, OnDestroy {
     let animations: string = "";
     this.moons = [];
     this.moonOrbits = [];
-    for (let m of p.moons) {
-      let moonDistance: number = oneDistance * m.distance;
-      let orbit: number = moonDistance * ratio;
-      let moonWidth: number = m.radius * 2 * ratio;
-      let moonOrbit: number = (moonDistance / 2 - m.radius) * ratio;
+    for (const m of p.moons) {
+      const moonDistance: number = oneDistance * m.distance;
+      const orbit: number = moonDistance * ratio;
+      const moonWidth: number = m.radius * 2 * ratio;
+      //const moonOrbit: number = (moonDistance / 2 - m.radius) * ratio;
 
       this.moonOrbits.push({
         width: orbit + "px",
@@ -280,7 +279,7 @@ export class StarSystemComponent implements OnInit, OnDestroy {
         animation: "moonRotate" + m.id + " " + m.rotation + "s infinite linear",
       });
 
-      let distanceHalf: number = orbit / 2;
+      const distanceHalf: number = orbit / 2;
       animations += `
 				@keyframes moonRotate${m.id}{
 					from{

@@ -4,18 +4,18 @@
 			<a href="#"
 			   class="system-header-go"
 			   (click)="selectSystem($event)">Sistema ({{system.name}})</a>
-			<span *ngIf="planet.id"
-				  class="system-header-divider">&gt;</span>
+			@if (planet.id) {
+			<span class="system-header-divider">&gt;</span>
 			<a href="#"
-			   *ngIf="planet.id"
 			   class="system-header-go"
 			   (click)="selectPlanet(null, $event)">Planeta ({{planet.name}})</a>
+			}
 		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content class="system-content"
 					  #systemContent>
-		<div *ngFor="let star of stars"
-			 class="stars"
+		@for (star of stars; track star) {
+		<div class="stars"
 			 [ngStyle]="{
 				'top': star.top + '%',
 				'right': star.right + '%',
@@ -23,34 +23,39 @@
 				'height': star.width + 'px',
 				'animation': 'small-pulse ' + star.pulse + 's infinite'
 			}"></div>
-		<ng-container *ngIf="!planet.id">
-			<div class="sun"
-				 [ngStyle]="sun"></div>
-			<div class="planet-radius"
-				 *ngFor="let o of planetOrbits"
-				 [ngStyle]="o"></div>
-			<div class="planet"
-				 *ngFor="let p of planets"
-				 [ngStyle]="p"
-				 [id]="'planet_'+p.id"
-				 (click)="selectPlanet(p)">
-				<span>{{p.name}}</span>
-			</div>
-		</ng-container>
+		}
+		@if (!planet.id) {
+		<div class="sun"
+			 [ngStyle]="sun"></div>
+		@for (o of planetOrbits; track o) {
+		<div class="planet-radius"
+			 [ngStyle]="o"></div>
+		}
+		@for (p of planets; track p.id) {
+		<div class="planet"
+			 [ngStyle]="p"
+			 [id]="'planet_'+p.id"
+			 (click)="selectPlanet(p)">
+			<span>{{p.name}}</span>
+		</div>
+		}
+		}
 
-		<ng-container *ngIf="planet.id">
-			<div class="one-planet"
-				 [ngStyle]="planet"></div>
-			<div class="moon-radius"
-				 *ngFor="let o of moonOrbits"
-				 [ngStyle]="o"></div>
-			<div class="moon"
-				 *ngFor="let m of moons"
-				 [ngStyle]="m"
-				 [id]="'moon_'+m.id"
-				 (click)="selectMoon(m)">
-				<span>{{m.name}}</span>
-			</div>
-		</ng-container>
+		@if (planet.id) {
+		<div class="one-planet"
+			 [ngStyle]="planet"></div>
+		@for (o of moonOrbits; track o) {
+		<div class="moon-radius"
+			 [ngStyle]="o"></div>
+		}
+		@for (m of moons; track m.id) {
+		<div class="moon"
+			 [ngStyle]="m"
+			 [id]="'moon_'+m.id"
+			 (click)="selectMoon(m)">
+			<span>{{m.name}}</span>
+		</div>
+		}
+		}
 	</mat-card-content>
 </mat-card>

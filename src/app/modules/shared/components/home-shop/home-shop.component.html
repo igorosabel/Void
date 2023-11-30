@@ -1,11 +1,12 @@
 <div class="bg"
 	 [ngClass]="{'show': show}">
+	@if (!loaded) {
 	<img src="/assets/loading.svg"
-		 *ngIf="!loaded">
-	<span *ngIf="!loaded">Cargando...</span>
-
-	<div class="shop"
-		 *ngIf="loaded">
+		 alt="">
+	<span>Cargando...</span>
+	}
+	@else {
+	<div class="shop">
 		<div class="shop-header">
 			<mat-icon mat-list-icon>monetization_on</mat-icon>
 			<span>{{npc.name}}</span>
@@ -17,25 +18,26 @@
 		</div>
 		<div class="shop-tabs">
 			<a href="#"
-			   [ngClass]="{'selected': shopTab=='buy'}"
+			   [ngClass]="{'selected': shopTab === 'buy'}"
 			   (click)="selectTab('buy', $event)">Comprar</a>
 			<a href="#"
-			   [ngClass]="{'selected': shopTab=='sell'}"
+			   [ngClass]="{'selected': shopTab === 'sell'}"
 			   (click)="selectTab('sell', $event)">Vender</a>
 		</div>
 		<div class="shop-body">
-			<div *ngIf="shopTab=='buy'"
-				 class="shop-process">
+			@if (shopTab === 'buy') {
+			<div class="shop-process">
 
 				<div class="shop-step-one shop-step"
-					 [ngClass]="{'center': shopStep==1, 'left': shopStep==2 || shopStep==3}">
+					 [ngClass]="{'center': shopStep === 1, 'left': shopStep === 2 || shopStep === 3}">
 					<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
-							<h3 mat-subheader
-								*ngIf="npc.ships.length>0">Naves</h3>
+							@if (npc.ships.length > 0) {
+							<h3 mat-subheader>Naves</h3>
+							}
+							@for (ship of npc.ships; track ship.ship.id) {
 							<button mat-list-item
-									*ngFor="let ship of npc.ships"
 									(click)="selectShip(ship)">
 								<mat-icon mat-list-icon
 										  svgIcon="void-ship"></mat-icon>
@@ -45,10 +47,12 @@
 									<div class="shop-item-credits">{{ship.ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
-							<h3 mat-subheader
-								*ngIf="npc.modules.length>0">Módulos</h3>
+							}
+							@if (npc.modules.length > 0) {
+							<h3 mat-subheader>Módulos</h3>
+							}
+							@for (module of npc.modules; track module.module.id) {
 							<button mat-list-item
-									*ngFor="let module of npc.modules"
 									(click)="selectModule(module)">
 								<mat-icon mat-list-icon>dns</mat-icon>
 								<h4 class="shop-item-title"
@@ -57,10 +61,12 @@
 									<div class="shop-item-credits">{{module.module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
-							<h3 mat-subheader
-								*ngIf="npc.resources.length>0">Recursos</h3>
+							}
+							@if (npc.resources.length > 0) {
+							<h3 mat-subheader>Recursos</h3>
+							}
+							@for (resource of npc.resources; track resource.resource.id) {
 							<button mat-list-item
-									*ngFor="let resource of npc.resources"
 									(click)="selectResource(resource)">
 								<mat-icon mat-list-icon
 										  [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
@@ -70,12 +76,13 @@
 									<div class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
+							}
 						</mat-action-list>
 					</div>
 				</div>
 
 				<div class="shop-step-two shop-step"
-					 [ngClass]="{'right': shopStep==1, 'center': shopStep==2, 'left': shopStep==3}">
+					 [ngClass]="{'right': shopStep === 1, 'center': shopStep === 2, 'left': shopStep === 3}">
 					<h4 class="shop-title">
 						<button mat-icon-button
 								aria-label="Volver a la lista"
@@ -85,22 +92,26 @@
 						Objeto seleccionado:
 					</h4>
 					<div class="shop-selected-item">
-						<div class="selected-item-header"
-							 *ngIf="selectedItem.id">
+						@if (selectedItem.id) {
+						<div class="selected-item-header">
+							@if (selectedItem.type === 1) {
 							<mat-icon mat-list-icon
-									  svgIcon="void-ship"
-									  *ngIf="selectedItem.type==1"></mat-icon>
+									  svgIcon="void-ship"></mat-icon>
+							}
+							@if (selectedItem.type === 2) {
+							<mat-icon mat-list-icon>dns</mat-icon>
+							}
+							@if (selectedItem.type === 3) {
 							<mat-icon mat-list-icon
-									  *ngIf="selectedItem.type==2">dns</mat-icon>
-							<mat-icon mat-list-icon
-									  [svgIcon]="'void-resource-'+selectedItem.id"
-									  *ngIf="selectedItem.type==3"></mat-icon>
+									  [svgIcon]="'void-resource-'+selectedItem.id"></mat-icon>
+							}
 							<span>{{selectedItem.name}}</span>
 						</div>
-						<div class="selected-item-body"
-							 *ngIf="selectedItem.id">
+
+						<div class="selected-item-body">
 							<div class="selected-item-details">
-								<div *ngIf="selectedItem.type==1">
+								@if (selectedItem.type === 1) {
+								<div>
 									<ul class="selected-item-details-list">
 										<li>
 											<label>Tipo:</label>
@@ -144,32 +155,44 @@
 										</li>
 									</ul>
 								</div>
-								<div *ngIf="selectedItem.type==2">
+								}
+								@if (selectedItem.type === 2) {
+								<div>
 									<ul class="selected-item-details-list">
 										<li>
 											<label>Tipo:</label>
 											{{moduleTypes['module_'+selectedItem.module.idType]}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==1">
+										@if (selectedItem.module.idType === 1) {
+										<li>
 											<label>Multiplicador:</label>
 											{{selectedItem.module.engine}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==2">
+										}
+										@if (selectedItem.module.idType === 2) {
+										<li>
 											<label>Escudo:</label>
 											{{selectedItem.module.shield | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==3">
+										}
+										@if (selectedItem.module.idType === 3) {
+										<li>
 											<label>Carga:</label>
 											{{selectedItem.module.cargo | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==4">
+										}
+										@if (selectedItem.module.idType === 4) {
+										<li>
 											<label>Daño:</label>
 											{{selectedItem.module.damage | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==5">
+										}
+										@if (selectedItem.module.idType === 5) {
+										<li>
 											<label>Cabinas:</label>
 											{{selectedItem.module.crew}}
 										</li>
+										}
 										<li>
 											<label>Energía:</label>
 											<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
@@ -180,6 +203,7 @@
 										</li>
 									</ul>
 								</div>
+								}
 							</div>
 							<div class="selected-item-footer">
 								<div class="selected-item-price">
@@ -206,12 +230,16 @@
 								<div class="selected-item-buy">
 									<button mat-raised-button
 											color="primary"
-											[disabled]="selectedItem.credits>credits || selectedItem.max==0 || buying || selectedItem.num<1 || shopStep!=2"
+											[disabled]="selectedItem.credits > credits || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2"
 											(click)="buy()">
-										<mat-icon *ngIf="!buying">shopping_cart</mat-icon>
-										<span *ngIf="!buying">Comprar</span>
+										@if (!buying) {
+										<mat-icon>shopping_cart</mat-icon>
+										<span>Comprar</span>
+										}
+										@else {
 										<img src="/assets/loading.svg"
-											 *ngIf="buying">
+											 alt="">
+										}
 									</button>
 									<span class="selected-item-buy-credits"
 										  [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
@@ -220,22 +248,26 @@
 								</div>
 							</div>
 						</div>
+						}
 					</div>
 				</div>
 
 				<div class="shop-step-three shop-step right"
-					 [ngClass]="{'right': shopStep==1 || shopStep==2, 'center': shopStep==3}">
+					 [ngClass]="{'right': shopStep === 1 || shopStep === 2, 'center': shopStep === 3}">
 					<h3 class="shop-end-title">Recurso comprado</h3>
 					<div class="shop-end-result">
 						<div class="shop-end-product">
+							@if (selectedItem.type==1) {
 							<mat-icon mat-list-icon
-									  svgIcon="void-ship"
-									  *ngIf="selectedItem.type==1"></mat-icon>
+									  svgIcon="void-ship"></mat-icon>
+							}
+							@if (selectedItem.type==2) {
+							<mat-icon mat-list-icon>dns</mat-icon>
+							}
+							@if (selectedItem.type==3) {
 							<mat-icon mat-list-icon
-									  *ngIf="selectedItem.type==2">dns</mat-icon>
-							<mat-icon mat-list-icon
-									  [svgIcon]="'void-resource-'+selectedItem.id"
-									  *ngIf="selectedItem.type==3"></mat-icon>
+									  [svgIcon]="'void-resource-'+selectedItem.id"></mat-icon>
+							}
 							<span>{{selectedItem.name}}</span>
 						</div>
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
@@ -244,7 +276,7 @@
 						<button mat-raised-button
 								color="primary"
 								(click)="backToStepOne()"
-								[disabled]="shopStep!=3">
+								[disabled]="shopStep !== 3">
 							<mat-icon>check</mat-icon>
 							<span>Continuar</span>
 						</button>
@@ -252,19 +284,21 @@
 				</div>
 
 			</div>
+			}
 
-			<div *ngIf="shopTab=='sell'"
-				 class="shop-process">
+			@if (shopTab === 'sell') {
+			<div class="shop-process">
 
 				<div class="shop-step-one shop-step"
-					 [ngClass]="{'center': sellStep==1, 'left': sellStep==2 || sellStep==3}">
+					 [ngClass]="{'center': sellStep === 1, 'left': sellStep === 2 || sellStep === 3}">
 					<h4 class="shop-title">Objetos que puedes vender:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
-							<h3 mat-subheader
-								*ngIf="playerSelling.ships.length>0">Naves</h3>
+							@if (playerSellingShips.length > 0) {
+							<h3 mat-subheader>Naves</h3>
+							}
+							@for (ship of playerSellingShips; track ship.id) {
 							<button mat-list-item
-									*ngFor="let ship of playerSelling.ships"
 									(click)="sellShip(ship)">
 								<mat-icon mat-list-icon
 										  svgIcon="void-ship"></mat-icon>
@@ -274,10 +308,12 @@
 									<div class="shop-item-credits">{{ship.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
-							<h3 mat-subheader
-								*ngIf="playerSelling.modules.length>0">Módulos</h3>
+							}
+							@if (playerSellingModules.length > 0) {
+							<h3 mat-subheader>Módulos</h3>
+							}
+							@for (module of playerSellingModules; track module.id) {
 							<button mat-list-item
-									*ngFor="let module of playerSelling.modules"
 									(click)="sellModule(module)">
 								<mat-icon mat-list-icon>dns</mat-icon>
 								<h4 class="shop-item-title"
@@ -286,10 +322,12 @@
 									<div class="shop-item-credits">{{module.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
-							<h3 mat-subheader
-								*ngIf="playerSelling.resources.length>0">Recursos</h3>
+							}
+							@if (playerSellingResources.length > 0) {
+							<h3 mat-subheader>Recursos</h3>
+							}
+							@for (resource of playerSellingResources; track resource.resource.id) {
 							<button mat-list-item
-									*ngFor="let resource of playerSelling.resources"
 									(click)="sellResource(resource)">
 								<mat-icon mat-list-icon
 										  [svgIcon]="'void-resource-'+resource.resource.id"></mat-icon>
@@ -299,12 +337,13 @@
 									<div class="shop-item-credits">{{resource.resource.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon></div>
 								</h4>
 							</button>
+							}
 						</mat-action-list>
 					</div>
 				</div>
 
 				<div class="shop-step-two shop-step"
-					 [ngClass]="{'right': sellStep==1, 'center': sellStep==2, 'left': sellStep==3}">
+					 [ngClass]="{'right': sellStep === 1, 'center': sellStep === 2, 'left': sellStep === 3}">
 					<h4 class="shop-title">
 						<button mat-icon-button
 								aria-label="Volver a la lista"
@@ -314,22 +353,25 @@
 						Objeto seleccionado:
 					</h4>
 					<div class="shop-selected-item">
-						<div class="selected-item-header"
-							 *ngIf="selectedItem.id">
+						@if (selectedItem.id) {
+						<div class="selected-item-header">
+							@if (selectedItem.type === 1) {
 							<mat-icon mat-list-icon
-									  svgIcon="void-ship"
-									  *ngIf="selectedItem.type==1"></mat-icon>
+									  svgIcon="void-ship"></mat-icon>
+							}
+							@if (selectedItem.type === 2) {
+							<mat-icon mat-list-icon>dns</mat-icon>
+							}
+							@if (selectedItem.type === 3) {
 							<mat-icon mat-list-icon
-									  *ngIf="selectedItem.type==2">dns</mat-icon>
-							<mat-icon mat-list-icon
-									  [svgIcon]="'void-resource-'+selectedItem.id"
-									  *ngIf="selectedItem.type==3"></mat-icon>
+									  [svgIcon]="'void-resource-'+selectedItem.id"></mat-icon>
+							}
 							<span>{{selectedItem.name}}</span>
 						</div>
-						<div class="selected-item-body"
-							 *ngIf="selectedItem.id">
+						<div class="selected-item-body">
 							<div class="selected-item-details">
-								<div *ngIf="selectedItem.type==1">
+								@if (selectedItem.type === 1) {
+								<div>
 									<ul class="selected-item-details-list">
 										<li>
 											<label>Tipo:</label>
@@ -373,29 +415,31 @@
 										</li>
 									</ul>
 								</div>
-								<div *ngIf="selectedItem.type==2">
+								}
+								@if (selectedItem.type === 2) {
+								<div>
 									<ul class="selected-item-details-list">
 										<li>
 											<label>Tipo:</label>
 											{{moduleTypes['module_'+selectedItem.module.idType]}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==1">
+										<li *ngIf="selectedItem.module.idType === 1">
 											<label>Multiplicador:</label>
 											{{selectedItem.module.engine}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==2">
+										<li *ngIf="selectedItem.module.idType === 2">
 											<label>Escudo:</label>
 											{{selectedItem.module.shield | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==3">
+										<li *ngIf="selectedItem.module.idType === 3">
 											<label>Carga:</label>
 											{{selectedItem.module.cargo | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==4">
+										<li *ngIf="selectedItem.module.idType === 4">
 											<label>Daño:</label>
 											{{selectedItem.module.damage | number:'1.0-0'}}
 										</li>
-										<li *ngIf="selectedItem.module.idType==5">
+										<li *ngIf="selectedItem.module.idType === 5">
 											<label>Cabinas:</label>
 											{{selectedItem.module.crew}}
 										</li>
@@ -409,11 +453,12 @@
 										</li>
 									</ul>
 								</div>
+								}
 							</div>
 							<div class="selected-item-footer">
 								<div class="selected-item-price">
-									<div class="selected-item-num"
-										 *ngIf="selectedItem.max>1">
+									@if (selectedItem.max > 1) {
+									<div class="selected-item-num">
 										<mat-form-field class="selected-item-num-box">
 											<mat-label>Num</mat-label>
 											<input matInput
@@ -429,6 +474,7 @@
 										</mat-form-field>
 										<span class="selected-item-num-max">(max {{selectedItem.max}})</span>
 									</div>
+									}
 									<div class="selected-item-credits">
 										{{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>
 									</div>
@@ -438,30 +484,38 @@
 											color="primary"
 											[disabled]="selling || selectedItem.num<1"
 											(click)="sell()">
-										<mat-icon *ngIf="!selling">shopping_cart</mat-icon>
-										<span *ngIf="!selling">Vender</span>
+										@if (!selling) {
+										<mat-icon>shopping_cart</mat-icon>
+										<span>Vender</span>
+										}
+										@else {
 										<img src="/assets/loading.svg"
-											 *ngIf="selling">
+											 alt="">
+										}
 									</button>
 								</div>
 							</div>
 						</div>
+						}
 					</div>
 				</div>
 
 				<div class="shop-step-three shop-step right"
-					 [ngClass]="{'right': sellStep==1 || sellStep==2, 'center': sellStep==3}">
+					 [ngClass]="{'right': sellStep === 1 || sellStep === 2, 'center': sellStep === 3}">
 					<h3 class="shop-end-title">Recurso vendido</h3>
 					<div class="shop-end-result">
 						<div class="shop-end-product">
+							@if (selectedItem.type === 1) {
 							<mat-icon mat-list-icon
-									  svgIcon="void-ship"
-									  *ngIf="selectedItem.type==1"></mat-icon>
+									  svgIcon="void-ship"></mat-icon>
+							}
+							@if (selectedItem.type === 2) {
+							<mat-icon mat-list-icon>dns</mat-icon>
+							}
+							@if (selectedItem.type === 3) {
 							<mat-icon mat-list-icon
-									  *ngIf="selectedItem.type==2">dns</mat-icon>
-							<mat-icon mat-list-icon
-									  [svgIcon]="'void-resource-'+selectedItem.id"
-									  *ngIf="selectedItem.type==3"></mat-icon>
+									  [svgIcon]="'void-resource-'+selectedItem.id"></mat-icon>
+							}
 							<span>{{selectedItem.name}}</span>
 						</div>
 						<div class="shop-end-num">x {{selectedItem.num}} ({{selectedItem.credits | number:'1.0-0'}}<mat-icon mat-list-icon>attach_money</mat-icon>)</div>
@@ -477,7 +531,9 @@
 				</div>
 
 			</div>
+			}
 
 		</div>
 	</div>
+	}
 </div>

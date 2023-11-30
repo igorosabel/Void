@@ -1,13 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { FormsModule, NgForm } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
-import { RegisterData } from "src/app/interfaces/interfaces";
+import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
 import { User } from "src/app/model/user.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { UserService } from "src/app/services/user.service";
-import { LoginResult } from "../../../interfaces/interfaces";
 
 @Component({
   standalone: true,
@@ -33,7 +32,7 @@ export default class RegisterComponent {
     private router: Router
   ) {}
 
-  doRegister(f: NgForm): void {
+  doRegister(): void {
     if (
       this.registerData.name === "" ||
       this.registerData.email === "" ||

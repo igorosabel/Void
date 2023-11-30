@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { FormsModule, NgForm } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { LoginData, LoginResult } from "src/app/interfaces/interfaces";
 import { User } from "src/app/model/user.model";
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  doLogin(f: NgForm): void {
+  doLogin(): void {
     if (this.loginData.name === "" || this.loginData.pass === "") {
       return;
     }

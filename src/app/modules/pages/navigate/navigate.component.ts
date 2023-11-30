@@ -95,13 +95,11 @@ export default class NavigateComponent implements OnInit {
 
   saveEditName(): void {
     if (this.editName == "") {
-      this.dialog
-        .alert({
-          title: "Error",
-          content: "¡No puedes dejar el nombre en blanco!",
-          ok: "Continuar",
-        })
-        .subscribe((result: boolean): void => {});
+      this.dialog.alert({
+        title: "Error",
+        content: "¡No puedes dejar el nombre en blanco!",
+        ok: "Continuar",
+      });
     } else {
       const params: EditNameData = {
         id: this.selectedItem.id,
@@ -118,7 +116,7 @@ export default class NavigateComponent implements OnInit {
               break;
             case "planet":
               {
-                let pIndex: number = this.system.planets.findIndex(
+                const pIndex: number = this.system.planets.findIndex(
                   (x: SystemPlanet): boolean =>
                     x.id == this.selectedItem.idPlanet
                 );
@@ -127,11 +125,11 @@ export default class NavigateComponent implements OnInit {
               break;
             case "moon":
               {
-                let pIndex: number = this.system.planets.findIndex(
+                const pIndex: number = this.system.planets.findIndex(
                   (x: SystemPlanet): boolean =>
                     x.id == this.selectedItem.idPlanet
                 );
-                let mIndex: number = this.system.planets[
+                const mIndex: number = this.system.planets[
                   pIndex
                 ].moons.findIndex(
                   (x: SystemMoon): boolean => x.id == this.selectedItem.idPlanet
@@ -142,14 +140,12 @@ export default class NavigateComponent implements OnInit {
           }
           this.closeEditName();
         } else {
-          this.dialog
-            .alert({
-              title: "Error",
-              content:
-                "¡Ha ocurrido un error al cambiar el nombre! Por favor vuelve a intentarlo.",
-              ok: "Continuar",
-            })
-            .subscribe((result: boolean): void => {});
+          this.dialog.alert({
+            title: "Error",
+            content:
+              "¡Ha ocurrido un error al cambiar el nombre! Por favor vuelve a intentarlo.",
+            ok: "Continuar",
+          });
         }
       });
     }

@@ -4,14 +4,17 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { SellItemsStatus, ShopData } from "src/app/interfaces/interfaces";
+import {
+  NPCShopStatus,
+  SellItemsStatus,
+  ShopData,
+} from "src/app/interfaces/interfaces";
 import { Module } from "src/app/model/module.model";
 import { NPC } from "src/app/model/npc.model";
 import { Ship } from "src/app/model/ship.model";
@@ -27,6 +30,7 @@ import {
   MODULES,
 } from "src/app/modules/shared/constants";
 import { ApiService } from "src/app/services/api.service";
+import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { DialogService } from "src/app/services/dialog.service";
 
 @Component({
@@ -37,7 +41,7 @@ import { DialogService } from "src/app/services/dialog.service";
   imports: [CommonModule, FormsModule, MaterialModule],
   providers: [DialogService],
 })
-export class HomeShopComponent implements OnInit {
+export class HomeShopComponent {
   idNPC: number;
   show: boolean = false;
   loaded: boolean = false;
@@ -53,23 +57,21 @@ export class HomeShopComponent implements OnInit {
   @ViewChild("shopNum", { static: true }) set content(content: ElementRef) {
     this.shopNum = content;
   }
-  moduleTypes: any = [];
-  hullTypes: any = [];
-  engineTypes: any = [];
-  generatorTypes: any = [];
-  playerSelling: SellItemsStatus = {
-    status: null,
-    ships: [],
-    modules: [],
-    resources: [],
-  };
+  moduleTypes = MODULES;
+  hullTypes = HULLS;
+  engineTypes = ENGINES;
+  generatorTypes = GENERATORS;
+  playerSellingShips: Ship[] = [];
+  playerSellingModules: Module[] = [];
+  playerSellingResources: ShopResource[] = [];
   sellStep: number = 1;
 
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private as: ApiService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private cms: ClassMapperService
   ) {
     this.matIconRegistry.addSvgIcon(
       "void-ship",
@@ -159,12 +161,7 @@ export class HomeShopComponent implements OnInit {
         "../assets/resources/resource_14.svg"
       )
     );
-    this.moduleTypes = MODULES;
-    this.hullTypes = HULLS;
-    this.engineTypes = ENGINES;
-    this.generatorTypes = GENERATORS;
   }
-  ngOnInit(): void {}
 
   loadShop(id: number): void {
     this.show = true;
@@ -178,13 +175,19 @@ export class HomeShopComponent implements OnInit {
   }
 
   loadNPC(): void {
-    this.as.getNPCShop(this.idNPC).subscribe((result) => {
+    this.as.getNPCShop(this.idNPC).subscribe((result: NPCShopStatus): void => {
       this.npc = new NPC().fromInterface(result.npc);
       this.loaded = true;
 
-      this.as.getSellItems(this.npc.id).subscribe((result) => {
-        this.playerSelling = result;
-      });
+      this.as
+        .getSellItems(this.npc.id)
+        .subscribe((result: SellItemsStatus): void => {
+          this.playerSellingShips = this.cms.getShips(result.ships);
+          this.playerSellingModules = this.cms.getModules(result.modules);
+          this.playerSellingResources = this.cms.getShopResources(
+            result.resources
+          );
+        });
     });
   }
 
@@ -265,24 +268,20 @@ export class HomeShopComponent implements OnInit {
         this.buySellEvent.emit(this.credits);
         this.shopStep = 3;
       } else if (result.status == "no-room") {
-        this.dialog
-          .alert({
-            title: "Error",
-            content:
-              "¡No tienes suficiente espacio de almacenamiento en tu nave para comprar este recurso! Espacio disponible: " +
-              result.info,
-            ok: "Continuar",
-          })
-          .subscribe((result) => {});
+        this.dialog.alert({
+          title: "Error",
+          content:
+            "¡No tienes suficiente espacio de almacenamiento en tu nave para comprar este recurso! Espacio disponible: " +
+            result.info,
+          ok: "Continuar",
+        });
       } else {
-        this.dialog
-          .alert({
-            title: "Error",
-            content:
-              "¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.",
-            ok: "Continuar",
-          })
-          .subscribe((result) => {});
+        this.dialog.alert({
+          title: "Error",
+          content:
+            "¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.",
+          ok: "Continuar",
+        });
       }
     });
   }
@@ -342,14 +341,12 @@ export class HomeShopComponent implements OnInit {
         this.buySellEvent.emit(this.credits);
         this.sellStep = 3;
       } else {
-        this.dialog
-          .alert({
-            title: "Error",
-            content:
-              "¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.",
-            ok: "Continuar",
-          })
-          .subscribe((result) => {});
+        this.dialog.alert({
+          title: "Error",
+          content:
+            "¡Ocurrió un error al confirmar la compra! Vuelve a intentarlo de nuevo, por favor.",
+          ok: "Continuar",
+        });
       }
     });
   }

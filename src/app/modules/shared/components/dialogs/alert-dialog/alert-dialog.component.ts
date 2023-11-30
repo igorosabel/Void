@@ -4,7 +4,7 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 
 @Component({
   standalone: true,
-  selector: "otpv-alert-dialog",
+  selector: "void-alert-dialog",
   templateUrl: "./alert-dialog.component.html",
   imports: [MaterialModule],
 })
