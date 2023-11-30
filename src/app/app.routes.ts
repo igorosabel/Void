@@ -1,9 +1,8 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { isLoggedGuardFn } from "src/app/guard/auth.guard.fn";
 import { LoginComponent } from "src/app/modules/pages/login/login.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "", component: LoginComponent },
   {
     path: "register",
@@ -13,30 +12,23 @@ const routes: Routes = [
   {
     path: "home",
     loadComponent: () => import("src/app/modules/pages/home/home.component"),
-    canActivate: ["CanActivateFn"],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "navigate",
     loadComponent: () =>
       import("src/app/modules/pages/navigate/navigate.component"),
-    canActivate: ["CanActivateFn"],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "ship",
     loadComponent: () => import("src/app/modules/pages/ship/ship.component"),
-    canActivate: ["CanActivateFn"],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "messages",
     loadComponent: () =>
       import("src/app/modules/pages/messages/messages.component"),
-    canActivate: ["CanActivateFn"],
+    canActivate: [isLoggedGuardFn],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  providers: [{ provide: "CanActivateFn", useFactory: isLoggedGuardFn }],
-})
-export class AppRoutingModule {}

@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
@@ -25,6 +26,7 @@ import { UserService } from "src/app/services/user.service";
     MatIconModule,
     MatCardModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export default class RegisterComponent {

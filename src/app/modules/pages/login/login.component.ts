@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { LoginData, LoginResult } from "src/app/interfaces/interfaces";
@@ -24,6 +25,7 @@ import { UserService } from "src/app/services/user.service";
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatInputModule,
   ],
 })
 export class LoginComponent implements OnInit {

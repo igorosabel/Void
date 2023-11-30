@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { DomSanitizer } from "@angular/platform-browser";
 import {
@@ -43,6 +44,7 @@ import { DialogService } from "src/app/services/dialog.service";
     MatButtonModule,
     MatListModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [DialogService],
 })
