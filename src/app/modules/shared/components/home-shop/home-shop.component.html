@@ -228,19 +228,23 @@
 									</div>
 								</div>
 								<div class="selected-item-buy">
+									@if (!buying) {
 									<button mat-raised-button
 											color="primary"
 											[disabled]="selectedItem.credits > credits || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2"
 											(click)="buy()">
-										@if (!buying) {
 										<mat-icon>shopping_cart</mat-icon>
 										<span>Comprar</span>
-										}
-										@else {
+									</button>
+									}
+									@else {
+									<button mat-raised-button
+											color="primary"
+											[disabled]="selectedItem.credits > credits || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2">
 										<img src="/assets/loading.svg"
 											 alt="">
-										}
 									</button>
+									}
 									<span class="selected-item-buy-credits"
 										  [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
 										Créditos disponibles: {{credits | number:'1.0-0'}}
@@ -490,19 +494,23 @@
 									</div>
 								</div>
 								<div class="selected-item-buy">
+									@if (!selling) {
 									<button mat-raised-button
 											color="primary"
 											[disabled]="selling || selectedItem.num<1"
 											(click)="sell()">
-										@if (!selling) {
 										<mat-icon>shopping_cart</mat-icon>
 										<span>Vender</span>
-										}
-										@else {
+									</button>
+									}
+									@else {
+									<button mat-raised-button
+											color="primary"
+											[disabled]="selling || selectedItem.num<1">
 										<img src="/assets/loading.svg"
 											 alt="">
-										}
 									</button>
+									}
 								</div>
 							</div>
 						</div>
