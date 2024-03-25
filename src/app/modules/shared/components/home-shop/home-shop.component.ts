@@ -2,10 +2,11 @@ import { CommonModule } from "@angular/common";
 import {
   Component,
   ElementRef,
-  EventEmitter,
-  Input,
-  Output,
+  ModelSignal,
+  OutputEmitterRef,
   ViewChild,
+  model,
+  output,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -57,8 +58,8 @@ export class HomeShopComponent {
   buying: boolean = false;
   selling: boolean = false;
   shopTab: string = "buy";
-  @Input() credits: number = 0;
-  @Output() buySellEvent: EventEmitter<number> = new EventEmitter<number>();
+  credits: ModelSignal<number> = model.required<number>();
+  buySellEvent: OutputEmitterRef<number> = output<number>();
   npc: NPC = new NPC();
   shopStep: number = 1;
   selectedItem: ShopSelectedItem = new ShopSelectedItem();
@@ -272,9 +273,12 @@ export class HomeShopComponent {
       this.buying = false;
       if (result.status == "ok") {
         this.loadNPC();
-        this.credits -= this.selectedItem.credits;
+        this.credits.update((value: number): number => {
+          value -= this.selectedItem.credits;
+          return value;
+        });
 
-        this.buySellEvent.emit(this.credits);
+        this.buySellEvent.emit(this.credits());
         this.shopStep = 3;
       } else if (result.status == "no-room") {
         this.dialog.alert({
@@ -345,9 +349,12 @@ export class HomeShopComponent {
       this.selling = false;
       if (result.status == "ok") {
         this.loadNPC();
-        this.credits += this.selectedItem.credits;
+        this.credits.update((value: number): number => {
+          value += this.selectedItem.credits;
+          return value;
+        });
 
-        this.buySellEvent.emit(this.credits);
+        this.buySellEvent.emit(this.credits());
         this.sellStep = 3;
       } else {
         this.dialog.alert({

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component, InputSignal, input } from "@angular/core";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -13,8 +13,8 @@ import { RouterModule } from "@angular/router";
   imports: [CommonModule, RouterModule, MatToolbarModule, MatIconModule],
 })
 export class HeaderComponent {
-  @Input() selected: string = "home";
-  @Input() numMessages: number = 0;
+  selected: InputSignal<string> = input<string>();
+  numMessages: InputSignal<number> = input<number>(0);
 
   constructor(
     private matIconRegistry: MatIconRegistry,

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, Signal, viewChild } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
@@ -25,7 +25,7 @@ import { ApiService } from "src/app/services/api.service";
 })
 export default class HomeComponent implements OnInit {
   system: CurrentSystem = new CurrentSystem();
-  @ViewChild("shop", { static: true }) shop: HomeShopComponent;
+  shop: Signal<HomeShopComponent> = viewChild<HomeShopComponent>("shop");
 
   constructor(private as: ApiService) {}
 
@@ -40,7 +40,7 @@ export default class HomeComponent implements OnInit {
   }
 
   openShop(id: number): void {
-    this.shop.loadShop(id);
+    this.shop().loadShop(id);
   }
 
   buySell(credits: number): void {

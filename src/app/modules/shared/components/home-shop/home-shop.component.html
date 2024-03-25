@@ -231,7 +231,7 @@
 									@if (!buying) {
 									<button mat-raised-button
 											color="primary"
-											[disabled]="selectedItem.credits > credits || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2"
+											[disabled]="selectedItem.credits > credits() || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2"
 											(click)="buy()">
 										<mat-icon>shopping_cart</mat-icon>
 										<span>Comprar</span>
@@ -240,14 +240,14 @@
 									@else {
 									<button mat-raised-button
 											color="primary"
-											[disabled]="selectedItem.credits > credits || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2">
+											[disabled]="selectedItem.credits > credits() || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2">
 										<img src="/assets/loading.svg"
 											 alt="">
 									</button>
 									}
 									<span class="selected-item-buy-credits"
-										  [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits}">
-										Créditos disponibles: {{credits | number:'1.0-0'}}
+										  [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits()}">
+										Créditos disponibles: {{credits() | number:'1.0-0'}}
 									</span>
 								</div>
 							</div>
@@ -261,14 +261,14 @@
 					<h3 class="shop-end-title">Recurso comprado</h3>
 					<div class="shop-end-result">
 						<div class="shop-end-product">
-							@if (selectedItem.type==1) {
+							@if (selectedItem.type === 1) {
 							<mat-icon mat-list-icon
 									  svgIcon="void-ship"></mat-icon>
 							}
-							@if (selectedItem.type==2) {
+							@if (selectedItem.type === 2) {
 							<mat-icon mat-list-icon>dns</mat-icon>
 							}
-							@if (selectedItem.type==3) {
+							@if (selectedItem.type === 3) {
 							<mat-icon mat-list-icon
 									  [svgIcon]="'void-resource-'+selectedItem.id"></mat-icon>
 							}

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, Signal, viewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -50,8 +50,9 @@ import { DialogService } from "src/app/services/dialog.service";
 })
 export default class NavigateComponent implements OnInit {
   idPlayer: number = null;
-  @ViewChild("starSystem", { static: true }) starSystem: StarSystemComponent;
-  @ViewChild("job", { static: true }) job: JobComponent;
+  starSystem: Signal<StarSystemComponent> =
+    viewChild<StarSystemComponent>("starSystem");
+  job: Signal<JobComponent> = viewChild<JobComponent>("job");
   system: SystemInfo = new SystemInfo();
   connections: SystemConnection[] = [];
   selectedItem: NavigateSelectedSystemInterface = {
@@ -89,7 +90,7 @@ export default class NavigateComponent implements OnInit {
       );
       this.selectedItem.id = this.system.id;
       this.selectedItem.idSystem = this.system.id;
-      this.starSystem.loadSystem(this.system);
+      this.starSystem().loadSystem(this.system);
     });
   }
 
@@ -193,10 +194,10 @@ export default class NavigateComponent implements OnInit {
   }
 
   selectPlanet(planet: SystemPlanet): void {
-    this.starSystem.selectPlanetFromMenu(planet);
+    this.starSystem().selectPlanetFromMenu(planet);
   }
 
   explorePlanet(): void {
-    this.job.startJob(1, this.system.planets[this.planetInd].exploreTime);
+    this.job().startJob(1, this.system.planets[this.planetInd].exploreTime);
   }
 }

@@ -2,11 +2,12 @@ import { CommonModule } from "@angular/common";
 import {
   Component,
   ElementRef,
-  EventEmitter,
   OnDestroy,
   OnInit,
-  Output,
-  ViewChild,
+  OutputEmitterRef,
+  Signal,
+  output,
+  viewChild,
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import {
@@ -30,10 +31,9 @@ import { NUM_STARS } from "src/app/modules/shared/constants";
   imports: [CommonModule, MatCardModule],
 })
 export class StarSystemComponent implements OnInit, OnDestroy {
-  @Output() onselect: EventEmitter<StarSystemSelect> =
-    new EventEmitter<StarSystemSelect>();
+  onselect: OutputEmitterRef<StarSystemSelect> = output<StarSystemSelect>();
   system: SystemInfo = new SystemInfo();
-  @ViewChild("systemContent", { static: true }) systemContent: ElementRef;
+  systemContent: Signal<ElementRef> = viewChild<ElementRef>("systemContent");
   stars: Star[] = [];
   sun: SunDetailInterface = {
     background: null,
@@ -121,8 +121,8 @@ export class StarSystemComponent implements OnInit, OnDestroy {
   calculateSystemCSS(): void {
     const maxWidth: number = Math.min(
       ...[
-        this.systemContent.nativeElement.offsetWidth,
-        this.systemContent.nativeElement.offsetHeight,
+        this.systemContent().nativeElement.offsetWidth,
+        this.systemContent().nativeElement.offsetHeight,
       ]
     );
     let maxKm: number = 0;
@@ -209,8 +209,8 @@ export class StarSystemComponent implements OnInit, OnDestroy {
   calculatePlanetCSS(): void {
     const maxWidth: number = Math.min(
       ...[
-        this.systemContent.nativeElement.offsetWidth,
-        this.systemContent.nativeElement.offsetHeight,
+        this.systemContent().nativeElement.offsetWidth,
+        this.systemContent().nativeElement.offsetHeight,
       ]
     );
     const planetInd: number = this.system.planets.findIndex(
