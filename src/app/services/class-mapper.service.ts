@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   ModuleInterface,
   ShipInterface,
   ShopResourceInterface,
-} from "src/app/interfaces/interfaces";
-import { Module } from "src/app/model/module.model";
-import { Ship } from "src/app/model/ship.model";
-import { ShopResource } from "src/app/model/shop-resource.model";
+} from '@interfaces/interfaces';
+import Module from '@model/module.model';
+import Ship from '@model/ship.model';
+import ShopResource from '@model/shop-resource.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
-export class ClassMapperService {
+export default class ClassMapperService {
   getShip(s: ShipInterface): Ship {
     return new Ship().fromInterface(s);
   }

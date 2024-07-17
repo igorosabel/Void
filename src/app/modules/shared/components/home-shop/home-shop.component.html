@@ -1,7 +1,7 @@
 <div class="bg"
 	 [ngClass]="{'show': show}">
 	@if (!loaded) {
-	<img src="/assets/loading.svg"
+	<img src="/img/loading.svg"
 		 alt="">
 	<span>Cargando...</span>
 	}
@@ -241,7 +241,7 @@
 									<button mat-raised-button
 											color="primary"
 											[disabled]="selectedItem.credits > credits() || selectedItem.max === 0 || buying || selectedItem.num < 1 || shopStep !== 2">
-										<img src="/assets/loading.svg"
+										<img src="/img/loading.svg"
 											 alt="">
 									</button>
 									}
@@ -507,7 +507,7 @@
 									<button mat-raised-button
 											color="primary"
 											[disabled]="selling || selectedItem.num<1">
-										<img src="/assets/loading.svg"
+										<img src="/img/loading.svg"
 											 alt="">
 									</button>
 									}

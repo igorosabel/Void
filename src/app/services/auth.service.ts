@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { UserService } from "src/app/services/user.service";
+import { inject, Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import UserService from '@services/user.service';
 
 @Injectable()
-export class AuthService {
-  constructor(private us: UserService) {}
+export default class AuthService {
+  private us: UserService = inject(UserService);
 
   public isAuthenticated(): boolean {
     this.us.loadLogin();

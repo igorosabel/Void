@@ -1,40 +1,43 @@
-import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
-import { MessageInterface } from "src/app/interfaces/interfaces";
-import { TimeFormatPipe } from "src/app/modules/shared/pipes/time-format.pipe";
-import { ApiService } from "src/app/services/api.service";
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MessageInterface } from '@interfaces/interfaces';
+import ApiService from '@services/api.service';
+import TimeFormatPipe from '@shared/pipes/time-format.pipe';
 
 @Component({
   standalone: true,
-  selector: "void-job",
-  templateUrl: "./job.component.html",
-  styleUrls: ["./job.component.scss"],
+  selector: 'void-job',
+  templateUrl: './job.component.html',
+  styleUrls: ['./job.component.scss'],
   imports: [CommonModule, TimeFormatPipe],
 })
-export class JobComponent {
-  timer: number = null;
-  time: number = null;
+export default class JobComponent {
+  private as: ApiService = inject(ApiService);
+
+  timer: number | null = null;
+  time: number | null = null;
   working: boolean = false;
-  type: number = null;
-  message: string = null;
+  type: number | null = null;
+  message: string | undefined = undefined;
   messages: MessageInterface = {
-    type1: "Explorando...",
+    type1: 'Explorando...',
   };
 
-  constructor(private as: ApiService) {}
-
   updateTime(): void {
-    clearTimeout(this.timer);
-    this.time--;
-    this.timer = window.setTimeout((): void => {
-      this.updateTime();
-    }, 1000);
+    if (this.timer !== null && this.time !== null) {
+      window.clearTimeout(this.timer);
+      this.time--;
+      this.timer = window.setTimeout((): void => {
+        this.updateTime();
+      }, 1000);
+    }
   }
 
   startJob(type: number, time: number): void {
     this.time = time;
     this.type = type;
-    this.message = this.messages["type" + this.type];
+    this.message =
+      this.messages[('type' + this.type) as keyof MessageInterface];
     this.working = true;
     this.updateTime();
   }

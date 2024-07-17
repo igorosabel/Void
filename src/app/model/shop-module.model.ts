@@ -1,23 +1,24 @@
-import { ShopModuleInterface } from 'src/app/interfaces/interfaces';
-import { Module } from 'src/app/model/module.model';
+import { ShopModuleInterface } from '@interfaces/interfaces';
+import Module from '@model/module.model';
 
-export class ShopModule {
-	constructor(
-		public module: Module = null,
-		public value: number = null
-	) {}
+export default class ShopModule {
+  constructor(
+    public module: Module | null = null,
+    public value: number | null = null
+  ) {}
 
-	fromInterface(sm: ShopModuleInterface): ShopModule {
-		this.module = new Module().fromInterface(sm.module);
-		this.value = sm.value;
+  fromInterface(sm: ShopModuleInterface): ShopModule {
+    this.module =
+      sm.module !== null ? new Module().fromInterface(sm.module) : null;
+    this.value = sm.value;
 
-		return this;
-	}
+    return this;
+  }
 
-	toInterface(): ShopModuleInterface {
-		return {
-			module: this.module.toInterface(),
-			value: this.value
-		};
-	}
+  toInterface(): ShopModuleInterface {
+    return {
+      module: this.module !== null ? this.module.toInterface() : null,
+      value: this.value,
+    };
+  }
 }

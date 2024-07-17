@@ -1,23 +1,23 @@
-import { ShopShipInterface } from 'src/app/interfaces/interfaces';
-import { Ship } from 'src/app/model/ship.model';
+import { ShopShipInterface } from '@interfaces/interfaces';
+import Ship from '@model/ship.model';
 
-export class ShopShip {
-	constructor(
-		public ship: Ship = null,
-		public value: number = null
-	) {}
+export default class ShopShip {
+  constructor(
+    public ship: Ship | null = null,
+    public value: number | null = null
+  ) {}
 
-	fromInterface(ss: ShopShipInterface): ShopShip {
-		this.ship = new Ship().fromInterface(ss.ship);
-		this.value = ss.value;
+  fromInterface(ss: ShopShipInterface): ShopShip {
+    this.ship = ss.ship !== null ? new Ship().fromInterface(ss.ship) : null;
+    this.value = ss.value;
 
-		return this;
-	}
+    return this;
+  }
 
-	toInterface(): ShopShipInterface {
-		return {
-			ship: this.ship.toInterface(),
-			value: this.value
-		};
-	}
+  toInterface(): ShopShipInterface {
+    return {
+      ship: this.ship !== null ? this.ship.toInterface() : null,
+      value: this.value,
+    };
+  }
 }

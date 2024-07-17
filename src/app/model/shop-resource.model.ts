@@ -1,23 +1,24 @@
-import { ShopResourceInterface } from 'src/app/interfaces/interfaces';
-import { Resource } from 'src/app/model/resource.model';
+import { ShopResourceInterface } from '@interfaces/interfaces';
+import Resource from '@model/resource.model';
 
-export class ShopResource {
-	constructor(
-		public resource: Resource = null,
-		public value: number = null
-	) {}
+export default class ShopResource {
+  constructor(
+    public resource: Resource | null = null,
+    public value: number | null = null
+  ) {}
 
-	fromInterface(sr: ShopResourceInterface): ShopResource {
-		this.resource = new Resource().fromInterface(sr.resource);
-		this.value = sr.value;
+  fromInterface(sr: ShopResourceInterface): ShopResource {
+    this.resource =
+      sr.resource !== null ? new Resource().fromInterface(sr.resource) : null;
+    this.value = sr.value;
 
-		return this;
-	}
+    return this;
+  }
 
-	toInterface(): ShopResourceInterface {
-		return {
-			resource: this.resource.toInterface(),
-			value: this.value
-		};
-	}
+  toInterface(): ShopResourceInterface {
+    return {
+      resource: this.resource !== null ? this.resource.toInterface() : null,
+      value: this.value,
+    };
+  }
 }

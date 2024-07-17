@@ -1,3 +1,11 @@
+export interface DataShareGlobals {
+  [key: string]: any;
+}
+
+export interface ConstantValues {
+  [key: string]: string;
+}
+
 export interface DialogField {
   title: string;
   type: string;
@@ -23,9 +31,9 @@ export interface LoginData {
 }
 
 export interface UserInterface {
-  id: number;
-  name: string;
-  token: string;
+  id: number | null;
+  name: string | null;
+  token: string | null;
 }
 
 export interface LoginResult {
@@ -46,22 +54,22 @@ export interface StatusResult {
 }
 
 export interface ShortMessageInterface {
-  id: number;
-  type: number;
-  name: string;
-  date: string;
-  message: string;
+  id: number | null;
+  type: number | null;
+  name: string | null;
+  date: string | null;
+  message: string | null;
 }
 
 export interface HomeCharacterInterface {
-  id: number;
-  type: number;
-  name: string;
+  id: number | null;
+  type: number | null;
+  name: string | null;
 }
 
 export interface CurrentSystemInterface {
-  system: string;
-  star: string;
+  system: string | null;
+  star: string | null;
   numPlanets: number;
   credits: number;
   maxStrength: number;
@@ -76,65 +84,65 @@ export interface CurrentSystemStatus {
 }
 
 export interface ShipInterface {
-  id: number;
-  name: string;
-  idType: number;
-  maxStrength: number;
-  strength: number;
-  endurance: number;
-  shield: number;
-  idEngine: number;
-  speed: number;
-  maxCargo: number;
-  cargo: number;
-  damage: number;
-  idGenerator: number;
-  maxEnergy: number;
-  energy: number;
-  slots: number;
-  crew: number;
-  credits: number;
+  id: number | null;
+  name: string | null;
+  idType: number | null;
+  maxStrength: number | null;
+  strength: number | null;
+  endurance: number | null;
+  shield: number | null;
+  idEngine: number | null;
+  speed: number | null;
+  maxCargo: number | null;
+  cargo: number | null;
+  damage: number | null;
+  idGenerator: number | null;
+  maxEnergy: number | null;
+  energy: number | null;
+  slots: number | null;
+  crew: number | null;
+  credits: number | null;
 }
 
 export interface ShopShipInterface {
-  ship: ShipInterface;
-  value: number;
+  ship: ShipInterface | null;
+  value: number | null;
 }
 
 export interface ModuleInterface {
-  id: number;
-  name: string;
-  idType: number;
-  engine: number;
-  shield: number;
-  cargo: number;
-  damage: number;
-  crew: number;
-  energy: number;
-  slots: number;
-  credits: number;
+  id: number | null;
+  name: string | null;
+  idType: number | null;
+  engine: number | null;
+  shield: number | null;
+  cargo: number | null;
+  damage: number | null;
+  crew: number | null;
+  energy: number | null;
+  slots: number | null;
+  credits: number | null;
 }
 
 export interface ShopModuleInterface {
-  module: ModuleInterface;
-  value: number;
+  module: ModuleInterface | null;
+  value: number | null;
 }
 
 export interface ResourceInterface {
-  id: number;
-  name: string;
-  credits: number;
+  id: number | null;
+  name: string | null;
+  credits: number | null;
 }
 
 export interface ShopResourceInterface {
-  resource: ResourceInterface;
-  value: number;
+  resource: ResourceInterface | null;
+  value: number | null;
 }
 
 export interface NPCInterface {
-  id: number;
-  name: string;
-  idRace: number;
+  id: number | null;
+  name: string | null;
+  idRace: number | null;
   ships: ShopShipInterface[];
   modules: ShopModuleInterface[];
   resources: ShopResourceInterface[];
@@ -146,16 +154,16 @@ export interface NPCShopStatus {
 }
 
 export interface ShopSelectedItemInterface {
-  id: number;
-  type: number;
-  name: string;
-  num: number;
-  max: number;
-  price: number;
-  credits: number;
-  ship: ShipInterface;
-  module: ModuleInterface;
-  resource: ResourceInterface;
+  id: number | null;
+  type: number | null;
+  name: string | null;
+  num: number | null;
+  max: number | null;
+  price: number | null;
+  credits: number | null;
+  ship: ShipInterface | null;
+  module: ModuleInterface | null;
+  resource: ResourceInterface | null;
 }
 
 export interface ShopData {
@@ -173,58 +181,58 @@ export interface SellItemsStatus {
 }
 
 export interface SystemResourceInterface {
-  id: number;
-  name: string;
-  value: number;
+  id: number | null;
+  name: string | null;
+  value: number | null;
 }
 
 export interface SystemMoonInterface {
-  id: number;
-  name: string;
-  type: number;
-  distance: number;
-  radius: number;
-  rotation: number;
+  id: number | null;
+  name: string | null;
+  type: number | null;
+  distance: number | null;
+  radius: number | null;
+  rotation: number | null;
   explored: boolean;
-  exploreTime: number;
+  exploreTime: number | null;
   resources: SystemResourceInterface[];
 }
 
 export interface SystemPlanetInterface {
-  id: number;
-  name: string;
-  type: string;
-  typeLink: string;
-  typeDesc: string;
-  distance: number;
-  radius: number;
-  rotation: number;
+  id: number | null;
+  name: string | null;
+  type: string | null;
+  typeLink: string | null;
+  typeDesc: string | null;
+  distance: number | null;
+  radius: number | null;
+  rotation: number | null;
   explored: boolean;
-  exploreTime: number;
+  exploreTime: number | null;
   resources: SystemResourceInterface[];
   moons: SystemMoonInterface[];
 }
 
 export interface SystemInfoInterface {
-  id: number;
-  name: string;
-  type: string;
-  typeLink: string;
-  typeDesc: string;
-  typeColor: string;
-  idDiscoverer: number;
-  discoverer: string;
-  radius: number;
-  numNPC: number;
+  id: number | null;
+  name: string | null;
+  type: string | null;
+  typeLink: string | null;
+  typeDesc: string | null;
+  typeColor: string | null;
+  idDiscoverer: number | null;
+  discoverer: string | null;
+  radius: number | null;
+  numNPC: number | null;
   fullyExplored: boolean;
   planets: SystemPlanetInterface[];
 }
 
 export interface SystemConnectionInterface {
-  idSystemEnd: number;
-  order: number;
-  navigateTime: number;
-  name: string;
+  idSystemEnd: number | null;
+  order: number | null;
+  navigateTime: number | null;
+  name: string | null;
 }
 
 export interface NavigateSelectedSystemInterface {
@@ -257,26 +265,26 @@ export interface EditNameData {
 
 export interface StarSystemSelect {
   type: string;
-  id: number;
+  id: number | null;
 }
 
 export interface SunDetailInterface {
-  background: string;
-  backgroundColor: string;
-  width: string;
-  height: string;
-  left: string;
-  top: string;
+  background: string | null;
+  backgroundColor: string | null;
+  width: string | null;
+  height: string | null;
+  left: string | null;
+  top: string | null;
 }
 
 export interface PlanetDetailInterface {
-  id: number;
-  name: string;
-  background: string;
-  width: string;
-  height: string;
-  left: string;
-  top: string;
+  id: number | null;
+  name: string | null;
+  background: string | null;
+  width: string | null;
+  height: string | null;
+  left: string | null;
+  top: string | null;
 }
 
 export interface OrbitInterface {
