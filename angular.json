@@ -34,9 +34,11 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/cyan-orange.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@osumi/angular-tools/styles/dialogs.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["@osumi/tools"]
           },
           "configurations": {
             "production": {
@@ -100,7 +102,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/cyan-orange.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@osumi/angular-tools/styles/dialogs.scss"
             ],
             "scripts": []
           }
