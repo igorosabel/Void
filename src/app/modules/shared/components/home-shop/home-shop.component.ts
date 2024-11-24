@@ -29,9 +29,9 @@ import ShopModule from '@model/shop-module.model';
 import ShopResource from '@model/shop-resource.model';
 import ShopSelectedItem from '@model/shop-selected-item.model';
 import ShopShip from '@model/shop-ship.model';
+import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 import ClassMapperService from '@services/class-mapper.service';
-import DialogService from '@services/dialog.service';
 import { ENGINES, GENERATORS, HULLS, MODULES } from '@shared/constants';
 
 @Component({
@@ -46,7 +46,6 @@ import { ENGINES, GENERATORS, HULLS, MODULES } from '@shared/constants';
     MatFormFieldModule,
     MatButtonModule,
   ],
-  providers: [DialogService],
 })
 export default class HomeShopComponent {
   private matIconRegistry: MatIconRegistry = inject(MatIconRegistry);

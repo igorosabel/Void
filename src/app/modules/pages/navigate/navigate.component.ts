@@ -20,8 +20,8 @@ import SystemConnection from '@model/system-connection.model';
 import SystemInfo from '@model/system-info.model';
 import SystemMoon from '@model/system-moon.model';
 import SystemPlanet from '@model/system-planet.model';
+import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
-import DialogService from '@services/dialog.service';
 import HeaderComponent from '@shared/components/header/header.component';
 import JobComponent from '@shared/components/job/job.component';
 import StarSystemComponent from '@shared/components/star-system/star-system.component';
@@ -45,7 +45,6 @@ import TimeFormatPipe from '@shared/pipes/time-format.pipe';
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [DialogService],
 })
 export default class NavigateComponent implements OnInit {
   private matIconRegistry: MatIconRegistry = inject(MatIconRegistry);
