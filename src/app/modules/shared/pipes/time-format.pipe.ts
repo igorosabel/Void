@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  standalone: true,
   name: 'timeFormat',
 })
 export default class TimeFormatPipe implements PipeTransform {

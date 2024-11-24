@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit, Signal, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,12 +10,11 @@ import HeaderComponent from '@shared/components/header/header.component';
 import HomeShopComponent from '@shared/components/home-shop/home-shop.component';
 
 @Component({
-  standalone: true,
   selector: 'void-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   imports: [
-    CommonModule,
+    DecimalPipe,
     HeaderComponent,
     HomeShopComponent,
     MatCardModule,

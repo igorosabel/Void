@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,11 +13,9 @@ import AuthService from '@services/auth.service';
 import UserService from '@services/user.service';
 
 @Component({
-  standalone: true,
   selector: 'void-login',
   templateUrl: './login.component.html',
   imports: [
-    CommonModule,
     FormsModule,
     RouterModule,
     MatToolbarModule,

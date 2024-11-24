@@ -24,7 +24,6 @@ import Utils from '@model/utils.class';
 import { NUM_STARS } from '@shared/constants';
 
 @Component({
-  standalone: true,
   selector: 'void-star-system',
   templateUrl: './star-system.component.html',
   styleUrls: ['./star-system.component.scss'],

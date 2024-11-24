@@ -5,7 +5,6 @@ import ApiService from '@services/api.service';
 import TimeFormatPipe from '@shared/pipes/time-format.pipe';
 
 @Component({
-  standalone: true,
   selector: 'void-job',
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.scss'],

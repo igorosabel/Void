@@ -6,7 +6,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  standalone: true,
   selector: 'void-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],

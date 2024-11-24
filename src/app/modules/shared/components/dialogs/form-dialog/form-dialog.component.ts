@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DialogField } from '@interfaces/interfaces';
 
 @Component({
-  standalone: true,
   selector: 'void-form-dialog',
   templateUrl: './form-dialog.component.html',
   imports: [

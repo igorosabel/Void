@@ -28,7 +28,6 @@ import StarSystemComponent from '@shared/components/star-system/star-system.comp
 import TimeFormatPipe from '@shared/pipes/time-format.pipe';
 
 @Component({
-  standalone: true,
   selector: 'void-navigate',
   templateUrl: './navigate.component.html',
   styleUrls: ['./navigate.component.scss'],

@@ -35,7 +35,6 @@ import DialogService from '@services/dialog.service';
 import { ENGINES, GENERATORS, HULLS, MODULES } from '@shared/constants';
 
 @Component({
-  standalone: true,
   selector: 'void-home-shop',
   templateUrl: './home-shop.component.html',
   styleUrls: ['./home-shop.component.scss'],

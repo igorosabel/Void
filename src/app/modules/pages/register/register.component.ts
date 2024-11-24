@@ -14,7 +14,6 @@ import ApiService from '@services/api.service';
 import UserService from '@services/user.service';
 
 @Component({
-  standalone: true,
   selector: 'void-register',
   templateUrl: './register.component.html',
   imports: [
