@@ -5,7 +5,7 @@ import {
 } from '@interfaces/interfaces';
 import SystemMoon from '@model/system-moon.model';
 import SystemResource from '@model/system-resource.model';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class SystemPlanet {
   constructor(
@@ -25,10 +25,10 @@ export default class SystemPlanet {
 
   fromInterface(sp: SystemPlanetInterface): SystemPlanet {
     this.id = sp.id;
-    this.name = Utils.urldecode(sp.name);
-    this.type = Utils.urldecode(sp.type);
-    this.typeLink = Utils.urldecode(sp.typeLink);
-    this.typeDesc = Utils.urldecode(sp.typeDesc);
+    this.name = urldecode(sp.name);
+    this.type = urldecode(sp.type);
+    this.typeLink = urldecode(sp.typeLink);
+    this.typeDesc = urldecode(sp.typeDesc);
     this.distance = sp.distance;
     this.radius = sp.radius;
     this.rotation = sp.rotation;
@@ -49,10 +49,10 @@ export default class SystemPlanet {
   toInterface(): SystemPlanetInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
-      type: Utils.urlencode(this.type),
-      typeLink: Utils.urlencode(this.typeLink),
-      typeDesc: Utils.urlencode(this.typeDesc),
+      name: urlencode(this.name),
+      type: urlencode(this.type),
+      typeLink: urlencode(this.typeLink),
+      typeDesc: urlencode(this.typeDesc),
       distance: this.distance,
       radius: this.radius,
       rotation: this.rotation,

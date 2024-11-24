@@ -1,5 +1,5 @@
 import { ModuleInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class Module {
   constructor(
@@ -18,7 +18,7 @@ export default class Module {
 
   fromInterface(m: ModuleInterface): Module {
     this.id = m.id;
-    this.name = Utils.urldecode(m.name);
+    this.name = urldecode(m.name);
     this.idType = m.idType;
     this.engine = m.engine;
     this.shield = m.shield;
@@ -35,7 +35,7 @@ export default class Module {
   toInterface(): ModuleInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       idType: this.idType,
       engine: this.engine,
       shield: this.shield,

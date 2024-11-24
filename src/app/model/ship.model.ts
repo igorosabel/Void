@@ -1,5 +1,5 @@
 import { ShipInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class Ship {
   constructor(
@@ -25,7 +25,7 @@ export default class Ship {
 
   fromInterface(s: ShipInterface): Ship {
     this.id = s.id;
-    this.name = Utils.urldecode(s.name);
+    this.name = urldecode(s.name);
     this.idType = s.idType;
     this.maxStrength = s.maxStrength;
     this.strength = s.strength;
@@ -49,7 +49,7 @@ export default class Ship {
   toInterface(): ShipInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       idType: this.idType,
       maxStrength: this.maxStrength,
       strength: this.strength,

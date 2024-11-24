@@ -3,7 +3,7 @@ import {
   SystemResourceInterface,
 } from '@interfaces/interfaces';
 import SystemResource from '@model/system-resource.model';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class SystemMoon {
   constructor(
@@ -20,7 +20,7 @@ export default class SystemMoon {
 
   fromInterface(sm: SystemMoonInterface): SystemMoon {
     this.id = sm.id;
-    this.name = Utils.urldecode(sm.name);
+    this.name = urldecode(sm.name);
     this.type = sm.type;
     this.distance = sm.distance;
     this.radius = sm.radius;
@@ -39,7 +39,7 @@ export default class SystemMoon {
   toInterface(): SystemMoonInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       type: this.type,
       distance: this.distance,
       radius: this.radius,

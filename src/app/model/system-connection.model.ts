@@ -1,5 +1,5 @@
 import { SystemConnectionInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class SystemConnection {
   constructor(
@@ -13,7 +13,7 @@ export default class SystemConnection {
     this.idSystemEnd = sc.idSystemEnd;
     this.order = sc.order;
     this.navigateTime = sc.navigateTime;
-    this.name = Utils.urldecode(sc.name);
+    this.name = urldecode(sc.name);
 
     return this;
   }
@@ -23,7 +23,7 @@ export default class SystemConnection {
       idSystemEnd: this.idSystemEnd,
       order: this.order,
       navigateTime: this.navigateTime,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
     };
   }
 }

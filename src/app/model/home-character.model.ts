@@ -1,5 +1,5 @@
 import { HomeCharacterInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class HomeCharacter {
   constructor(
@@ -11,7 +11,7 @@ export default class HomeCharacter {
   fromInterface(hc: HomeCharacterInterface): HomeCharacter {
     this.id = hc.id;
     this.type = hc.type;
-    this.name = Utils.urldecode(hc.name);
+    this.name = urldecode(hc.name);
 
     return this;
   }
@@ -20,7 +20,7 @@ export default class HomeCharacter {
     return {
       id: this.id,
       type: this.type,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
     };
   }
 }

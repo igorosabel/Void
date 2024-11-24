@@ -1,5 +1,5 @@
 import { SystemResourceInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class SystemResource {
   constructor(
@@ -10,7 +10,7 @@ export default class SystemResource {
 
   fromInterface(sr: SystemResourceInterface): SystemResource {
     this.id = sr.id;
-    this.name = Utils.urldecode(sr.name);
+    this.name = urldecode(sr.name);
     this.value = sr.value;
 
     return this;
@@ -19,7 +19,7 @@ export default class SystemResource {
   toInterface(): SystemResourceInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       value: this.value,
     };
   }

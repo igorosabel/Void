@@ -2,7 +2,7 @@ import { NPCInterface } from '@interfaces/interfaces';
 import ShopModule from '@model/shop-module.model';
 import ShopResource from '@model/shop-resource.model';
 import ShopShip from '@model/shop-ship.model';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class NPC {
   constructor(
@@ -16,7 +16,7 @@ export default class NPC {
 
   fromInterface(n: NPCInterface): NPC {
     this.id = n.id;
-    this.name = Utils.urldecode(n.name);
+    this.name = urldecode(n.name);
     this.idRace = n.idRace;
     this.ships = n.ships.map((item) => {
       return new ShopShip().fromInterface(item);
@@ -34,7 +34,7 @@ export default class NPC {
   toInterface(): NPCInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       idRace: this.idRace,
       ships: this.ships.map((item) => {
         return item.toInterface();

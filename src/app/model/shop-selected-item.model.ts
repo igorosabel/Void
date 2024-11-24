@@ -2,7 +2,7 @@ import { ShopSelectedItemInterface } from '@interfaces/interfaces';
 import Module from '@model/module.model';
 import Resource from '@model/resource.model';
 import Ship from '@model/ship.model';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class ShopSelectedItem {
   constructor(
@@ -21,7 +21,7 @@ export default class ShopSelectedItem {
   fromInterface(ssi: ShopSelectedItemInterface): ShopSelectedItem {
     this.id = ssi.id;
     this.type = ssi.type;
-    this.name = Utils.urldecode(ssi.name);
+    this.name = urldecode(ssi.name);
     this.num = ssi.num;
     this.max = ssi.max;
     this.price = ssi.price;
@@ -39,7 +39,7 @@ export default class ShopSelectedItem {
     return {
       id: this.id,
       type: this.type,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       num: this.num,
       max: this.max,
       price: this.price,

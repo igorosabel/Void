@@ -1,5 +1,5 @@
 import { ShortMessageInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class ShortMessage {
   constructor(
@@ -13,9 +13,9 @@ export default class ShortMessage {
   fromInterface(sm: ShortMessageInterface): ShortMessage {
     this.id = sm.id;
     this.type = sm.type;
-    this.name = Utils.urldecode(sm.name);
-    this.date = Utils.urldecode(sm.date);
-    this.message = Utils.urldecode(sm.message);
+    this.name = urldecode(sm.name);
+    this.date = urldecode(sm.date);
+    this.message = urldecode(sm.message);
 
     return this;
   }
@@ -24,9 +24,9 @@ export default class ShortMessage {
     return {
       id: this.id,
       type: this.type,
-      name: Utils.urlencode(this.name),
-      date: Utils.urlencode(this.date),
-      message: Utils.urlencode(this.message),
+      name: urlencode(this.name),
+      date: urlencode(this.date),
+      message: urlencode(this.message),
     };
   }
 }

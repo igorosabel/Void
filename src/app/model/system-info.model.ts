@@ -1,6 +1,6 @@
 import { SystemInfoInterface } from '@interfaces/interfaces';
 import SystemPlanet from '@model/system-planet.model';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class SystemInfo {
   constructor(
@@ -20,13 +20,13 @@ export default class SystemInfo {
 
   fromInterface(si: SystemInfoInterface): SystemInfo {
     this.id = si.id;
-    this.name = Utils.urldecode(si.name);
-    this.type = Utils.urldecode(si.type);
-    this.typeLink = Utils.urldecode(si.typeLink);
-    this.typeDesc = Utils.urldecode(si.typeDesc);
-    this.typeColor = Utils.urldecode(si.typeColor);
+    this.name = urldecode(si.name);
+    this.type = urldecode(si.type);
+    this.typeLink = urldecode(si.typeLink);
+    this.typeDesc = urldecode(si.typeDesc);
+    this.typeColor = urldecode(si.typeColor);
     this.idDiscoverer = si.idDiscoverer;
-    this.discoverer = Utils.urldecode(si.discoverer);
+    this.discoverer = urldecode(si.discoverer);
     this.radius = si.radius;
     this.numNPC = si.numNPC;
     this.fullyExplored = si.fullyExplored;
@@ -40,13 +40,13 @@ export default class SystemInfo {
   toInterface(): SystemInfoInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
-      type: Utils.urlencode(this.type),
-      typeLink: Utils.urlencode(this.typeLink),
-      typeDesc: Utils.urlencode(this.typeDesc),
-      typeColor: Utils.urlencode(this.typeColor),
+      name: urlencode(this.name),
+      type: urlencode(this.type),
+      typeLink: urlencode(this.typeLink),
+      typeDesc: urlencode(this.typeDesc),
+      typeColor: urlencode(this.typeColor),
       idDiscoverer: this.idDiscoverer,
-      discoverer: Utils.urlencode(this.discoverer),
+      discoverer: urlencode(this.discoverer),
       radius: this.radius,
       numNPC: this.numNPC,
       fullyExplored: this.fullyExplored,

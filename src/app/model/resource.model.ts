@@ -1,5 +1,5 @@
 import { ResourceInterface } from '@interfaces/interfaces';
-import Utils from '@model/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class Resource {
   constructor(
@@ -10,7 +10,7 @@ export default class Resource {
 
   fromInterface(r: ResourceInterface): Resource {
     this.id = r.id;
-    this.name = Utils.urldecode(r.name);
+    this.name = urldecode(r.name);
     this.credits = r.credits;
 
     return this;
@@ -19,7 +19,7 @@ export default class Resource {
   toInterface(): ResourceInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       credits: this.credits,
     };
   }
