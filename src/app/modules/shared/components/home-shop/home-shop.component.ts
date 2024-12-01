@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -39,12 +39,12 @@ import { ENGINES, GENERATORS, HULLS, MODULES } from '@shared/constants';
   templateUrl: './home-shop.component.html',
   styleUrls: ['./home-shop.component.scss'],
   imports: [
-    CommonModule,
     FormsModule,
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
     MatButtonModule,
+    DecimalPipe,
   ],
 })
 export default class HomeShopComponent {

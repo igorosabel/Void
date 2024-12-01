@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MessageInterface } from '@interfaces/interfaces';
 import ApiService from '@services/api.service';
@@ -8,7 +7,7 @@ import TimeFormatPipe from '@shared/pipes/time-format.pipe';
   selector: 'void-job',
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.scss'],
-  imports: [CommonModule, TimeFormatPipe],
+  imports: [TimeFormatPipe],
 })
 export default class JobComponent {
   private as: ApiService = inject(ApiService);

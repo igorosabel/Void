@@ -5,22 +5,22 @@
 </mat-toolbar>
 <div class="header-menu">
 	<a routerLink="/home"
-	   [ngClass]="{'selected': selected() === 'home'}">
+	   [class]="{'selected': selected() === 'home'}">
 		<mat-icon>home</mat-icon>
 		<span>Sistema actual</span>
 	</a>
 	<a routerLink="/navigate"
-	   [ngClass]="{'selected': selected() === 'navigate'}">
+	   [class]="{'selected': selected() === 'navigate'}">
 		<mat-icon svgIcon="void-system"></mat-icon>
 		<span>Navegar</span>
 	</a>
 	<a routerLink="/ship"
-	   [ngClass]="{'selected': selected() === 'ship'}">
+	   [class]="{'selected': selected() === 'ship'}">
 		<mat-icon svgIcon="void-ship"></mat-icon>
 		<span>Nave</span>
 	</a>
 	<a routerLink="/messages"
-	   [ngClass]="{'selected': selected() === 'messages'}">
+	   [class]="{'selected': selected() === 'messages'}">
 		<mat-icon>email</mat-icon>
 		<span>
 			Mensajes

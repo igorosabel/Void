@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +31,6 @@ import TimeFormatPipe from '@shared/pipes/time-format.pipe';
   templateUrl: './navigate.component.html',
   styleUrls: ['./navigate.component.scss'],
   imports: [
-    CommonModule,
     FormsModule,
     HeaderComponent,
     StarSystemComponent,

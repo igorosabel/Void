@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, InputSignal, inject, input } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,7 +8,7 @@ import { RouterModule } from '@angular/router';
   selector: 'void-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatIconModule],
+  imports: [RouterModule, MatToolbarModule, MatIconModule],
 })
 export default class HeaderComponent {
   private matIconRegistry: MatIconRegistry = inject(MatIconRegistry);

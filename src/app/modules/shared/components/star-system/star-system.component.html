@@ -16,7 +16,7 @@
 					  #systemContent>
 		@for (star of stars; track star) {
 		<div class="stars"
-			 [ngStyle]="{
+			 [style]="{
 				'top': star.top + '%',
 				'right': star.right + '%',
 				'width': star.width + 'px',
@@ -26,14 +26,14 @@
 		}
 		@if (!planet.id) {
 		<div class="sun"
-			 [ngStyle]="sun"></div>
+			 [style]="sun"></div>
 		@for (o of planetOrbits; track o) {
 		<div class="planet-radius"
-			 [ngStyle]="o"></div>
+			 [style]="o"></div>
 		}
 		@for (p of planets; track p.id) {
 		<div class="planet"
-			 [ngStyle]="p"
+			 [style]="p"
 			 [id]="'planet_'+p.id"
 			 (click)="selectPlanet(p)">
 			<span>{{p.name}}</span>
@@ -43,14 +43,14 @@
 
 		@if (planet.id) {
 		<div class="one-planet"
-			 [ngStyle]="planet"></div>
+			 [style]="planet"></div>
 		@for (o of moonOrbits; track o) {
 		<div class="moon-radius"
-			 [ngStyle]="o"></div>
+			 [style]="o"></div>
 		}
 		@for (m of moons; track m.id) {
 		<div class="moon"
-			 [ngStyle]="m"
+			 [style]="m"
 			 [id]="'moon_'+m.id"
 			 (click)="selectMoon(m)">
 			<span>{{m.name}}</span>

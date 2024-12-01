@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -27,7 +26,7 @@ import { NUM_STARS } from '@shared/constants';
   selector: 'void-star-system',
   templateUrl: './star-system.component.html',
   styleUrls: ['./star-system.component.scss'],
-  imports: [CommonModule, MatCardModule],
+  imports: [MatCardModule],
 })
 export default class StarSystemComponent implements OnInit, OnDestroy {
   onselect: OutputEmitterRef<StarSystemSelect> = output<StarSystemSelect>();

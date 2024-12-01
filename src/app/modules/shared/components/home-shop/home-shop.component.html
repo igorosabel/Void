@@ -1,5 +1,5 @@
 <div class="bg"
-	 [ngClass]="{'show': show}">
+	 [class]="{'show': show}">
 	@if (!loaded) {
 	<img src="/img/loading.svg"
 		 alt="">
@@ -18,10 +18,10 @@
 		</div>
 		<div class="shop-tabs">
 			<a href="#"
-			   [ngClass]="{'selected': shopTab === 'buy'}"
+			   [class]="{'selected': shopTab === 'buy'}"
 			   (click)="selectTab('buy', $event)">Comprar</a>
 			<a href="#"
-			   [ngClass]="{'selected': shopTab === 'sell'}"
+			   [class]="{'selected': shopTab === 'sell'}"
 			   (click)="selectTab('sell', $event)">Vender</a>
 		</div>
 		<div class="shop-body">
@@ -29,7 +29,7 @@
 			<div class="shop-process">
 
 				<div class="shop-step-one shop-step"
-					 [ngClass]="{'center': shopStep === 1, 'left': shopStep === 2 || shopStep === 3}">
+					 [class]="{'center': shopStep === 1, 'left': shopStep === 2 || shopStep === 3}">
 					<h4 class="shop-title">Objetos disponibles en la tienda:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
@@ -82,7 +82,7 @@
 				</div>
 
 				<div class="shop-step-two shop-step"
-					 [ngClass]="{'right': shopStep === 1, 'center': shopStep === 2, 'left': shopStep === 3}">
+					 [class]="{'right': shopStep === 1, 'center': shopStep === 2, 'left': shopStep === 3}">
 					<h4 class="shop-title">
 						<button mat-icon-button
 								aria-label="Volver a la lista"
@@ -195,7 +195,7 @@
 										}
 										<li>
 											<label>Energía:</label>
-											<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
+											<span [class]="{'negative': selectedItem.module.energy < 0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
 										</li>
 										<li>
 											<label>Slots:</label>
@@ -246,7 +246,7 @@
 									</button>
 									}
 									<span class="selected-item-buy-credits"
-										  [ngClass]="{'selected-item-buy-credits-error': selectedItem.credits>credits()}">
+										  [class]="{'selected-item-buy-credits-error': selectedItem.credits>credits()}">
 										Créditos disponibles: {{credits() | number:'1.0-0'}}
 									</span>
 								</div>
@@ -257,7 +257,7 @@
 				</div>
 
 				<div class="shop-step-three shop-step right"
-					 [ngClass]="{'right': shopStep === 1 || shopStep === 2, 'center': shopStep === 3}">
+					 [class]="{'right': shopStep === 1 || shopStep === 2, 'center': shopStep === 3}">
 					<h3 class="shop-end-title">Recurso comprado</h3>
 					<div class="shop-end-result">
 						<div class="shop-end-product">
@@ -294,7 +294,7 @@
 			<div class="shop-process">
 
 				<div class="shop-step-one shop-step"
-					 [ngClass]="{'center': sellStep === 1, 'left': sellStep === 2 || sellStep === 3}">
+					 [class]="{'center': sellStep === 1, 'left': sellStep === 2 || sellStep === 3}">
 					<h4 class="shop-title">Objetos que puedes vender:</h4>
 					<div class="shop-selling">
 						<mat-action-list>
@@ -347,7 +347,7 @@
 				</div>
 
 				<div class="shop-step-two shop-step"
-					 [ngClass]="{'right': sellStep === 1, 'center': sellStep === 2, 'left': sellStep === 3}">
+					 [class]="{'right': sellStep === 1, 'center': sellStep === 2, 'left': sellStep === 3}">
 					<h4 class="shop-title">
 						<button mat-icon-button
 								aria-label="Volver a la lista"
@@ -459,7 +459,7 @@
 										}
 										<li>
 											<label>Energía:</label>
-											<span [ngClass]="{'negative': selectedItem.module.energy<0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
+											<span [class]="{'negative': selectedItem.module.energy < 0}">{{selectedItem.module.energy | number:'1.0-0'}}</span>
 										</li>
 										<li>
 											<label>Slots:</label>
@@ -519,7 +519,7 @@
 				</div>
 
 				<div class="shop-step-three shop-step right"
-					 [ngClass]="{'right': sellStep === 1 || sellStep === 2, 'center': sellStep === 3}">
+					 [class]="{'right': sellStep === 1 || sellStep === 2, 'center': sellStep === 3}">
 					<h3 class="shop-end-title">Recurso vendido</h3>
 					<div class="shop-end-result">
 						<div class="shop-end-product">
