@@ -84,7 +84,9 @@ export default class StarSystemComponent implements OnInit, OnDestroy {
   }
 
   selectSystem(ev: MouseEvent): void {
-    ev && ev.preventDefault();
+    if (ev) {
+      ev.preventDefault();
+    }
     const params: StarSystemSelect = {
       type: 'system',
       id: this.system.id,
@@ -99,7 +101,9 @@ export default class StarSystemComponent implements OnInit, OnDestroy {
     p: PlanetMoonInterface | null,
     ev: MouseEvent | null = null
   ): void {
-    ev && ev.preventDefault();
+    if (ev) {
+      ev.preventDefault();
+    }
     if (p !== null) {
       const params: StarSystemSelect = {
         type: 'planet',
