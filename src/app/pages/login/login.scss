@@ -1,0 +1,28 @@
+main {
+    display: flex;
+    flex-direction: column;
+
+    aside {
+        margin: 16px;
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    section {
+        margin: 16px;
+        display: flex;
+        flex: 1;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    main {
+        flex-direction: row;
+    }
+}
