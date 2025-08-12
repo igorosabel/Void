@@ -1,0 +1,28 @@
+{
+  "name": "Void Universe",
+  "short_name": "Void",
+  "description": "Void Universe: juego para navegadores. Exploración espacial, combates y comercio.",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icons/icon-180x180.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#4a4a4a",
+  "background_color": "#4a4a4a",
+  "display": "standalone",
+  "orientation": "portrait",
+  "id": "/"
+}
