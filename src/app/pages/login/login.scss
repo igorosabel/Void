@@ -1,28 +1,50 @@
 main {
-    display: flex;
-    flex-direction: column;
-
-    aside {
-        margin: 16px;
-        display: flex;
-        flex-direction: column;
-        width: 20%;
-
-        .actions {
-            display: flex;
-            justify-content: space-between;
-        }
-    }
-
-    section {
-        margin: 16px;
-        display: flex;
-        flex: 1;
-    }
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "aside"
+        "content";
+    gap: 12px;
+    /* separación entre aside/section */
+    padding: 12px;
+    /* margen interior respecto a header y bordes */
+    width: 100%;
+    flex: 1;
+    /* el main ocupa el alto restante bajo el header */
+    min-height: 0;
+    /* evita desbordes en algunos navegadores */
 }
 
-@media only screen and (min-width: 600px) {
+main>aside {
+    grid-area: aside;
+}
+
+main>section {
+    grid-area: content;
+}
+
+/* Tarjetas: borde, radios y padding interno */
+main>aside,
+main>section {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+/* Escritorio: dos columnas y paneles a altura completa */
+@media (min-width: 900px) {
     main {
-        flex-direction: row;
+        grid-template-columns: clamp(240px, 28vw, 360px) 1fr;
+        grid-template-areas: "aside content";
+        grid-template-rows: 1fr;
+        /* una única fila que ocupa todo el alto del main */
+        align-items: stretch;
+        /* los hijos llenan la fila */
+    }
+
+    /* Opcional: fuerza explícitamente el 100% de alto de los hijos */
+    main>aside,
+    main>section {
+        height: 100%;
     }
 }
