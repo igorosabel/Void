@@ -1,0 +1,64 @@
+.register-form {
+    max-width: 520px;
+    margin: 0 auto;
+    display: grid;
+    gap: 14px;
+}
+
+.full {
+    width: 100%;
+}
+
+.subtitle {
+    margin-top: -6px;
+    opacity: 0.8;
+}
+
+.terms {
+    margin-top: 6px;
+}
+
+.terms-error {
+    color: var(--mdc-theme-error, #b00020);
+    margin-left: 2px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.server-error {
+    border-left: 4px solid var(--mdc-theme-error, #b00020);
+    padding: 8px 10px;
+    background: color-mix(in srgb, #b00020 8%, transparent);
+}
+
+.strength {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: -6px 0 6px 2px;
+}
+
+.strength .bar {
+    width: 42px;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+}
+
+.strength[data-level='medium'] .bar:nth-child(-n + 2) {
+    background: #ffb300;
+}
+
+.strength[data-level='strong'] .bar {
+    background: #2e7d32;
+}
+
+.strength[data-level='weak'] .bar:nth-child(1) {
+    background: #c62828;
+}

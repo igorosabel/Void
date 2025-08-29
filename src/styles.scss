@@ -1,6 +1,8 @@
 @use '@angular/material' as mat;
 
 :root {
+  /*--mat-sys-body-medium: 400 1rem/1.5rem Roboto, "Helvetica Neue", Arial, sans-serif;*/
+
   --color-blue: #005cbb;
   --color-white: #fff;
   --color-red: #f44336;
@@ -11,7 +13,32 @@
     ));
 }
 
+mat-toolbar {
+  /* por si quieres reforzarlo a nivel de toolbar, además del :root */
+  @include mat.toolbar-overrides((container-background-color: var(--color-blue),
+      container-text-color: var(--color-white),
+    ));
+
+  /* Iconos sueltos */
+  @include mat.icon-overrides((color: var(--color-white)));
+
+  /* Botón de icono */
+  @include mat.icon-button-overrides((icon-color: var(--color-white)));
+
+  /* Botones de texto/outlined/filled dentro de la toolbar (opcional) */
+  @include mat.button-overrides((text-label-text-color: var(--color-white),
+      outlined-label-text-color: var(--color-white),
+      protected-label-text-color: var(--color-white),
+      filled-label-text-color: var(--color-white)));
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html {
+  font-size: 112.5%;
+
   @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
@@ -33,11 +60,12 @@ body {
   height: 100%;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 .full-width {
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 100%;
+  }
 }

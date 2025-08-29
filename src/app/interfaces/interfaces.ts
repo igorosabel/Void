@@ -19,3 +19,10 @@ export interface RegisterData {
 export interface StatusResult {
   status: string;
 }
+
+export interface RegisterPayload {
+  email: string;
+  nickname: string;
+  password: string;
+  acceptTerms: boolean;
+}
