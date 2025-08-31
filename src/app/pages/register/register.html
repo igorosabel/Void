@@ -76,11 +76,13 @@
             }
         </mat-form-field>
 
+        @if (password() !== null && password()?.value !== '') {
         <div class="strength"
              [attr.data-level]="passwordStrength()">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
             <small>Seguridad: {{ passwordStrength() }}</small>
         </div>
+        }
 
         <mat-form-field appearance="outline"
                         class="full">
@@ -126,7 +128,7 @@
             {{ submitting() ? 'Creando cuenta…' : 'Crear cuenta' }}
         </button>
         <a mat-button
-           routerLink="/auth/login">¿Ya tienes cuenta? Inicia sesión</a>
+           routerLink="/">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
 
     @if (serverError()) {

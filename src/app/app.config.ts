@@ -1,3 +1,4 @@
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
@@ -8,10 +9,9 @@ import {
   withComponentInputBinding,
   withViewTransitions,
 } from '@angular/router';
-
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { routes } from './app.routes';
-import TokenInterceptor from './interceptors/token-interceptor';
+import routes from '@app/app.routes';
+import provideCore from '@app/core';
+import TokenInterceptor from '@interceptors/token-interceptor';
 
 const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +19,7 @@ const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     provideHttpClient(withInterceptors([TokenInterceptor])),
+    provideCore(),
   ],
 };
 

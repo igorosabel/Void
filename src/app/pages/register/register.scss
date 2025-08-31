@@ -51,14 +51,14 @@
     background: #ddd;
 }
 
-.strength[data-level='medium'] .bar:nth-child(-n + 2) {
+.strength[data-level='medio'] .bar:nth-child(-n + 2) {
     background: #ffb300;
 }
 
-.strength[data-level='strong'] .bar {
+.strength[data-level='fuerte'] .bar {
     background: #2e7d32;
 }
 
-.strength[data-level='weak'] .bar:nth-child(1) {
+.strength[data-level='debil'] .bar:nth-child(1) {
     background: #c62828;
 }
