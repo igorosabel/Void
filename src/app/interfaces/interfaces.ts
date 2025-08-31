@@ -26,3 +26,5 @@ export interface RegisterPayload {
   password: string;
   acceptTerms: boolean;
 }
+
+export type PasswordStrengthType = 'debil' | 'medio' | 'fuerte';

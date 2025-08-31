@@ -3,7 +3,9 @@ import {
   Component,
   computed,
   inject,
+  Signal,
   signal,
+  WritableSignal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -18,7 +20,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatToolbar } from '@angular/material/toolbar';
+import { RouterLink } from '@angular/router';
 import passwordMatchValidator from '@auth/password-match.validator';
+import { PasswordStrengthType } from '@interfaces/interfaces';
 import AuthService from '@services/auth.service';
 import { debounceTime, first, map, of, switchMap } from 'rxjs';
 
@@ -40,12 +45,14 @@ function emailAvailabilityValidator(
 @Component({
   selector: 'app-register',
   imports: [
+    MatToolbar,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
+    RouterLink,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -53,14 +60,14 @@ function emailAvailabilityValidator(
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class RegisterComponent {
-  private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
+  private fb: FormBuilder = inject(FormBuilder);
+  private auth: AuthService = inject(AuthService);
 
   // estado local con signals
-  hidePassword = signal(true);
-  hideConfirm = signal(true);
-  submitting = signal(false);
-  serverError = signal<string | null>(null);
+  hidePassword: WritableSignal<boolean> = signal(true);
+  hideConfirm: WritableSignal<boolean> = signal(true);
+  submitting: WritableSignal<boolean> = signal(false);
+  serverError: WritableSignal<string | null> = signal<string | null>(null);
 
   form = this.fb.group({
     email: this.fb.control<string>('', {
@@ -95,24 +102,28 @@ export default class RegisterComponent {
   acceptTerms = () => this.form.get('acceptTerms');
 
   // derivado (computed) de la fuerza de la contraseña usando toSignal()
-  private passwordValue = toSignal(this.password()?.valueChanges ?? of(''), {
-    initialValue: '',
-  });
+  private passwordValue: Signal<string | null> = toSignal(
+    this.password()?.valueChanges ?? of(''),
+    {
+      initialValue: '',
+    }
+  );
 
-  passwordStrength = computed<'weak' | 'medium' | 'strong'>(() => {
-    const v = String(this.passwordValue() ?? '');
-    let score = 0;
-    if (v.length >= 8) score++;
-    if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
-    if (/\d/.test(v) && /[^A-Za-z0-9]/.test(v)) score++;
-    return score >= 3 ? 'strong' : score === 2 ? 'medium' : 'weak';
-  });
+  passwordStrength: Signal<PasswordStrengthType> =
+    computed<PasswordStrengthType>((): PasswordStrengthType => {
+      const v: string = String(this.passwordValue() ?? '');
+      let score: number = 0;
+      if (v.length >= 8) score++;
+      if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
+      if (/\d/.test(v) && /[^A-Za-z0-9]/.test(v)) score++;
+      return score >= 3 ? 'fuerte' : score === 2 ? 'medio' : 'debil';
+    });
 
   private hasComplexity() {
     return (ctrl: AbstractControl) => {
-      const v = String(ctrl.value ?? '');
+      const v: string = String(ctrl.value ?? '');
       if (!v) return null;
-      const rules = [
+      const rules: boolean[] = [
         /[A-Z]/.test(v),
         /[a-z]/.test(v),
         /\d/.test(v),
@@ -130,7 +141,7 @@ export default class RegisterComponent {
     this.hideConfirm.update((v: boolean): boolean => !v);
   }
 
-  async submit() {
+  async submit(): Promise<void> {
     this.serverError.set(null);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -147,7 +158,7 @@ export default class RegisterComponent {
       this.form.reset();
       // TODO: router.navigateByUrl('/auth/login') o '/game/system'
     } catch (e: unknown) {
-      const msg =
+      const msg: string =
         e instanceof Error
           ? e.message
           : 'Error inesperado al registrar la cuenta.';
