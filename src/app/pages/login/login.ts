@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { LoginResponse } from '@interfaces/interfaces';
-import AuthService from '@services/auth.service';
+import AuthService from '@services/auth-service';
 
 @Component({
   selector: 'app-login',

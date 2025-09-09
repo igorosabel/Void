@@ -24,7 +24,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import passwordMatchValidator from '@auth/password-match.validator';
 import { LoginResponse, PasswordStrengthType } from '@interfaces/interfaces';
-import AuthService from '@services/auth.service';
+import AuthService from '@services/auth-service';
 import { debounceTime, first, map, of, switchMap } from 'rxjs';
 
 function emailAvailabilityValidator(

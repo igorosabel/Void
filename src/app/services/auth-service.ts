@@ -14,7 +14,7 @@ export default class AuthService {
   private readonly apiUrl: string = environment.apiUrl;
 
   async checkEmailAvailable(email: string): Promise<boolean> {
-    const url = `${this.apiUrl}/player/check-email-available`;
+    const url = `${this.apiUrl}/auth/check-email-available`;
     const result$: Observable<boolean> = this.http
       .post<{ available: boolean }>(url, { email })
       .pipe(map((res): boolean => res.available));
@@ -22,7 +22,7 @@ export default class AuthService {
   }
 
   async register(payload: RegisterPayload): Promise<LoginResponse> {
-    const url = `${this.apiUrl}/player/register`;
+    const url = `${this.apiUrl}/auth/register`;
     return await firstValueFrom(this.http.post<LoginResponse>(url, payload));
   }
 
