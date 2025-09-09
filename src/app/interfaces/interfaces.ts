@@ -28,3 +28,8 @@ export interface RegisterPayload {
 }
 
 export type PasswordStrengthType = 'debil' | 'medio' | 'fuerte';
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}

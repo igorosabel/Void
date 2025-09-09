@@ -93,7 +93,6 @@ export default class RegisterComponent {
     acceptTerms: this.fb.control<boolean>(false, [Validators.requiredTrue]),
   });
 
-  // accesores cómodos para el template (compatibles con signals en @if)
   email = () => this.form.get('email');
   nickname = () => this.form.get('nickname');
   passwordGroup = () => this.form.get('passwordGroup');
@@ -101,7 +100,6 @@ export default class RegisterComponent {
   confirm = () => this.form.get('passwordGroup.confirm');
   acceptTerms = () => this.form.get('acceptTerms');
 
-  // derivado (computed) de la fuerza de la contraseña usando toSignal()
   private passwordValue: Signal<string | null> = toSignal(
     this.password()?.valueChanges ?? of(''),
     {

@@ -1,9 +1,17 @@
-import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+import AuthService from '@app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +19,61 @@ import { RouterLink } from '@angular/router';
     MatToolbar,
     MatFormField,
     MatLabel,
-    MatInput,
-    MatButton,
+    MatInputModule,
+    MatIcon,
+    MatButtonModule,
     RouterLink,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export default class Login {}
+export default class Login {
+  private fb: FormBuilder = inject(FormBuilder);
+  private auth: AuthService = inject(AuthService);
+
+  form = this.fb.group({
+    email: this.fb.control<string>('', {
+      validators: [Validators.required, Validators.email],
+    }),
+    password: this.fb.control<string>('', {
+      validators: [Validators.required],
+    }),
+  });
+  hidePassword: WritableSignal<boolean> = signal(true);
+  submitting: WritableSignal<boolean> = signal(false);
+  serverError: WritableSignal<string | null> = signal<string | null>(null);
+
+  email = () => this.form.get('email');
+  password = () => this.form.get('password');
+
+  toggleHidePassword(): void {
+    this.hidePassword.update((v: boolean): boolean => !v);
+  }
+
+  async submit(): Promise<void> {
+    this.serverError.set(null);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.submitting.set(true);
+    try {
+      await this.auth.login({
+        email: this.email()!.value!,
+        password: this.password()!.value!,
+      });
+      this.form.reset();
+      // TODO: router.navigateByUrl('/auth/login') o '/game/system'
+    } catch (e: unknown) {
+      const msg: string =
+        e instanceof Error
+          ? e.message
+          : 'Nombre de usuario o contraseña incorrectos.';
+      this.serverError.set(msg);
+    } finally {
+      this.submitting.set(false);
+    }
+  }
+}

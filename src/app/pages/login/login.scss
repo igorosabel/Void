@@ -21,6 +21,12 @@
                 justify-content: space-between;
                 align-items: center;
             }
+
+            .server-error {
+                color: var(--color-red);
+                margin-top: 12px;
+                text-align: center;
+            }
         }
 
         >section {
