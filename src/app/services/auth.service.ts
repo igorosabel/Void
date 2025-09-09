@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { LoginPayload, RegisterPayload } from '@interfaces/interfaces';
+import {
+  LoginPayload,
+  LoginResponse,
+  RegisterPayload,
+} from '@interfaces/interfaces';
 import { firstValueFrom, map, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -17,13 +21,13 @@ export default class AuthService {
     return firstValueFrom(result$);
   }
 
-  async register(payload: RegisterPayload): Promise<void> {
+  async register(payload: RegisterPayload): Promise<LoginResponse> {
     const url = `${this.apiUrl}/player/register`;
-    await firstValueFrom(this.http.post<void>(url, payload));
+    return await firstValueFrom(this.http.post<LoginResponse>(url, payload));
   }
 
-  async login(payload: LoginPayload): Promise<void> {
+  async login(payload: LoginPayload): Promise<LoginResponse> {
     const url = `${this.apiUrl}/auth/login`;
-    await firstValueFrom(this.http.post<void>(url, payload));
+    return await firstValueFrom(this.http.post<LoginResponse>(url, payload));
   }
 }

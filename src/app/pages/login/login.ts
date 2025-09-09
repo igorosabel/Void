@@ -11,7 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import AuthService from '@app/services/auth.service';
+import { LoginResponse } from '@interfaces/interfaces';
+import AuthService from '@services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -60,10 +61,11 @@ export default class Login {
     }
     this.submitting.set(true);
     try {
-      await this.auth.login({
+      const response: LoginResponse = await this.auth.login({
         email: this.email()!.value!,
         password: this.password()!.value!,
       });
+      console.log('Login response:', response);
       this.form.reset();
       // TODO: router.navigateByUrl('/auth/login') o '/game/system'
     } catch (e: unknown) {

@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import passwordMatchValidator from '@auth/password-match.validator';
-import { PasswordStrengthType } from '@interfaces/interfaces';
+import { LoginResponse, PasswordStrengthType } from '@interfaces/interfaces';
 import AuthService from '@services/auth.service';
 import { debounceTime, first, map, of, switchMap } from 'rxjs';
 
@@ -63,7 +63,6 @@ export default class RegisterComponent {
   private fb: FormBuilder = inject(FormBuilder);
   private auth: AuthService = inject(AuthService);
 
-  // estado local con signals
   hidePassword: WritableSignal<boolean> = signal(true);
   hideConfirm: WritableSignal<boolean> = signal(true);
   submitting: WritableSignal<boolean> = signal(false);
@@ -147,12 +146,13 @@ export default class RegisterComponent {
     }
     this.submitting.set(true);
     try {
-      await this.auth.register({
+      const response: LoginResponse = await this.auth.register({
         email: this.email()!.value!,
         nickname: this.nickname()!.value!,
         password: this.password()!.value!,
         acceptTerms: this.acceptTerms()!.value!,
       });
+      console.log('Register response:', response);
       this.form.reset();
       // TODO: router.navigateByUrl('/auth/login') o '/game/system'
     } catch (e: unknown) {

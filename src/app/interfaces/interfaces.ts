@@ -33,3 +33,24 @@ export interface LoginPayload {
   email: string;
   password: string;
 }
+
+export interface LoginResponse {
+  status: string;
+  player: {
+    id: number;
+    nickname: string;
+  };
+  system: {
+    id: number;
+    original_name: string;
+  };
+  ship: {
+    id: number;
+    id_ship_type: number;
+  };
+  tokens: {
+    access_token: string;
+    expires_in: number;
+    refresh_token: string;
+  };
+}
