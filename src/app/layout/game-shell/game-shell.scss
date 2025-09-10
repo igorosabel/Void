@@ -1,3 +1,25 @@
-.h-screen {
-    height: 100vh;
+.flex {
+    flex: 1;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    height: 48px;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        color: var(--color-black);
+        font-weight: bold;
+        font-size: 14px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+
+        &.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
 }

@@ -68,7 +68,6 @@ export default class Login {
         email: this.email()!.value!,
         password: this.password()!.value!,
       });
-      console.log('Login response:', response);
       this.authStore.applyLoginResponse(response);
       this.form.reset();
       this.router.navigateByUrl('/game/home');

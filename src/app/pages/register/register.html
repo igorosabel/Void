@@ -121,14 +121,14 @@
     }
 
     <div class="actions">
+        <a mat-button
+           routerLink="/">¿Ya tienes cuenta? Inicia sesión</a>
         <button mat-flat-button
                 color="primary"
                 type="submit"
                 [disabled]="form.invalid || submitting()">
             {{ submitting() ? 'Creando cuenta…' : 'Crear cuenta' }}
         </button>
-        <a mat-button
-           routerLink="/">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
 
     @if (serverError()) {

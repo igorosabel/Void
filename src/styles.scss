@@ -7,6 +7,7 @@
   --color-white: #fff;
   --color-red: #f44336;
   --color-grey: #ccc;
+  --color-black: #000;
 
   @include mat.toolbar-overrides((container-background-color: var(--color-blue),
       container-text-color: var(--color-white),

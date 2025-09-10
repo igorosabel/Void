@@ -21,7 +21,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import AuthStore from '@auth/auth.store';
 import passwordMatchValidator from '@auth/password-match.validator';
 import { LoginResponse, PasswordStrengthType } from '@interfaces/interfaces';
 import AuthService from '@services/auth-service';
@@ -62,6 +63,8 @@ function emailAvailabilityValidator(
 export default class RegisterComponent {
   private fb: FormBuilder = inject(FormBuilder);
   private auth: AuthService = inject(AuthService);
+  private authStore: AuthStore = inject(AuthStore);
+  private router: Router = inject(Router);
 
   hidePassword: WritableSignal<boolean> = signal(true);
   hideConfirm: WritableSignal<boolean> = signal(true);
@@ -152,9 +155,9 @@ export default class RegisterComponent {
         password: this.password()!.value!,
         acceptTerms: this.acceptTerms()!.value!,
       });
-      console.log('Register response:', response);
+      this.authStore.applyLoginResponse(response);
       this.form.reset();
-      // TODO: router.navigateByUrl('/auth/login') o '/game/system'
+      this.router.navigateByUrl('/game/home');
     } catch (e: unknown) {
       const msg: string =
         e instanceof Error
