@@ -1,0 +1,24 @@
+import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterLink, RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-game-shell',
+  imports: [
+    RouterOutlet,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule,
+    RouterLink,
+    NgOptimizedImage,
+  ],
+  templateUrl: './game-shell.html',
+  styleUrl: './game-shell.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export default class GameShellComponent {}

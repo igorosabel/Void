@@ -5,6 +5,7 @@ import {
   LoginPayload,
   LoginResponse,
   RegisterPayload,
+  Tokens,
 } from '@interfaces/interfaces';
 import { firstValueFrom, map, Observable } from 'rxjs';
 
@@ -29,5 +30,22 @@ export default class AuthService {
   async login(payload: LoginPayload): Promise<LoginResponse> {
     const url = `${this.apiUrl}/auth/login`;
     return await firstValueFrom(this.http.post<LoginResponse>(url, payload));
+  }
+
+  async refresh(refresh_token: string): Promise<Tokens> {
+    return firstValueFrom(
+      this.http.post<Tokens>(`${this.apiUrl}/auth/refresh`, {
+        refreshToken: refresh_token,
+      })
+    );
+  }
+
+  async logout(refresh_token: string, allDevices = false): Promise<void> {
+    await firstValueFrom(
+      this.http.post<void>(`${this.apiUrl}/auth/logout`, {
+        refreshToken: refresh_token,
+        allDevices,
+      })
+    );
   }
 }

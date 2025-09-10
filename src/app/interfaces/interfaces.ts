@@ -34,23 +34,40 @@ export interface LoginPayload {
   password: string;
 }
 
+export interface PlayerSummary {
+  id: number;
+  nickname: string;
+}
+
+export interface SystemSummary {
+  id: number;
+  original_name: string;
+}
+
+export interface ShipSummary {
+  id: number;
+  id_ship_type: number;
+}
+
+export interface Tokens {
+  access_token: string;
+  expires_in: number;
+  refresh_token?: string;
+}
+
 export interface LoginResponse {
   status: string;
-  player: {
-    id: number;
-    nickname: string;
-  };
-  system: {
-    id: number;
-    original_name: string;
-  };
-  ship: {
-    id: number;
-    id_ship_type: number;
-  };
-  tokens: {
-    access_token: string;
-    expires_in: number;
-    refresh_token: string;
-  };
+  player: PlayerSummary;
+  system: SystemSummary | null;
+  ship: ShipSummary | null;
+  tokens: Tokens;
+}
+
+export interface SessionData {
+  player: PlayerSummary | null;
+  system: SystemSummary | null;
+  ship: ShipSummary | null;
+  refresh_token?: string;
+  access_token?: string;
+  access_expires_at?: number;
 }

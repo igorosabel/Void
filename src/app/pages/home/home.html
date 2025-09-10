@@ -1,0 +1,54 @@
+@if (loading()) {
+<mat-card> Cargando sistema… </mat-card>
+} @else {
+<div class="grid gap-4"
+     style="grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));">
+    <mat-card>
+        <h3 class="m-0">Sistema</h3>
+        <p class="m-0"><strong>Nombre:</strong> {{ systemName() }}</p>
+        <p class="m-0"><strong>Clase estelar:</strong> {{ data()?.system?.star_class_code ?? '—' }}</p>
+        <p class="m-0"><strong>Planetas:</strong> {{ data()?.system?.planets_count ?? 0 }}</p>
+        <p class="m-0"><strong>Lunas totales:</strong> {{ data()?.system?.moons_total ?? 0 }}</p>
+    </mat-card>
+
+    <mat-card>
+        <h3 class="m-0">Jugadores en el sistema</h3>
+        @if (players().length === 0) {
+        <p class="m-0">No hay otros jugadores aquí.</p>
+        } @else {
+        <ul class="m-0">
+            @for (p of players(); track p.id) {
+            <li>{{ p.nickname }}</li>
+            }
+        </ul>
+        }
+    </mat-card>
+
+    <mat-card>
+        <h3 class="m-0">NPCs descubiertos</h3>
+        @if (npcs().length === 0) {
+        <p class="m-0">Aún no has descubierto comerciantes en este sistema.</p>
+        } @else {
+        <ul class="m-0">
+            @for (n of npcs(); track n.id) {
+            <li>
+                {{ n.name }} ({{ n.race_code }})
+            </li>
+            }
+        </ul>
+        }
+    </mat-card>
+
+    <mat-card>
+        <h3 class="m-0">Planetas</h3>
+        <ul class="m-0">
+            @for (pl of planets(); track pl.id) {
+            <li>
+                {{ pl.name }} · {{ pl.body_type_code }} · lunas: {{ pl.moons_count }} ·
+                @if (pl.is_discovered) { <span>explorado</span> } @else { <span>sin explorar</span> }
+            </li>
+            }
+        </ul>
+    </mat-card>
+</div>
+}

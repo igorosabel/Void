@@ -1,6 +1,8 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -11,11 +13,13 @@ import {
 import {
   provideRouter,
   withComponentInputBinding,
+  withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
 import routes from '@app/app.routes';
 import provideCore from '@app/core';
-import TokenInterceptor from '@interceptors/token-interceptor';
+import AuthStore from '@auth/auth.store';
+import AuthInterceptor from '@interceptors/auth-interceptor';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline',
@@ -27,10 +31,16 @@ const appConfig: ApplicationConfig = {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: appearance,
     },
+    provideAppInitializer(() => inject(AuthStore).hydrate()),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
-    provideHttpClient(withInterceptors([TokenInterceptor])),
+    provideRouter(
+      routes,
+      withViewTransitions(),
+      withComponentInputBinding(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+    ),
+    provideHttpClient(withInterceptors([AuthInterceptor])),
     provideCore(),
   ],
 };

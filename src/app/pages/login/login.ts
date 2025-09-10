@@ -10,7 +10,8 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import AuthStore from '@auth/auth.store';
 import { LoginResponse } from '@interfaces/interfaces';
 import AuthService from '@services/auth-service';
 
@@ -33,6 +34,8 @@ import AuthService from '@services/auth-service';
 export default class Login {
   private fb: FormBuilder = inject(FormBuilder);
   private auth: AuthService = inject(AuthService);
+  private authStore: AuthStore = inject(AuthStore);
+  private router: Router = inject(Router);
 
   form = this.fb.group({
     email: this.fb.control<string>('', {
@@ -66,8 +69,9 @@ export default class Login {
         password: this.password()!.value!,
       });
       console.log('Login response:', response);
+      this.authStore.applyLoginResponse(response);
       this.form.reset();
-      // TODO: router.navigateByUrl('/auth/login') o '/game/system'
+      this.router.navigateByUrl('/game/home');
     } catch (e: unknown) {
       const msg: string =
         e instanceof Error
