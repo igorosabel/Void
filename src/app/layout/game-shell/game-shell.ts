@@ -1,4 +1,3 @@
-import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +16,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatToolbarModule,
     MatIconModule,
     RouterLink,
-    NgOptimizedImage,
     MatButtonModule,
     MatTooltipModule,
   ],
