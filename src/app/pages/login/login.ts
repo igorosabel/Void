@@ -1,10 +1,5 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
@@ -12,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import AuthStore from '@auth/auth.store';
-import { LoginResponse } from '@interfaces/interfaces';
+import { LoginPayload, LoginResponse } from '@interfaces/interfaces';
 import AuthService from '@services/auth-service';
 
 @Component({
@@ -25,32 +20,31 @@ import AuthService from '@services/auth-service';
     MatIcon,
     MatButtonModule,
     RouterLink,
-    ReactiveFormsModule,
-    FormsModule,
+    FormRoot,
+    FormField,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
 export default class Login {
-  private fb: FormBuilder = inject(FormBuilder);
   private auth: AuthService = inject(AuthService);
   private authStore: AuthStore = inject(AuthStore);
   private router: Router = inject(Router);
 
-  form = this.fb.group({
-    email: this.fb.control<string>('', {
-      validators: [Validators.required, Validators.email],
-    }),
-    password: this.fb.control<string>('', {
-      validators: [Validators.required],
-    }),
+  private readonly loginModel: WritableSignal<LoginPayload> = signal({
+    email: '',
+    password: '',
   });
+
+  readonly loginForm = form(this.loginModel, (path) => {
+    required(path.email);
+    email(path.email);
+    required(path.password);
+  });
+
   hidePassword: WritableSignal<boolean> = signal(true);
   submitting: WritableSignal<boolean> = signal(false);
   serverError: WritableSignal<string | null> = signal<string | null>(null);
-
-  email = () => this.form.get('email');
-  password = () => this.form.get('password');
 
   toggleHidePassword(): void {
     this.hidePassword.update((v: boolean): boolean => !v);
@@ -58,24 +52,23 @@ export default class Login {
 
   async submit(): Promise<void> {
     this.serverError.set(null);
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+    if (this.loginForm().invalid()) {
+      this.loginForm().markAsTouched();
       return;
     }
     this.submitting.set(true);
     try {
+      const { email, password }: LoginPayload = this.loginForm().value();
       const response: LoginResponse = await this.auth.login({
-        email: this.email()!.value!,
-        password: this.password()!.value!,
+        email,
+        password,
       });
       this.authStore.applyLoginResponse(response);
-      this.form.reset();
+      this.loginForm().reset({ email: '', password: '' });
       this.router.navigateByUrl('/game/home');
     } catch (e: unknown) {
       const msg: string =
-        e instanceof Error
-          ? e.message
-          : 'Nombre de usuario o contraseña incorrectos.';
+        e instanceof Error ? e.message : 'Nombre de usuario o contraseña incorrectos.';
       this.serverError.set(msg);
     } finally {
       this.submitting.set(false);

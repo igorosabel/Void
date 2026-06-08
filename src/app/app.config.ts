@@ -4,7 +4,6 @@ import {
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
 } from '@angular/core';
 import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -33,12 +32,11 @@ const appConfig: ApplicationConfig = {
     },
     provideAppInitializer(() => inject(AuthStore).hydrate()),
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
     provideRouter(
       routes,
       withViewTransitions(),
       withComponentInputBinding(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
     provideHttpClient(withInterceptors([AuthInterceptor])),
     provideCore(),

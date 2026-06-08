@@ -20,6 +20,16 @@ export interface StatusResult {
   status: string;
 }
 
+export interface RegisterForm {
+  email: string;
+  nickname: string;
+  passwordGroup: {
+    password: string;
+    confirm: string;
+  };
+  acceptTerms: boolean;
+}
+
 export interface RegisterPayload {
   email: string;
   nickname: string;

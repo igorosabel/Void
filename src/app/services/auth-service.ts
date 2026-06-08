@@ -1,15 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { environment } from '@env/environment';
-import {
-  LoginPayload,
-  LoginResponse,
-  RegisterPayload,
-  Tokens,
-} from '@interfaces/interfaces';
+import { LoginPayload, LoginResponse, RegisterPayload, Tokens } from '@interfaces/interfaces';
 import { firstValueFrom, map, Observable } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export default class AuthService {
   private http: HttpClient = inject(HttpClient);
   private readonly apiUrl: string = environment.apiUrl;
@@ -36,7 +31,7 @@ export default class AuthService {
     return firstValueFrom(
       this.http.post<Tokens>(`${this.apiUrl}/auth/refresh`, {
         refreshToken: refresh_token,
-      })
+      }),
     );
   }
 
@@ -45,7 +40,7 @@ export default class AuthService {
       this.http.post<void>(`${this.apiUrl}/auth/logout`, {
         refreshToken: refresh_token,
         allDevices,
-      })
+      }),
     );
   }
 }

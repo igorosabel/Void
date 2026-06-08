@@ -7,9 +7,8 @@
 </mat-toolbar>
 
 <form class="register-form"
-      [formGroup]="form"
-      (ngSubmit)="submit()"
-      novalidate>
+      [formRoot]="registerForm"
+      (submit)="submit()">
     <h1>Crear cuenta</h1>
     <p class="subtitle">Únete a VOID y comienza tu viaje por la galaxia.</p>
 
@@ -18,15 +17,14 @@
         <mat-label>Email</mat-label>
         <input matInput
                type="email"
-               formControlName="email"
-               autocomplete="email"
-               required />
+               [formField]="registerForm.email"
+               autocomplete="email" />
         <mat-icon matSuffix>mail</mat-icon>
-        @if (email()?.hasError('required')) {
+        @if (registerForm.email().getError('required')) {
         <mat-error>El email es obligatorio.</mat-error> } @if
-        (email()?.hasError('email')) {
+        (registerForm.email().getError('email')) {
         <mat-error>Introduce un email válido.</mat-error> } @if
-        (email()?.hasError('emailTaken')) {
+        (registerForm.email().getError('emailTaken')) {
         <mat-error>Este email ya está en uso.</mat-error> }
     </mat-form-field>
 
@@ -34,29 +32,26 @@
                     class="full">
         <mat-label>Apodo</mat-label>
         <input matInput
-               formControlName="nickname"
-               autocomplete="nickname"
-               required />
+               [formField]="registerForm.nickname"
+               autocomplete="nickname" />
         <mat-icon matSuffix>person</mat-icon>
         <mat-hint>3–50 caracteres</mat-hint>
-        @if (nickname()?.hasError('required')) {
+        @if (registerForm.nickname().getError('required')) {
         <mat-error>El apodo es obligatorio.</mat-error> } @if
-        (nickname()?.hasError('minlength')){
+        (registerForm.nickname().getError('minLength')){
         <mat-error>Mínimo 3 caracteres.</mat-error> } @if
-        (nickname()?.hasError('maxlength')){
+        (registerForm.nickname().getError('maxLength')){
         <mat-error>Máximo 50 caracteres.</mat-error> }
     </mat-form-field>
 
-    <div formGroupName="passwordGroup"
-         class="full">
+    <div class="full">
         <mat-form-field appearance="outline"
                         class="full">
             <mat-label>Contraseña</mat-label>
             <input matInput
                    [type]="hidePassword() ? 'password' : 'text'"
-                   formControlName="password"
-                   autocomplete="new-password"
-                   required />
+                   [formField]="registerForm.passwordGroup.password"
+                   autocomplete="new-password" />
             <button type="button"
                     mat-icon-button
                     matSuffix
@@ -67,16 +62,16 @@
             }}</mat-icon>
             </button>
             <mat-hint>Mínimo 8 caracteres, combinación segura.</mat-hint>
-            @if (password()?.hasError('required')) {
+            @if (registerForm.passwordGroup.password().getError('required')) {
             <mat-error>La contraseña es obligatoria.</mat-error> } @if
-            (password()?.hasError('minlength')) {
+            (registerForm.passwordGroup.password().getError('minLength')) {
             <mat-error>Al menos 8 caracteres.</mat-error> } @if
-            (password()?.hasError('complexity')){
+            (registerForm.passwordGroup.password().getError('complexity')){
             <mat-error>Usa 3 de 4: mayúscula, minúscula, número, símbolo.</mat-error>
             }
         </mat-form-field>
 
-        @if (password() !== null && password()?.value !== '') {
+        @if (registerForm.passwordGroup.password().value() !== '') {
         <div class="strength"
              [attr.data-level]="passwordStrength()">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -89,9 +84,8 @@
             <mat-label>Confirmar contraseña</mat-label>
             <input matInput
                    [type]="hideConfirm() ? 'password' : 'text'"
-                   formControlName="confirm"
-                   autocomplete="new-password"
-                   required />
+                   [formField]="registerForm.passwordGroup.confirm"
+                   autocomplete="new-password" />
             <button type="button"
                     mat-icon-button
                     matSuffix
@@ -101,21 +95,21 @@
               hideConfirm() ? 'visibility' : 'visibility_off'
             }}</mat-icon>
             </button>
-            @if (confirm()?.hasError('required')) {
+            @if (registerForm.passwordGroup.confirm().getError('required')) {
             <mat-error>Confirma tu contraseña.</mat-error> } @if
-            (passwordGroup()?.hasError('passwordMismatch')) {
+            (registerForm.passwordGroup.confirm().getError('passwordMismatch')) {
             <mat-error>Las contraseñas no coinciden.</mat-error> }
         </mat-form-field>
     </div>
 
-    <mat-checkbox formControlName="acceptTerms"
+    <mat-checkbox [formField]="registerForm.acceptTerms"
                   class="terms">
         Acepto los
         <a href="/legal/terms"
            target="_blank"
            rel="noopener">términos y condiciones</a>.
     </mat-checkbox>
-    @if (acceptTerms()?.invalid && acceptTerms()?.touched) {
+    @if (registerForm.acceptTerms().invalid() && registerForm.acceptTerms().touched()) {
     <div class="terms-error"
          role="alert">Debes aceptar los términos.</div>
     }
@@ -126,7 +120,7 @@
         <button mat-flat-button
                 color="primary"
                 type="submit"
-                [disabled]="form.invalid || submitting()">
+                [disabled]="registerForm().invalid() || registerForm().pending() || submitting()">
             {{ submitting() ? 'Creando cuenta…' : 'Crear cuenta' }}
         </button>
     </div>

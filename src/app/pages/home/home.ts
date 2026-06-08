@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  Signal,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, computed, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import type {
   HomeResponse,
@@ -22,25 +14,21 @@ import GameService from '@services/game-service';
   imports: [MatCardModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomePage {
   private game: GameService = inject(GameService);
 
-  private _data: WritableSignal<HomeResponse | null> =
-    signal<HomeResponse | null>(null);
+  private _data: WritableSignal<HomeResponse | null> = signal<HomeResponse | null>(null);
   readonly data: Signal<HomeResponse | null> = this._data.asReadonly();
 
   readonly loading: WritableSignal<boolean> = signal<boolean>(true);
 
   readonly players: Signal<PlayerPresenceItem[]> = computed(
-    (): PlayerPresenceItem[] => this._data()?.players ?? []
+    (): PlayerPresenceItem[] => this._data()?.players ?? [],
   );
-  readonly npcs: Signal<NpcSummary[]> = computed(
-    (): NpcSummary[] => this._data()?.npcs ?? []
-  );
+  readonly npcs: Signal<NpcSummary[]> = computed((): NpcSummary[] => this._data()?.npcs ?? []);
   readonly planets: Signal<PlanetSummary[]> = computed(
-    (): PlanetSummary[] => this._data()?.planets ?? []
+    (): PlanetSummary[] => this._data()?.planets ?? [],
   );
   readonly systemName: Signal<string> = computed((): string => {
     const s: SystemSummary | undefined = this._data()?.system;

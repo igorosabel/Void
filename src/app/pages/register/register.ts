@@ -1,20 +1,24 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
+  resource,
   Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import {
-  AbstractControl,
-  AsyncValidatorFn,
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+  email,
+  form,
+  FormField,
+  FormRoot,
+  maxLength,
+  minLength,
+  required,
+  validate,
+  validateAsync,
+  validateTree,
+} from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,31 +27,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import AuthStore from '@auth/auth.store';
-import passwordMatchValidator from '@auth/password-match.validator';
-import { LoginResponse, PasswordStrengthType } from '@interfaces/interfaces';
+import { LoginResponse, PasswordStrengthType, RegisterForm } from '@interfaces/interfaces';
 import AuthService from '@services/auth-service';
-import { debounceTime, first, map, of, switchMap } from 'rxjs';
-
-function emailAvailabilityValidator(
-  svc = inject(AuthService)
-): AsyncValidatorFn {
-  return (control: AbstractControl) => {
-    const value = (control.value ?? '').trim();
-    if (!value || control.invalid) return of(null);
-    return of(value).pipe(
-      debounceTime(300),
-      switchMap((v) => svc.checkEmailAvailable(v)),
-      map((isFree) => (isFree ? null : { emailTaken: true })),
-      first()
-    );
-  };
-}
 
 @Component({
   selector: 'app-register',
   imports: [
     MatToolbar,
-    ReactiveFormsModule,
+    FormRoot,
+    FormField,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -58,10 +46,8 @@ function emailAvailabilityValidator(
   templateUrl: './register.html',
   styleUrl: './register.scss',
   host: { class: 'block' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class RegisterComponent {
-  private fb: FormBuilder = inject(FormBuilder);
   private auth: AuthService = inject(AuthService);
   private authStore: AuthStore = inject(AuthStore);
   private router: Router = inject(Router);
@@ -71,66 +57,76 @@ export default class RegisterComponent {
   submitting: WritableSignal<boolean> = signal(false);
   serverError: WritableSignal<string | null> = signal<string | null>(null);
 
-  form = this.fb.group({
-    email: this.fb.control<string>('', {
-      validators: [Validators.required, Validators.email],
-      asyncValidators: [emailAvailabilityValidator()],
-      updateOn: 'blur',
-    }),
-    nickname: this.fb.control<string>('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(50),
-    ]),
-    passwordGroup: this.fb.group(
-      {
-        password: [
-          '',
-          [Validators.required, Validators.minLength(8), this.hasComplexity()],
-        ],
-        confirm: ['', [Validators.required]],
-      },
-      { validators: [passwordMatchValidator('password', 'confirm')] }
-    ),
-    acceptTerms: this.fb.control<boolean>(false, [Validators.requiredTrue]),
+  private readonly registerModel: WritableSignal<RegisterForm> = signal({
+    email: '',
+    nickname: '',
+    passwordGroup: {
+      password: '',
+      confirm: '',
+    },
+    acceptTerms: false,
   });
 
-  email = () => this.form.get('email');
-  nickname = () => this.form.get('nickname');
-  passwordGroup = () => this.form.get('passwordGroup');
-  password = () => this.form.get('passwordGroup.password');
-  confirm = () => this.form.get('passwordGroup.confirm');
-  acceptTerms = () => this.form.get('acceptTerms');
+  readonly registerForm = form(this.registerModel, (path) => {
+    required(path.email);
+    email(path.email);
+    validateAsync(path.email, {
+      params: ({ value }) => value().trim(),
+      debounce: 300,
+      factory: (emailParam) =>
+        resource({
+          params: () => emailParam(),
+          loader: ({ params }) => this.auth.checkEmailAvailable(params),
+        }),
+      onSuccess: (isFree) => (isFree ? undefined : { kind: 'emailTaken' }),
+      onError: () => undefined,
+      when: ({ value }) => value().trim().length > 0,
+    });
 
-  private passwordValue: Signal<string | null> = toSignal(
-    this.password()?.valueChanges ?? of(''),
-    {
-      initialValue: '',
-    }
-  );
+    required(path.nickname);
+    minLength(path.nickname, 3);
+    maxLength(path.nickname, 50);
 
-  passwordStrength: Signal<PasswordStrengthType> =
-    computed<PasswordStrengthType>((): PasswordStrengthType => {
-      const v: string = String(this.passwordValue() ?? '');
+    required(path.passwordGroup.password);
+    minLength(path.passwordGroup.password, 8);
+    validate(path.passwordGroup.password, ({ value }) =>
+      this.hasComplexity(value()) ? undefined : { kind: 'complexity' },
+    );
+
+    required(path.passwordGroup.confirm);
+    validateTree(path.passwordGroup, ({ fieldTreeOf, value }) => {
+      const { password, confirm } = value();
+      return password && confirm && password !== confirm
+        ? {
+            kind: 'passwordMismatch',
+            fieldTree: fieldTreeOf(path.passwordGroup.confirm),
+          }
+        : undefined;
+    });
+
+    validate(path.acceptTerms, ({ value }) => (value() ? undefined : { kind: 'required' }));
+  });
+
+  passwordStrength: Signal<PasswordStrengthType> = computed<PasswordStrengthType>(
+    (): PasswordStrengthType => {
+      const v: string = this.registerForm.passwordGroup.password().value();
       let score: number = 0;
       if (v.length >= 8) score++;
       if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
       if (/\d/.test(v) && /[^A-Za-z0-9]/.test(v)) score++;
       return score >= 3 ? 'fuerte' : score === 2 ? 'medio' : 'debil';
-    });
+    },
+  );
 
-  private hasComplexity() {
-    return (ctrl: AbstractControl) => {
-      const v: string = String(ctrl.value ?? '');
-      if (!v) return null;
-      const rules: boolean[] = [
-        /[A-Z]/.test(v),
-        /[a-z]/.test(v),
-        /\d/.test(v),
-        /[^A-Za-z0-9]/.test(v),
-      ];
-      return rules.filter(Boolean).length >= 3 ? null : { complexity: true };
-    };
+  private hasComplexity(value: string): boolean {
+    if (!value) return true;
+    const rules: boolean[] = [
+      /[A-Z]/.test(value),
+      /[a-z]/.test(value),
+      /\d/.test(value),
+      /[^A-Za-z0-9]/.test(value),
+    ];
+    return rules.filter(Boolean).length >= 3;
   }
 
   toggleHidePassword(): void {
@@ -143,26 +139,34 @@ export default class RegisterComponent {
 
   async submit(): Promise<void> {
     this.serverError.set(null);
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+    if (this.registerForm().invalid()) {
+      this.registerForm().markAsTouched();
       return;
     }
     this.submitting.set(true);
     try {
+      const { email, nickname, passwordGroup, acceptTerms }: RegisterForm =
+        this.registerForm().value();
       const response: LoginResponse = await this.auth.register({
-        email: this.email()!.value!,
-        nickname: this.nickname()!.value!,
-        password: this.password()!.value!,
-        acceptTerms: this.acceptTerms()!.value!,
+        email,
+        nickname,
+        password: passwordGroup.password,
+        acceptTerms,
       });
       this.authStore.applyLoginResponse(response);
-      this.form.reset();
+      this.registerForm().reset({
+        email: '',
+        nickname: '',
+        passwordGroup: {
+          password: '',
+          confirm: '',
+        },
+        acceptTerms: false,
+      });
       this.router.navigateByUrl('/game/home');
     } catch (e: unknown) {
       const msg: string =
-        e instanceof Error
-          ? e.message
-          : 'Error inesperado al registrar la cuenta.';
+        e instanceof Error ? e.message : 'Error inesperado al registrar la cuenta.';
       this.serverError.set(msg);
     } finally {
       this.submitting.set(false);
